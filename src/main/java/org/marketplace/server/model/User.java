@@ -4,15 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Observer {
-    private String username;
-    private String passwordHash;
+    private final String username;
+    private final String hashedPassword;
 
-    private List<String> notifications;
+    private final int id;
 
-    public User(String username, String passwordHash) {
+    private static int nextId = 0;
+
+    private final List<String> notifications;
+
+    public User(String username, String hashedPassword) {
         this.username = username;
-        this.passwordHash = passwordHash;
+        this.hashedPassword = hashedPassword;
         notifications = new ArrayList<>();
+        id = nextId++;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public List<String> getNotifications() {
+        return notifications;
     }
 
     @Override

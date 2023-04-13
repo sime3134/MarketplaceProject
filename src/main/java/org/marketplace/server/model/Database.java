@@ -23,9 +23,15 @@ public class Database {
         productTable = new ArrayList<>();
     }
 
-    public void findUserByUsername(String username) {
+    public User findUserByUsername(String username) {
+        return userTable.stream().filter(user -> user.getUsername().equals(username)).findFirst().orElse(null);
     }
 
-    public void findUserById(String id) {
+    public User findUserById(String id) {
+        return userTable.stream().filter(user -> user.getId() == Integer.parseInt(id)).findFirst().orElse(null);
+    }
+
+    public boolean addUser(User newUser) {
+        return userTable.add(newUser);
     }
 }

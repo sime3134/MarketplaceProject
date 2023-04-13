@@ -6,13 +6,7 @@ import io.javalin.plugin.bundled.CorsPluginConfig;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
 public class Router {
-
-    private final Database database;
     private final String apiPrefix = "/api/v1";
-
-    public Router() {
-        this.database = Database.getInstance();
-    }
 
     public void startServer() {
         Javalin app = Javalin.create(config -> {
@@ -22,6 +16,8 @@ public class Router {
         });
         //Starts the server
         app.start(5001);
+
+        //TODO: Add API endpoints here and add authentication roles
 
         //Just for testing
         app.get("/", ctx -> {

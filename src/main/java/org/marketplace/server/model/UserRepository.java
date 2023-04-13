@@ -14,11 +14,15 @@ public class UserRepository {
         return instance;
     }
 
-    public void findUserByUsername(String username) {
-        database.findUserByUsername(username);
+    public User findUserByUsername(String username) {
+        return database.findUserByUsername(username);
     }
 
-    public void findUserById(String id) {
-        database.findUserById(id);
+    public User findUserById(String id) {
+        return database.findUserById(id);
+    }
+
+    public boolean addUser(User newUser) {
+        return database.addUser(newUser);
     }
 }
