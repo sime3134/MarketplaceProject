@@ -1,0 +1,24 @@
+package org.marketplace.server.model;
+
+public enum ProductCondition {
+
+    NEW("New"),
+    VERY_GOOD("Very Good"),
+    GOOD("Good"),
+    NOT_WORKING("Not Working Properly");
+
+    private final String description;
+
+    ProductCondition(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override public String toString() {
+        return description;
+    }
+
+}
