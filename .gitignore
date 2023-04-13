@@ -110,3 +110,5 @@ target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.l
 /target/
 .idea/
 dbnavigator.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
