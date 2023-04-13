@@ -23,7 +23,7 @@
         <dependency>
             <groupId>io.javalin</groupId>
             <artifactId>javalin</artifactId>
-            <version>5.2.0</version>
+            <version>5.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
@@ -31,10 +31,21 @@
             <version>3.1.1.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin-rendering</artifactId>
+            <version>5.4.0</version>
+        </dependency>
+        <dependency>
             <groupId>at.favre.lib</groupId>
             <artifactId>bcrypt</artifactId>
             <version>0.10.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
     </dependencies>
 
 </project>

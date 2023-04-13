@@ -3,6 +3,7 @@ package org.marketplace.server.controller;
 import io.javalin.Javalin;
 import org.marketplace.server.model.Database;
 import io.javalin.plugin.bundled.CorsPluginConfig;
+import io.javalin.rendering.template.JavalinThymeleaf;
 
 public class Router {
 
@@ -14,16 +15,17 @@ public class Router {
     }
 
     public void startServer() {
-        try(Javalin app =
-                    Javalin.create(config -> {
-                        config.plugins.enableCors(corsContainer -> corsContainer.add(CorsPluginConfig::anyHost));
-                        config.staticFiles.add("/public/static");
-                    }
-        )) {
-            //Starts the server
-            app.start(5001);
-        }
+        Javalin app = Javalin.create(config -> {
+            JavalinThymeleaf.init();
+            config.plugins.enableCors(corsContainer -> corsContainer.add(CorsPluginConfig::anyHost));
+            config.staticFiles.add("/view/static");
+        });
+        //Starts the server
+        app.start(5001);
 
-        //TODO: Add endpoints
+        //Just for testing
+        app.get("/", ctx -> {
+            ctx.render("/view/templates/index.html");
+        });
     }
 }

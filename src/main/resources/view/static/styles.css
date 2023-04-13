@@ -1,0 +1,151 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+nav .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-right a {
+    text-decoration: none;
+    padding: 0 10px;
+    color: white;
+}
+
+/* Centered content */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Forms and other sections */
+.search form, .sell form, .register form, .login form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+
+.search input, .search select, .sell input, .sell select, .register input, .login input {
+    flex: 1 1 100%;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+.search button, .sell button, .register button, .login button {
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.search button:hover, .sell button:hover, .register button:hover, .login button:hover {
+    background-color: #555;
+}
+
+.inbox {
+    position: relative;
+    display: inline-block;
+}
+
+.inbox button {
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+
+.inbox button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.inbox .messages {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    z-index: 1;
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.inbox:hover .messages {
+    display: block;
+}
+
+.history {
+    margin-top: 10px;
+}
+
+.history-btn {
+    display: inline-block;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.history-btn:hover {
+    background-color: #555;
+}
+
+/* Products section */
+.products {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+}
+
+.products h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+

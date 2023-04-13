@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Marketplace</a>
+            <div class="nav-right">
+                <div class="inbox">
+                    <button>Inbox</button>
+                    <div class="messages">
+                        <!-- Add messages here -->
+                    </div>
+                </div>
+                <a href="register.html">Register</a>
+                <a href="login.html">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="products">
+            <h2>Available Products</h2>
+            <!-- Add items here -->
+        </section>
+
+        <section class="search">
+            <!-- Search form -->
+            <form>
+                <input type="text" placeholder="Search for a product...">
+                <select>
+                    <option value="">Select product type</option>
+                    <!-- Add product types here -->
+                </select>
+                <input type="number" placeholder="Minimum price">
+                <input type="number" placeholder="Maximum price">
+                <select>
+                    <option value="">Select condition</option>
+                    <option value="new">New</option>
+                    <option value="verygood">Very Good</option>
+                    <option value="good">Good</option>
+                    <option value="notworking">Not Working Properly</option>
+                </select>
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="sell">
+            <!-- Sell product form -->
+            <form>
+                <input type="text" placeholder="Product type">
+                <input type="number" placeholder="Price">
+                <input type="number" placeholder="Year of production">
+                <input type="text" placeholder="Color">
+                <select>
+                    <option value="">Select condition</option>
+                    <option value="new">New</option>
+                    <option value="verygood">Very Good</option>
+                    <option value="good">Good</option>
+                    <option value="notworking">Not Working Properly</option>
+                </select>
+                <button type="submit">Sell Product</button>
+            </form>
+        </section>
+        <section class="history">
+            <!-- User purchase and sales history -->
+            <a href="history.html" class="history-btn">View Purchase & Sales History</a>
+        </section>
+    </main>
+</body>
+</html>
