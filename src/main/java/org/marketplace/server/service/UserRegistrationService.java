@@ -4,6 +4,8 @@ import org.marketplace.server.model.User;
 import org.marketplace.server.model.UserRepository;
 import org.marketplace.server.service.exceptions.UserRegistrationException;
 
+import java.time.LocalDate;
+
 public class UserRegistrationService {
     private final UserRepository userRepository;
 
@@ -11,7 +13,8 @@ public class UserRegistrationService {
         userRepository = UserRepository.getInstance();
     }
 
-    public User register(String username, String password) throws UserRegistrationException {
+    public User register(String firstName, String lastName, String email, LocalDate dateOfBirth, String username,
+                         String password) throws UserRegistrationException {
         UserValidator.validateUsername(username);
         UserValidator.validatePassword(password);
 
@@ -21,7 +24,7 @@ public class UserRegistrationService {
 
         String hashedPassword = HashingService.hashPassword(password);
 
-        User newUser = new User(username, hashedPassword);
+        User newUser = new User(firstName, lastName, email, dateOfBirth, username, hashedPassword);
         boolean success = userRepository.addUser(newUser);
 
         if (success) {

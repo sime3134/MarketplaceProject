@@ -8,6 +8,10 @@ import org.marketplace.server.service.UserRegistrationService;
 import org.marketplace.server.service.exceptions.UserAuthenticationException;
 import org.marketplace.server.service.exceptions.UserRegistrationException;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class UserController {
     private final UserAuthenticatorService userAuthenticatorService;
     private final UserRegistrationService userRegistrationService;
@@ -30,11 +34,16 @@ public class UserController {
     }
 
     public void handleUserRegistration(Context ctx) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String username = ctx.formParam("username");
         String password = ctx.formParam("password");
+        String firstName = ctx.formParam("firstName");
+        String lastName = ctx.formParam("lastName");
+        String email = ctx.formParam("email");
+        LocalDate dateOfBirth = LocalDate.parse(ctx.formParam("dateOfBirth"), dateFormat);
 
         try {
-            userRegistrationService.register(username, password);
+            userRegistrationService.register(firstName, lastName, email, dateOfBirth, username, password);
             ctx.status(HttpStatus.CREATED_201);
         } catch (UserRegistrationException e) {
             ctx.status(HttpStatus.BAD_REQUEST_400).json(new ErrorResponse(e.getMessage()));
