@@ -7,11 +7,18 @@ import io.javalin.Javalin;
 import io.javalin.json.JavalinJackson;
 import io.javalin.plugin.bundled.CorsPluginConfig;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import org.eclipse.jetty.server.session.DefaultSessionCache;
+import org.eclipse.jetty.server.session.FileSessionDataStore;
+import org.eclipse.jetty.server.session.SessionCache;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.marketplace.server.controller.Router;
 import org.marketplace.server.service.AccessService;
 
+import java.io.File;
+
 public class ServerLauncher {
     public static void main(String[] args) {
+
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.registerModule(new JavaTimeModule());

@@ -7,32 +7,39 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#" class="logo">Marketplace</a>
-            <div class="nav-right">
-                <div class="inbox">
-                    <button>Inbox</button>
-                    <div class="messages">
-                        <!-- Add messages here -->
-                    </div>
+<header>
+    <nav>
+        <a href="/" class="logo">Marketplace</a>
+        <div class="nav-right">
+            <div class="inbox">
+                <button>Inbox</button>
+                <div class="messages">
+                    <!-- Add messages here -->
                 </div>
-                <a href="register.html">Register</a>
-                <a href="login.html">Login</a>
             </div>
-        </nav>
-    </header>
+            <button id="logout-button">Logout</button>
+        </div>
+    </nav>
+</header>
 
-    <main>
-        <section class="products">
-            <h2>Available Products</h2>
-            <!-- Add items here -->
-        </section>
+<main>
+    <div class="tab-container">
+        <ul class="tabs">
+            <li class="tab active" data-tab="products">Products</li>
+            <li class="tab" data-tab="search">Search</li>
+            <li class="tab" data-tab="sell">Sell</li>
+            <li class="tab" data-tab="history">History</li>
+        </ul>
+    </div>
 
-        <section class="search">
-            <!-- Search form -->
+    <section id="products" class="tab-content active">
+        <h2>Available Products</h2>
+    </section>
+
+    <section id="search" class="tab-content search">
+            <h2>Search</h2>
             <form>
-                <select>
+                <select id="product-type">
                     <option value="">Select product type</option>
                     <!-- Add product types here -->
                 </select>
@@ -47,30 +54,33 @@
                 </select>
                 <button type="submit">Search</button>
             </form>
-        </section>
+    </section>
 
-        <section class="sell">
-            <!-- Sell product form -->
-            <form>
-                <input type="text" placeholder="Product type">
-                <input type="number" placeholder="Price">
-                <input type="number" placeholder="Year of production">
-                <input type="text" placeholder="Color">
-                <select>
-                    <option value="">Select condition</option>
-                    <option value="new">New</option>
-                    <option value="verygood">Very Good</option>
-                    <option value="good">Good</option>
-                    <option value="notworking">Not Working Properly</option>
-                </select>
-                <button type="submit">Sell Product</button>
-            </form>
-        </section>
-        <section class="history">
-            <!-- User purchase and sales history -->
-            <a href="history.html" class="history-btn">View Purchase & Sales History</a>
-        </section>
-    </main>
-    <script src="script.js"></script>
+    <section id="sell" class="tab-content sell">
+        <h2>Sell</h2>
+        <form>
+            <select id="product-type2">
+                <option value="">Select product type</option>
+                <!-- Add product types here -->
+            </select>
+            <input type="number" placeholder="Price">
+            <input type="number" placeholder="Year of production">
+            <input type="text" placeholder="Color">
+            <select>
+                <option value="">Select condition</option>
+                <option value="new">New</option>
+                <option value="verygood">Very Good</option>
+                <option value="good">Good</option>
+                <option value="notworking">Not Working Properly</option>
+            </select>
+            <button type="submit">Sell Product</button>
+        </form>
+    </section>
+
+    <section id="history" class="tab-content">
+        <h2>History</h2>
+    </section>
+</main>
+<script src="index_scripts.js"></script>
 </body>
 </html>

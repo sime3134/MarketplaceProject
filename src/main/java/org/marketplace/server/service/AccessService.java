@@ -14,7 +14,6 @@ public class AccessService implements AccessManager {
     public void manage(@NotNull Handler handler, @NotNull Context ctx,
                        @NotNull Set<? extends RouteRole> permittedRoles) throws Exception {
         Role userRole = getUserRole(ctx); // Implement this method to determine the user's role
-
         if (permittedRoles.contains(userRole)) {
             handler.handle(ctx);
         } else {
@@ -23,8 +22,8 @@ public class AccessService implements AccessManager {
     }
 
     private Role getUserRole(Context ctx) {
-        String username = ctx.sessionAttribute("userId");
-        if (username == null) {
+        String userId = ctx.sessionAttribute("userId");
+        if (userId == null) {
             return Role.ANYONE;
         } else {
             return Role.USER;

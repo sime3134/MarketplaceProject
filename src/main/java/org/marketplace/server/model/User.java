@@ -53,8 +53,8 @@ public class User implements Observer {
         return hashedPassword;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return String.valueOf(id);
     }
 
     public List<String> getNotifications() {

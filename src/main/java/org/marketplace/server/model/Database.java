@@ -33,7 +33,7 @@ public class Database {
     }
 
     public User findUserById(String id) {
-        return userTable.stream().filter(user -> user.getId() == Integer.parseInt(id)).findFirst().orElse(null);
+        return userTable.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
     }
 
     public boolean addUser(User newUser) {
@@ -41,13 +41,13 @@ public class Database {
     }
 
     public void addMockupData() {
-        User user1 = new User("Simon", "Jern", "simon.jern@mail.com", LocalDate.now(), "simon.jern", "password");
+        User user1 = new User("Simon", "Jern", "simon.jern@mail.com", LocalDate.now(), "simon.jern", "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a");
         User user2 = new User("Johan", "Salomonsson", "johan.salomonsson@mail.com", LocalDate.now(), "johan" +
-                ".salomonsson", "password");
+                ".salomonsson", "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a");
         User user3 = new User("Erik", "Larsson", "erik.larsson@mail.com", LocalDate.now(), "erik.larsson",
-                "password");
+                "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a");
         User user4 = new User("Danny", "Gazic", "dannygazic@gmail.com", LocalDate.now(), "danny.gazic",
-                "password");
+                "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a");
         User user5 = new User("John", "Doe", "john.doe@mail.com", LocalDate.now(), "john.doe", "password");
 
         userTable.addAll(Arrays.asList(

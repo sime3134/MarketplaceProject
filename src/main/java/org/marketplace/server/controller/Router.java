@@ -25,9 +25,12 @@ public class Router {
 
         app.post(apiPrefix + "/login", userController::handleUserAuthentication, Role.ANYONE);
 
+        app.post(apiPrefix + "/register", userController::handleUserRegistration, Role.ANYONE);
+
+        app.post(apiPrefix + "/logout", userController::handleUserLogout, Role.USER);
+
         //RENDERING
 
-        //Just for testing
         app.get("/", ctx -> {
             ctx.render("/view/templates/index.html");
         }, Role.USER);
