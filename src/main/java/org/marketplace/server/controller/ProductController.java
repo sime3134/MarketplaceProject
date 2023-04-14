@@ -1,27 +1,33 @@
 package org.marketplace.server.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.javalin.http.Context;
-import io.javalin.http.HttpStatus;
+import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.dto.ErrorResponse;
 import org.marketplace.server.service.ProductService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductController {
 
     ProductService productService;
+    ObjectMapper objectMapper;
 
-    public ProductController() {
+    public ProductController(ObjectMapper objectMapper) {
         productService = new ProductService();
+        this.objectMapper = objectMapper;
     }
     public void sendAllProducts(Context ctx) {
         try {
             List<Product> allProducts = productService.getAllProducts();
-            ctx.header("Content-type", "application/json").json(allProducts);
+            String json = objectMapper.writeValueAsString(allProducts);
+            System.out.println(json);
+            ctx.header("Content-type", "application/json").json(json);
         } catch (Exception e) {
-            ctx.status(HttpStatus.NOT_FOUND).json(new ErrorResponse(e.getMessage()));
+            System.out.println(e.getMessage());
+            ctx.status(HttpStatus.NO_CONTENT_204).json(new ErrorResponse(e.getMessage()));
         }
     }
 }
