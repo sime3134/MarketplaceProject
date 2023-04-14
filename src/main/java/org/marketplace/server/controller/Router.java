@@ -1,11 +1,7 @@
 package org.marketplace.server.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.javalin.Javalin;
-import io.javalin.plugin.bundled.CorsPluginConfig;
-import io.javalin.rendering.template.JavalinThymeleaf;
+import org.marketplace.server.model.Role;
 
 public class Router {
     private final String apiPrefix = "/api/v1";
@@ -20,26 +16,28 @@ public class Router {
         userController = new UserController();
     }
 
-    public void startServer() {
-        Javalin app = Javalin.create(config -> {
-            JavalinThymeleaf.init();
-            config.plugins.enableCors(corsContainer -> corsContainer.add(CorsPluginConfig::anyHost));
-            config.staticFiles.add("/view/static");
-        });
-        //Starts the server
-        app.start(5001);
-
+    public void setupEndpoints(Javalin app) {
         //API endpoints
 
-        app.get(apiPrefix + "/products", productController::sendAllProducts);
+        app.get(apiPrefix + "/products", productController::sendAllProducts, Role.USER);
 
-        app.get(apiPrefix + "/product_types", productController::sendAllProductTypes);
+        app.get(apiPrefix + "/product_types", productController::sendAllProductTypes, Role.USER);
+
+        app.post(apiPrefix + "/login", userController::handleUserAuthentication, Role.ANYONE);
 
         //RENDERING
 
         //Just for testing
         app.get("/", ctx -> {
             ctx.render("/view/templates/index.html");
-        });
+        }, Role.USER);
+
+        app.get("/login", ctx -> {
+            ctx.render("/view/templates/login.html");
+        }, Role.ANYONE);
+
+        app.get("/register", ctx -> {
+            ctx.render("/view/templates/register.html");
+        }, Role.ANYONE);
     }
 }

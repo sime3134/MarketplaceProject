@@ -11,7 +11,7 @@ public class UserAuthenticatorService {
         userRepository = UserRepository.getInstance();
     }
 
-    public boolean authenticate(String username, String password) throws UserAuthenticationException {
+    public User authenticate(String username, String password) throws UserAuthenticationException {
         User user = userRepository.findUserByUsername(username);
 
         if (user == null) {
@@ -24,6 +24,6 @@ public class UserAuthenticatorService {
             throw new UserAuthenticationException("The provided password is incorrect.");
         }
 
-        return true;
+        return user;
     }
 }

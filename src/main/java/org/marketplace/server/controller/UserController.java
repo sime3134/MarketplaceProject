@@ -1,7 +1,9 @@
 package org.marketplace.server.controller;
 
 import io.javalin.http.Context;
+import jakarta.servlet.http.HttpSession;
 import org.eclipse.jetty.http.HttpStatus;
+import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
 import org.marketplace.server.service.UserAuthenticatorService;
 import org.marketplace.server.service.UserRegistrationService;
@@ -26,7 +28,8 @@ public class UserController {
         String password = ctx.formParam("password");
 
         try {
-            userAuthenticatorService.authenticate(username, password);
+            User loggedInUser = userAuthenticatorService.authenticate(username, password);
+            ctx.sessionAttribute("userId", loggedInUser.getId());
             ctx.status(HttpStatus.OK_200);
         } catch (UserAuthenticationException e) {
             ctx.status(HttpStatus.UNAUTHORIZED_401).json(new ErrorResponse(e.getMessage()));
