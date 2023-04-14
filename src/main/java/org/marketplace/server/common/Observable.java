@@ -1,4 +1,4 @@
-package org.marketplace.server.model;
+package org.marketplace.server.common;
 
 public interface Observable {
     void registerObserver(Observer observer);

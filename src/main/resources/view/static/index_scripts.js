@@ -2,41 +2,66 @@ const logoutButton = document.getElementById("logout-button");
   if (logoutButton) {
     logoutButton.addEventListener("click", logout);
   } else {
-    console.error("could not find the logout form element");
+    console.error("could not find the logout button");
+  }
+
+  const searchForm = document.getElementById('search-form');
+      if (searchForm) {
+          searchForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                populateProducts();
+          });
+      } else {
+          console.error('Could not find search form!');
   }
 
 document.addEventListener("DOMContentLoaded", function () {
-  handleTabs();
+    handleTabs();
 
-  // Define productsSection
-  const productsSection = document.querySelector("#products");
-
-  fetch("http://localhost:5001/api/v1/products")
-    .then(async (response) => response.json()) // Parse response as JSON
-    .then((data) => {
-      // Create HTML for each product and append it to the products section
-      const productsHtml = data
-        .map(
-          (product) => `
-        <div class="product">
-          <h3>${product.productType.name}</h3>
-          <p>Color: ${product.color}</p>
-          <p>Price: ${product.productPrice}</p>
-          <p>Condition: ${product.productCondition}</p>
-        </div>
-      `
-        )
-        .join("");
-      productsSection.innerHTML = productsHtml;
-    })
-    .catch((error) => {
-      // Handle any errors that occurred during the fetch request
-      console.error(error);
-    });
+    populateProducts();
 
     populateProductTypes("product-type");
     populateProductTypes("product-type2");
 });
+
+  // Fetch products and populate
+  function populateProducts() {
+  const productsSection = document.querySelector("#products");
+  const searchForm = document.getElementById('search-form');
+
+  const url = new URL("http://localhost:5001/api/v1/products");
+
+  for (const element of searchForm.elements) {
+      if (element.tagName === "INPUT" || element.tagName === "SELECT") {
+        if (element.value) {
+          url.searchParams.append(element.name, element.value);
+        }
+      }
+    }
+
+    fetch(url)
+      .then(async (response) => response.json()) // Parse response as JSON
+      .then((data) => {
+        // Create HTML for each product and append it to the products section
+        const productsHtml = `<h2>Products</h2>` + data
+          .map(
+            (product) => `
+          <div class="product">
+            <h3>${product.productType.name}</h3>
+            <p>Color: ${product.color}</p>
+            <p>Price: ${product.productPrice}</p>
+            <p>Condition: ${product.productCondition}</p>
+          </div>
+        `
+          )
+          .join("");
+        productsSection.innerHTML = productsHtml;
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the fetch request
+        console.error(error);
+      });
+  }
 
   // Fetch product types and populate the dropdown
   function populateProductTypes(selectId) {

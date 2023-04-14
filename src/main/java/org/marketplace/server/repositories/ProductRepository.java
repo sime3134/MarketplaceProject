@@ -1,4 +1,8 @@
-package org.marketplace.server.model;
+package org.marketplace.server.repositories;
+
+import org.marketplace.server.database.Database;
+import org.marketplace.server.model.Product;
+import org.marketplace.server.model.ProductType;
 
 import java.util.List;
 

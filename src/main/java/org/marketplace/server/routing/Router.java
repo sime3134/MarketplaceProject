@@ -1,6 +1,9 @@
-package org.marketplace.server.controller;
+package org.marketplace.server.routing;
 
 import io.javalin.Javalin;
+import org.marketplace.server.controller.OrderController;
+import org.marketplace.server.controller.ProductController;
+import org.marketplace.server.controller.UserController;
 import org.marketplace.server.model.Role;
 
 public class Router {
@@ -19,9 +22,9 @@ public class Router {
     public void setupEndpoints(Javalin app) {
         //API endpoints
 
-        app.get(apiPrefix + "/products", productController::sendAllProducts, Role.USER);
+        app.get(apiPrefix + "/products", productController::getFilteredProducts, Role.USER);
 
-        app.get(apiPrefix + "/product_types", productController::sendAllProductTypes, Role.USER);
+        app.get(apiPrefix + "/product_types", productController::getAllProductTypes, Role.USER);
 
         app.post(apiPrefix + "/login", userController::handleUserAuthentication, Role.ANYONE);
 

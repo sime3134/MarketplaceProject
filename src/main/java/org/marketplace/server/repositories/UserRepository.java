@@ -1,4 +1,7 @@
-package org.marketplace.server.model;
+package org.marketplace.server.repositories;
+
+import org.marketplace.server.database.Database;
+import org.marketplace.server.model.User;
 
 public class UserRepository {
     private static UserRepository instance;

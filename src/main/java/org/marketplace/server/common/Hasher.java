@@ -1,8 +1,8 @@
-package org.marketplace.server.service;
+package org.marketplace.server.common;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-public class HashingService {
+public class Hasher {
 
     public static String hashPassword(String password) {
         return BCrypt.withDefaults().hashToString(12, password.toCharArray());

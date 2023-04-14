@@ -1,5 +1,8 @@
 package org.marketplace.server.model;
 
+import org.marketplace.server.common.Observable;
+import org.marketplace.server.common.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 

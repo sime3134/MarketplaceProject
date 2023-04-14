@@ -1,12 +1,12 @@
 package org.marketplace.server.service;
 
 import org.marketplace.server.common.DateParser;
+import org.marketplace.server.common.Hasher;
 import org.marketplace.server.model.User;
-import org.marketplace.server.model.UserRepository;
-import org.marketplace.server.service.exceptions.UserRegistrationException;
+import org.marketplace.server.repositories.UserRepository;
+import org.marketplace.server.common.exceptions.UserRegistrationException;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class UserRegistrationService {
@@ -35,7 +35,7 @@ public class UserRegistrationService {
             throw new UserRegistrationException("This username is already taken.");
         }
 
-        String hashedPassword = HashingService.hashPassword(password);
+        String hashedPassword = Hasher.hashPassword(password);
 
         User newUser = new User(firstName, lastName, email, parsedDateOfBirth, username, hashedPassword);
         boolean success = userRepository.addUser(newUser);

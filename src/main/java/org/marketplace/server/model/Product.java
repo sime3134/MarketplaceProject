@@ -1,14 +1,16 @@
 package org.marketplace.server.model;
 
+import org.marketplace.server.common.Observer;
+
 import java.util.List;
 
 public class Product {
 
     private List<Observer> observers;
-    private ProductType productType;
-    private double productPrice;
+    private final ProductType productType;
+    private final double productPrice;
 
-    private String color;
+    private final String color;
 
     private final String yearOfProduction;
 

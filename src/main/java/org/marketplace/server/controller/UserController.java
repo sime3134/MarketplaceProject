@@ -5,15 +5,10 @@ import jakarta.servlet.http.HttpSession;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
-import org.marketplace.server.service.HashingService;
 import org.marketplace.server.service.UserAuthenticatorService;
 import org.marketplace.server.service.UserRegistrationService;
-import org.marketplace.server.service.exceptions.UserAuthenticationException;
-import org.marketplace.server.service.exceptions.UserRegistrationException;
-
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import org.marketplace.server.common.exceptions.UserAuthenticationException;
+import org.marketplace.server.common.exceptions.UserRegistrationException;
 
 public class UserController {
     private final UserAuthenticatorService userAuthenticatorService;

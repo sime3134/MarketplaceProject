@@ -1,4 +1,6 @@
-package org.marketplace.server.model;
+package org.marketplace.server.database;
+
+import org.marketplace.server.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

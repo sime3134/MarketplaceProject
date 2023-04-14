@@ -25,35 +25,33 @@
 <main>
     <div class="tab-container">
         <ul class="tabs">
-            <li class="tab active" data-tab="products">Products</li>
-            <li class="tab" data-tab="search">Search</li>
+            <li class="tab active" data-tab="buy">Buy</li>
             <li class="tab" data-tab="sell">Sell</li>
             <li class="tab" data-tab="history">History</li>
         </ul>
     </div>
 
-    <section id="products" class="tab-content active">
-        <h2>Available Products</h2>
-    </section>
-
-    <section id="search" class="tab-content search">
-            <h2>Search</h2>
-            <form>
-                <select id="product-type">
-                    <option value="">Select product type</option>
-                    <!-- Add product types here -->
-                </select>
-                <input type="number" placeholder="Minimum price">
-                <input type="number" placeholder="Maximum price">
-                <select>
-                    <option value="">Select condition</option>
-                    <option value="new">New</option>
-                    <option value="verygood">Very Good</option>
-                    <option value="good">Good</option>
-                    <option value="notworking">Not Working Properly</option>
-                </select>
-                <button type="submit">Search</button>
-            </form>
+    <section id="buy" class="tab-content active search">
+        <h2>Search</h2>
+        <form id="search-form">
+            <select name="productTypeId" id="product-type">
+                <option value="">Select product type</option>
+                <!-- Add product types here -->
+            </select>
+            <input name="minPrice" type="number" placeholder="Minimum price">
+            <input name="maxPrice" type="number" placeholder="Maximum price">
+            <select name="condition">
+                <option value="">Select condition</option>
+                <option value="NEW">New</option>
+                <option value="VERY_GOOD">Very Good</option>
+                <option value="GOOD">Good</option>
+                <option value="NOT_WORKING">Not Working Properly</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+        <div id="products">
+            <h2>Products</h2>
+        </div>
     </section>
 
     <section id="sell" class="tab-content sell">

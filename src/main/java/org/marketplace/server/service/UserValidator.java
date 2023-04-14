@@ -1,7 +1,7 @@
 package org.marketplace.server.service;
 
 import org.marketplace.server.common.AppConstants;
-import org.marketplace.server.service.exceptions.UserRegistrationException;
+import org.marketplace.server.common.exceptions.UserRegistrationException;
 
 public class UserValidator {
 
