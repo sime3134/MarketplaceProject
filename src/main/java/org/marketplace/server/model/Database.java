@@ -11,6 +11,7 @@ public class Database {
     private List<User> userTable;
     private List<Order> orderTable;
     private List<Product> productTable;
+    private List<ProductType> productTypeTable;
 
     public static Database getInstance() {
         if(instance == null) {
@@ -23,6 +24,7 @@ public class Database {
         userTable = new ArrayList<>();
         orderTable = new ArrayList<>();
         productTable = new ArrayList<>();
+        productTypeTable = new ArrayList<>();
         addMockupData();
     }
 
@@ -47,6 +49,7 @@ public class Database {
         User user4 = new User("Danny", "Gazic", "dannygazic@gmail.com", LocalDate.now(), "danny.gazic",
                 "password");
         User user5 = new User("John", "Doe", "john.doe@mail.com", LocalDate.now(), "john.doe", "password");
+
         userTable.addAll(Arrays.asList(
                 user1,
                 user2,
@@ -64,6 +67,17 @@ public class Database {
         ProductType productType7 = new ProductType("Iphone 11 Pro Max");
         ProductType productType8 = new ProductType("Iphone 12");
         ProductType productType9 = new ProductType("Samsung Galaxy S23");
+
+        productTypeTable.addAll(Arrays.asList(productType1,
+                productType2,
+                productType3,
+                productType4,
+                productType5,
+                productType6,
+                productType7,
+                productType8,
+                productType9
+        ));
 
         Product product1 = new Product(productType1, 8900, "2018", "White", ProductCondition.GOOD, user4);
         Product product2 = new Product(productType1, 2500, "2018", "Black", ProductCondition.NOT_WORKING, user3);
@@ -92,5 +106,9 @@ public class Database {
 
     public List<Product> getAllProducts() {
         return productTable;
+    }
+
+    public List<ProductType> getAllProductTypes() {
+        return productTypeTable;
     }
 }

@@ -13,4 +13,8 @@ public class ProductRepository {
     public List<Product> getAllProducts() {
         return database.getAllProducts();
     }
+
+    public List<ProductType> getAllProductTypes() {
+        return database.getAllProductTypes();
+    }
 }

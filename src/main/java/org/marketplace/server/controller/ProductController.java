@@ -1,32 +1,37 @@
 package org.marketplace.server.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.javalin.http.Context;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.model.Product;
+import org.marketplace.server.model.ProductType;
 import org.marketplace.server.model.dto.ErrorResponse;
 import org.marketplace.server.service.ProductService;
+import org.marketplace.server.service.exceptions.ProductException;
 
 import java.util.List;
 
 public class ProductController {
 
     ProductService productService;
-    ObjectMapper objectMapper;
 
-    public ProductController(ObjectMapper objectMapper) {
+    public ProductController() {
         productService = new ProductService();
-        this.objectMapper = objectMapper;
     }
     public void sendAllProducts(Context ctx) {
         try {
             List<Product> allProducts = productService.getAllProducts();
-            String json = objectMapper.writeValueAsString(allProducts);
-            System.out.println(json);
-            ctx.header("Content-type", "application/json").json(json);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            ctx.header("Content-type", "application/json").json(allProducts);
+        } catch (ProductException e) {
+            ctx.status(HttpStatus.NO_CONTENT_204).json(new ErrorResponse(e.getMessage()));
+        }
+    }
+
+    public void sendAllProductTypes(Context ctx) {
+        try {
+            List<ProductType> productTypes = productService.getAllProductTypes();
+            ctx.header("Content-type", "application/json").json(productTypes);
+        } catch (ProductException e) {
             ctx.status(HttpStatus.NO_CONTENT_204).json(new ErrorResponse(e.getMessage()));
         }
     }

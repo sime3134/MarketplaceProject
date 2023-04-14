@@ -14,14 +14,9 @@ public class Router {
     private final ProductController productController;
     private final UserController userController;
 
-    private final ObjectMapper objectMapper;
-
     public Router() {
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         orderController = new OrderController();
-        productController = new ProductController(objectMapper);
+        productController = new ProductController();
         userController = new UserController();
     }
 
@@ -37,6 +32,8 @@ public class Router {
         //API endpoints
 
         app.get(apiPrefix + "/products", productController::sendAllProducts);
+
+        app.get(apiPrefix + "/product_types", productController::sendAllProductTypes);
 
         //RENDERING
 
