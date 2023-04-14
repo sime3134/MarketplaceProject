@@ -1,9 +1,14 @@
 package org.marketplace.server.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Observer {
+    private final String firstName;
+    private final String lastName;
+    private final String emailAddress;
+    private final LocalDate dateOfBirth;
     private final String username;
     private final String hashedPassword;
 
@@ -13,11 +18,31 @@ public class User implements Observer {
 
     private final List<String> notifications;
 
-    public User(String username, String hashedPassword) {
+    public User(String firstName, String lastName, String emailAddress,
+                LocalDate dateOfBirth, String username, String hashedPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.dateOfBirth = dateOfBirth;
         this.username = username;
         this.hashedPassword = hashedPassword;
         notifications = new ArrayList<>();
         id = nextId++;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public String getUsername() {

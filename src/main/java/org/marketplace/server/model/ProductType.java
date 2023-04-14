@@ -4,16 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductType implements Observable {
-    private String name;
-    private List<Observer> observers;
+    private final String name;
+    private final List<Observer> observers;
+
+    private final int id;
+
+    private static int nextId = 0;
 
     public ProductType(String name) {
         this.name = name;
         observers = new ArrayList<>();
+        id = nextId++;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override

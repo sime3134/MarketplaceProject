@@ -24,7 +24,6 @@ public class UserController {
         try {
             userAuthenticatorService.authenticate(username, password);
             ctx.status(HttpStatus.OK_200);
-            // Handle successful authentication, e.g. redirect to the home page
         } catch (UserAuthenticationException e) {
             ctx.status(HttpStatus.UNAUTHORIZED_401).json(new ErrorResponse(e.getMessage()));
         }
@@ -37,7 +36,6 @@ public class UserController {
         try {
             userRegistrationService.register(username, password);
             ctx.status(HttpStatus.CREATED_201);
-            // Handle successful registration, e.g. redirect to the login page
         } catch (UserRegistrationException e) {
             ctx.status(HttpStatus.BAD_REQUEST_400).json(new ErrorResponse(e.getMessage()));
         }

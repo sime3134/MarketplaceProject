@@ -19,10 +19,11 @@ public class Product {
     private final User seller;
 
     public Product(ProductType productType, double productPrice, String yearOfProduction,
-                   ProductCondition productCondition, User seller) {
+                   String color, ProductCondition productCondition, User seller) {
         this.productType = productType;
         this.productPrice = productPrice;
         this.yearOfProduction = yearOfProduction;
+        this.color = color;
         this.productCondition = productCondition;
         this.seller = seller;
     }
