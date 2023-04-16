@@ -1,5 +1,6 @@
 package org.marketplace.server.service;
 
+import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.repositories.ProductRepository;
 import org.marketplace.server.model.ProductType;
@@ -24,7 +25,7 @@ public class ProductService {
         List<Product> allProducts = productRepository.getAllProducts();
 
         if(allProducts.isEmpty()) {
-            throw new ProductException("No products found");
+            throw new ProductException("No products found", HttpStatus.NO_CONTENT_204);
         }
 
         ProductPipeline productPipeline = new ProductPipeline();
@@ -48,7 +49,7 @@ public class ProductService {
     public List<ProductType> getAllProductTypes() throws ProductException {
         List<ProductType> allProductTypes = productRepository.getAllProductTypes();
         if(allProductTypes.isEmpty()) {
-            throw new ProductException("No product types found");
+            throw new ProductException("No product types found", HttpStatus.NO_CONTENT_204);
         }
         return allProductTypes;
     }

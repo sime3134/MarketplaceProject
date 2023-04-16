@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ProductController {
 
-    ProductService productService;
+    private final ProductService productService;
 
     public ProductController() {
         productService = new ProductService();
@@ -29,7 +29,7 @@ public class ProductController {
             ctx.header("Content-type", "application/json").json(filteredProducts);
         } catch (ProductException e) {
             System.out.println(e.getMessage());
-            ctx.status(HttpStatus.NO_CONTENT_204).json(new ErrorResponse(e.getMessage()));
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -39,7 +39,7 @@ public class ProductController {
             ctx.header("Content-type", "application/json").json(productTypes);
         } catch (ProductException e) {
             System.out.println(e.getMessage());
-            ctx.status(HttpStatus.NO_CONTENT_204).json(new ErrorResponse(e.getMessage()));
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
         }
     }
 }

@@ -24,6 +24,7 @@ public class ProductPipeline implements Pipeline {
         List<Product> results = products;
         for (ProductFilter filter : filters) {
             results = filter.filter(results);
+            if(results.isEmpty()) break; // No need to continue if there are no results (short circuit)
         }
 
         return results;

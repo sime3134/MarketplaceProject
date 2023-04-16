@@ -46,12 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const productsHtml = `<h2>Products</h2>` + data
           .map(
             (product) => `
-          <div class="product">
-            <h3>${product.productType.name}</h3>
-            <p>Color: ${product.color}</p>
-            <p>Price: ${product.productPrice}</p>
-            <p>Condition: ${product.productCondition}</p>
-          </div>
+           <div class="product">
+                  <h3>${product.productType.name}</h3>
+                  <p>Price: ${product.productPrice}</p>
+                  <p>Condition: ${product.productCondition.description}</p>
+                  <p>Color: ${product.color}</p>
+                  <button class="buy-button">Buy</button>
+              </div>
         `
           )
           .join("");

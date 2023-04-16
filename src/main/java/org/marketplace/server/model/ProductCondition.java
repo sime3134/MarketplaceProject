@@ -1,5 +1,8 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ProductCondition {
 
     NEW("New"),
