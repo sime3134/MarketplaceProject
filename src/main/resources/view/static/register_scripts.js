@@ -25,13 +25,13 @@ function handleRegister(event) {
     formData.append('dateOfBirth', dateOfBirth);
 
     try {
-      fetch('http://localhost:5001/api/v1/register', {
+      fetch('/api/v1/register', {
         method: 'POST',
         body: formData
       })
       .then(async response => {
         if (response.status === 201) {
-          window.location.href = 'http://localhost:5001/login';
+          window.location.href = '/login';
         } else if (response.status === 400) {
           const errorResponse = await response.json();
           errorMessageElement.innerText = errorResponse.message;

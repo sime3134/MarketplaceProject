@@ -34,16 +34,10 @@ public class Router {
 
         //RENDERING
 
-        app.get("/", ctx -> {
-            ctx.render("/view/templates/index.html");
-        }, Role.USER);
+        app.get("/", ctx -> ctx.render("/view/templates/index.html"), Role.USER);
 
-        app.get("/login", ctx -> {
-            ctx.render("/view/templates/login.html");
-        }, Role.ANYONE);
+        app.get("/login", ctx -> ctx.render("/view/templates/login.html"), Role.ANYONE);
 
-        app.get("/register", ctx -> {
-            ctx.render("/view/templates/register.html");
-        }, Role.ANYONE);
+        app.get("/register", ctx -> ctx.render("/view/templates/register.html"), Role.ANYONE);
     }
 }

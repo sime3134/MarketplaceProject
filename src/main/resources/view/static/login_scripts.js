@@ -19,13 +19,13 @@ function handleLogin(event) {
   formData.append('password', password);
 
 try {
-  fetch('http://localhost:5001/api/v1/login', {
+  fetch('/api/v1/login', {
     method: 'POST',
     body: formData
   })
   .then(async response => {
     if (response.status === 200) {
-      window.location.href = 'http://localhost:5001/';
+      window.location.href = '/';
     } else if (response.status === 401) {
       const errorResponse = await response.json();
       errorMessageElement.innerText = errorResponse.message;

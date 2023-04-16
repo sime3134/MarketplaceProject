@@ -28,7 +28,7 @@ public class ServerLauncher {
             config.accessManager(new AccessService());
         });
         //Starts the server
-        app.start(5001);
+        app.start(8080);
         new Router().setupEndpoints(app);
     }
 }

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const productsSection = document.querySelector("#products");
   const searchForm = document.getElementById('search-form');
 
-  const url = new URL("http://localhost:5001/api/v1/products");
+  const url = new URL("/api/v1/products", window.location.origin);
 
   for (const element of searchForm.elements) {
       if (element.tagName === "INPUT" || element.tagName === "SELECT") {
@@ -51,7 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
                   <p>Price: ${product.productPrice}</p>
                   <p>Condition: ${product.productCondition.description}</p>
                   <p>Color: ${product.color}</p>
-                  <button class="buy-button">Buy</button>
+                  <p>Seller: ${product.seller.username}</p>
+                  <button class="buy-button">Add to cart</button>
               </div>
         `
           )
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function populateProductTypes(selectId) {
     const productTypeSelect = document.getElementById(selectId);
 
-    fetch("http://localhost:5001/api/v1/product_types")
+    fetch("/api/v1/product_types")
       .then(async (response) => response.json())
       .then((data) => {
         data.forEach((productType) => {
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function logout() {
-    fetch("http://localhost:5001/api/v1/logout", {
+    fetch("/api/v1/logout", {
       method: "POST",
     })
       .then(async (response) => {

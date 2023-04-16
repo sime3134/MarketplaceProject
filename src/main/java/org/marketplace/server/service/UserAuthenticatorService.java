@@ -16,13 +16,13 @@ public class UserAuthenticatorService {
         User user = userRepository.findUserByUsername(username);
 
         if (user == null) {
-            throw new UserAuthenticationException("The provided username is not registered.");
+            throw new UserAuthenticationException("The provided username or password is incorrect.");
         }
 
         boolean passwordMatches = Hasher.verifyPassword(password, user.getHashedPassword());
 
         if (!passwordMatches) {
-            throw new UserAuthenticationException("The provided password is incorrect.");
+            throw new UserAuthenticationException("The provided username or password is incorrect.");
         }
 
         return user;

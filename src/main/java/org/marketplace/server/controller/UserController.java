@@ -23,10 +23,11 @@ public class UserController {
         String username = ctx.formParam("username");
         String password = ctx.formParam("password");
 
+
         try {
             User loggedInUser = userAuthenticatorService.authenticate(username, password);
             ctx.sessionAttribute("userId", loggedInUser.getId());
-            ctx.status(HttpStatus.OK_200);
+            ctx.redirect("/");
         } catch (UserAuthenticationException e) {
             System.out.println(e.getMessage());
             ctx.status(HttpStatus.UNAUTHORIZED_401).json(new ErrorResponse(e.getMessage()));
@@ -43,6 +44,7 @@ public class UserController {
 
         try {
             userRegistrationService.register(firstName, lastName, email, dateOfBirth, username, password);
+            ctx.header("Cache-Control", "no-cache").header("Pragma", "no-cache").header("Expires", "0");
             ctx.status(HttpStatus.CREATED_201);
         } catch (UserRegistrationException e) {
             System.out.println(e.getMessage());
@@ -50,11 +52,12 @@ public class UserController {
         }
     }
 
-    public void handleUserLogout(Context context) {
-        HttpSession session = context.req().getSession(false);
+    public void handleUserLogout(Context ctx) {
+        HttpSession session = ctx.req().getSession(false);
         if (session != null) {
             session.invalidate();
         }
-        context.redirect("/login");
+        ctx.header("Cache-Control", "no-cache").header("Pragma", "no-cache").header("Expires", "0");
+        ctx.redirect("/login");
     }
 }
