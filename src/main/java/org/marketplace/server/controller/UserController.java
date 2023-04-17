@@ -26,7 +26,7 @@ public class UserController {
 
         try {
             User loggedInUser = userAuthenticatorService.authenticate(username, password);
-            ctx.sessionAttribute("userId", loggedInUser.getId());
+            ctx.sessionAttribute("userId", loggedInUser.getIdAsString());
             ctx.redirect("/");
         } catch (UserAuthenticationException e) {
             System.out.println(e.getMessage());
@@ -60,4 +60,5 @@ public class UserController {
         ctx.header("Cache-Control", "no-cache").header("Pragma", "no-cache").header("Expires", "0");
         ctx.redirect("/login");
     }
+
 }

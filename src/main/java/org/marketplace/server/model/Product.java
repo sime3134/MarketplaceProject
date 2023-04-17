@@ -20,6 +20,10 @@ public class Product {
 
     private final User seller;
 
+    private final int id;
+
+    private static int nextId;
+
     public Product(ProductType productType, double productPrice, String yearOfProduction,
                    String color, ProductCondition productCondition, User seller) {
         this.productType = productType;
@@ -28,6 +32,7 @@ public class Product {
         this.color = color;
         this.productCondition = productCondition;
         this.seller = seller;
+        this.id = nextId++;
     }
 
     public ProductType getProductType() {
@@ -60,5 +65,9 @@ public class Product {
 
     public void toggleAvailability() {
         isAvailable = !isAvailable;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -34,8 +34,8 @@ public class Database {
         return userTable.stream().filter(user -> user.getUsername().equals(username)).findFirst().orElse(null);
     }
 
-    public User findUserById(String id) {
-        return userTable.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+    public User findUserById(int id) {
+        return userTable.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
     }
 
     public boolean addUser(User newUser) {
@@ -112,5 +112,9 @@ public class Database {
 
     public List<ProductType> getAllProductTypes() {
         return productTypeTable;
+    }
+
+    public Product getProductById(int id) {
+        return productTable.stream().filter(product -> product.getId() == id).findFirst().orElse(null);
     }
 }

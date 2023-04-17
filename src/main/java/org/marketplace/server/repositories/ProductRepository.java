@@ -7,18 +7,30 @@ import org.marketplace.server.model.ProductType;
 import java.util.List;
 
 public class ProductRepository {
+    private static ProductRepository instance;
 
-    private Database database;
+    private final Database database;
 
     public ProductRepository() {
         database = Database.getInstance();
     }
 
-    public List<Product> getAllProducts() {
+    public static ProductRepository getInstance() {
+        if(instance == null) {
+            instance = new ProductRepository();
+        }
+        return instance;
+    }
+
+    public synchronized List<Product> getAllProducts() {
         return database.getAllProducts();
     }
 
-    public List<ProductType> getAllProductTypes() {
+    public synchronized List<ProductType> getAllProductTypes() {
         return database.getAllProductTypes();
+    }
+
+    public synchronized Product getProductById(int id) {
+        return database.getProductById(id);
     }
 }

@@ -21,6 +21,8 @@ public class User implements Observer {
 
     private final List<String> notifications;
 
+    private ShoppingCart shoppingCart;
+
     public User(String firstName, String lastName, String emailAddress,
                 LocalDate dateOfBirth, String username, String hashedPassword) {
         this.firstName = firstName;
@@ -30,6 +32,7 @@ public class User implements Observer {
         this.username = username;
         this.hashedPassword = hashedPassword;
         notifications = new ArrayList<>();
+        shoppingCart = new ShoppingCart();
         id = nextId++;
     }
     public String getFirstName() {
@@ -56,8 +59,12 @@ public class User implements Observer {
         return hashedPassword;
     }
 
-    public String getId() {
+    public String getIdAsString() {
         return String.valueOf(id);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public List<String> getNotifications() {
@@ -68,5 +75,9 @@ public class User implements Observer {
     public void update(Observable observable) {
         notifications.add("A product type that you have subscribed to has been added to the marketplace.");
         //TODO: web socket call to notify the user
+    }
+
+    public ShoppingCart getCart() {
+        return shoppingCart;
     }
 }

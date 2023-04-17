@@ -65,7 +65,7 @@ main {
     border: 1px solid #ddd;
 }
 
-.search button, .sell button, .register button, .login button {
+#placeOrderButton, .search button, .sell button, .register button, .login button {
     background-color: #333;
     color: white;
     font-size: 16px;
@@ -270,4 +270,46 @@ main {
     margin-bottom: 10px;
 }
 
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item-details {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.cart-item-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.cart-item-price,
+.cart-item-seller {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+#cart-item-remove {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+#cart-item-remove:hover {
+  background-color: #c0392b;
+}
 

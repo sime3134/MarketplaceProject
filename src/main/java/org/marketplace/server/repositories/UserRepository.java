@@ -17,15 +17,15 @@ public class UserRepository {
         return instance;
     }
 
-    public User findUserByUsername(String username) {
+    public synchronized User findUserByUsername(String username) {
         return database.findUserByUsername(username);
     }
 
-    public User findUserById(String id) {
+    public synchronized User findUserById(int id) {
         return database.findUserById(id);
     }
 
-    public boolean addUser(User newUser) {
+    public synchronized boolean addUser(User newUser) {
         return database.addUser(newUser);
     }
 }
