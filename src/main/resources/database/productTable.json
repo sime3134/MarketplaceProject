@@ -1,0 +1,51 @@
+[ {
+  "firstName" : "Simon",
+  "lastName" : "Jern",
+  "emailAddress" : "simon.jern@mail.com",
+  "dateOfBirth" : [ 2023, 4, 18 ],
+  "username" : "simon.jern",
+  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "id" : 0,
+  "notifications" : [ ],
+  "idAsString" : "0"
+}, {
+  "firstName" : "Johan",
+  "lastName" : "Salomonsson",
+  "emailAddress" : "johan.salomonsson@mail.com",
+  "dateOfBirth" : [ 2023, 4, 18 ],
+  "username" : "johan.salomonsson",
+  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "id" : 1,
+  "notifications" : [ ],
+  "idAsString" : "1"
+}, {
+  "firstName" : "Erik",
+  "lastName" : "Larsson",
+  "emailAddress" : "erik.larsson@mail.com",
+  "dateOfBirth" : [ 2023, 4, 18 ],
+  "username" : "erik.larsson",
+  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "id" : 2,
+  "notifications" : [ ],
+  "idAsString" : "2"
+}, {
+  "firstName" : "Danny",
+  "lastName" : "Gazic",
+  "emailAddress" : "dannygazic@gmail.com",
+  "dateOfBirth" : [ 2023, 4, 18 ],
+  "username" : "danny.gazic",
+  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "id" : 3,
+  "notifications" : [ ],
+  "idAsString" : "3"
+}, {
+  "firstName" : "John",
+  "lastName" : "Doe",
+  "emailAddress" : "john.doe@mail.com",
+  "dateOfBirth" : [ 2023, 4, 18 ],
+  "username" : "john.doe",
+  "hashedPassword" : "password",
+  "id" : 4,
+  "notifications" : [ ],
+  "idAsString" : "4"
+} ]

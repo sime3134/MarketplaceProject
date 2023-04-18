@@ -26,9 +26,9 @@ public class Router {
     public void setupEndpoints(Javalin app) {
         //API endpoints
 
-        app.get(apiPrefix + "/products", productController::getFilteredProducts, Role.USER);
+        app.get(apiPrefix + "/product", productController::getFilteredProducts, Role.USER);
 
-        app.get(apiPrefix + "/product_types", productController::getAllProductTypes, Role.USER);
+        app.get(apiPrefix + "/product_type", productController::getAllProductTypes, Role.USER);
 
         app.post(apiPrefix + "/login", userController::handleUserAuthentication, Role.ANYONE);
 
@@ -36,9 +36,15 @@ public class Router {
 
         app.post(apiPrefix + "/logout", userController::handleUserLogout, Role.USER);
 
-        app.post(apiPrefix + "/update_cart/{productId}", cartController::addToCart, Role.USER);
+        app.get(apiPrefix + "/cart", cartController::getCart, Role.USER);
 
-        app.delete(apiPrefix + "/update_cart/{productId}", cartController::removeFromCart, Role.USER);
+        app.post(apiPrefix + "/cart/{productId}", cartController::addToCart, Role.USER);
+
+        app.delete(apiPrefix + "/cart/{productId}", cartController::removeFromCart, Role.USER);
+
+        app.get(apiPrefix + "/order", orderController::getUserOrders, Role.USER);
+
+        app.post(apiPrefix + "/order", orderController::placeOrder, Role.USER);
 
         //RENDERING
 

@@ -1,5 +1,6 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.marketplace.server.common.Observer;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class Product {
         this.productCondition = productCondition;
         this.seller = seller;
         this.id = nextId++;
+        this.isAvailable = true;
     }
 
     public ProductType getProductType() {

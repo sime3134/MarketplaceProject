@@ -1,13 +1,25 @@
 package org.marketplace.server.database;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.marketplace.server.model.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Database {
+    private static final String USER_TABLE = "userTable.json";
+    private static final String ORDER_TABLE = "orderTable.json";
+    private static final String PRODUCT_TABLE = "productTable.json";
+    private static final String PRODUCT_TYPE_TABLE = "productTypeTable.json";
+    private final ObjectMapper objectMapper;
+
     private static Database instance;
 
     private List<User> userTable;
@@ -23,11 +35,27 @@ public class Database {
     }
 
     private Database() {
-        userTable = new ArrayList<>();
-        orderTable = new ArrayList<>();
-        productTable = new ArrayList<>();
-        productTypeTable = new ArrayList<>();
-        addMockupData();
+        objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            userTable = loadListFromFile("src/main/resources/database/" + USER_TABLE, new TypeReference<List<User>>() {
+            });
+            orderTable = loadListFromFile("src/main/resources/database/" + ORDER_TABLE, new TypeReference<List<Order>>() {
+            });
+            productTable = loadListFromFile("src/main/resources/database/" + PRODUCT_TABLE, new TypeReference<List<Product>>() {
+            });
+            productTypeTable = loadListFromFile("src/main/resources/database/" + PRODUCT_TYPE_TABLE, new TypeReference<List<ProductType>>() {
+            });
+
+            if (userTable.isEmpty() && productTable.isEmpty() && productTypeTable.isEmpty()) {
+                addMockupData();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public User findUserByUsername(String username) {
@@ -39,10 +67,18 @@ public class Database {
     }
 
     public boolean addUser(User newUser) {
-        return userTable.add(newUser);
+        boolean added = userTable.add(newUser);
+        try {
+            if(added) {
+                saveListToFile("src/main/resources/database/" + USER_TABLE, userTable);
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return added;
     }
 
-    public void addMockupData() {
+    public void addMockupData() throws IOException {
         User user1 = new User("Simon", "Jern", "simon.jern@mail.com", LocalDate.now(), "simon.jern", "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a");
         User user2 = new User("Johan", "Salomonsson", "johan.salomonsson@mail.com", LocalDate.now(), "johan" +
                 ".salomonsson", "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a");
@@ -104,6 +140,24 @@ public class Database {
                 product9,
                 product10
         ));
+        
+        saveListToFile("src/main/resources/database/" + USER_TABLE, userTable);
+        saveListToFile("src/main/resources/database/" + PRODUCT_TYPE_TABLE, userTable);
+        saveListToFile("src/main/resources/database/" + PRODUCT_TABLE, userTable);
+    }
+
+    private <T> List<T> loadListFromFile(String filename, TypeReference<List<T>> type) throws IOException {
+        File file = new File(filename);
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+        return objectMapper.readValue(file, type);
+    }
+
+    private <T> void saveListToFile(String filename, List<T> list) throws IOException {
+        File file = new File(filename);
+        objectMapper.writeValue(file, list);
+
     }
 
     public List<Product> getAllProducts() {

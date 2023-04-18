@@ -134,6 +134,26 @@ main {
     background-color: #555;
 }
 
+.error-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: auto;
+  background-color: red;
+  padding: 10px;
+  text-align: center;
+  z-index: 9999;
+  border: 2px solid white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.error-popup p {
+  margin: 0;
+  color: white;
+}
+
 .error-message {
         background-color: #f8d7da;
         border: 1px solid #f5c6cb;
@@ -211,7 +231,7 @@ main {
 }
 
 /* Products section */
-.products {
+.products, .orders {
     text-align: center;
     padding: 20px;
     background-color: #fff;
@@ -222,12 +242,12 @@ main {
     max-width: 800px;
 }
 
-.products h2 {
+.products h2, .orders h2 {
     margin-top: 0;
     margin-bottom: 10px;
 }
 
-.product {
+.product, .order {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
@@ -238,16 +258,16 @@ main {
   border: 1px solid #ddd;
 }
 
-.product h3 {
+.product h3, .order h3 {
     margin-top: 0;
     margin-bottom: 10px;
 }
 
-.product p {
+.product p, .order p {
     margin: 0;
 }
 
-.product button {
+.product button, .order button {
     background-color: #333;
     color: white;
     font-size: 16px;
@@ -258,15 +278,15 @@ main {
     margin-top: 10px;
 }
 
-.product button:hover {
+.product button:hover, .order button:hover {
     background-color: #555;
 }
 
-.product p:first-of-type {
+.product p:first-of-type, .order p:first-of-type {
     font-weight: bold;
 }
 
-.product p:last-of-type {
+.product p:last-of-type, .order p:last-of-type {
     margin-bottom: 10px;
 }
 

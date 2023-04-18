@@ -1,11 +1,11 @@
 package org.marketplace.server.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ShoppingCart {
-    private List<Product> productsInCart;
+
+    private final List<Product> productsInCart;
     private double totalPrice;
 
     public ShoppingCart () {
@@ -25,5 +25,9 @@ public class ShoppingCart {
 
     public List<Product> getProducts() {
         return productsInCart;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 }

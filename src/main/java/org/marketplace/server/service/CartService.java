@@ -3,6 +3,7 @@ package org.marketplace.server.service;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.CartException;
 import org.marketplace.server.model.Product;
+import org.marketplace.server.model.ShoppingCart;
 import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.ProductRepository;
 import org.marketplace.server.repositories.UserRepository;
@@ -32,7 +33,7 @@ public class CartService {
             throw new CartException("Product with id " + productId + " already exists in cart", HttpStatus.CONFLICT_409);
         }
 
-        user.getCart().getProducts().add(product);
+        user.getCart().addProductToCart(product);
     }
 
     public void removeProductFromCart(Integer productId, Integer userId) throws CartException {
@@ -47,8 +48,20 @@ public class CartService {
         }
         if(!user.getCart().getProducts().contains(product)) {
             throw new CartException("Product with id " + productId + " is not in your cart",
-                    HttpStatus.CONFLICT_409);
+                    HttpStatus.NOT_FOUND_404);
         }
 
+        user.getCart().removeProductFromCart(product);
+
+    }
+
+    public ShoppingCart getCart(Integer userId) throws CartException {
+        User user = userRepository.findUserById(userId);
+
+        if(user == null) {
+            throw new CartException("User with id " + userId + " does not exist", HttpStatus.NOT_FOUND_404);
+        }
+
+        return user.getCart();
     }
 }

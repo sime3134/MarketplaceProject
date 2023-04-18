@@ -1,5 +1,6 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.marketplace.server.common.Observable;
 import org.marketplace.server.common.Observer;
 
@@ -76,7 +77,7 @@ public class User implements Observer {
         notifications.add("A product type that you have subscribed to has been added to the marketplace.");
         //TODO: web socket call to notify the user
     }
-
+    @JsonIgnore
     public ShoppingCart getCart() {
         return shoppingCart;
     }

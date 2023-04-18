@@ -1,45 +1,52 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class Order {
-    private String id;
-    private String name;
+
+    private static int nextId = 0;
+    private int id;
     private LocalDate date;
-    private String price;
-    private String seller;
-    private String buyer;
+    private double amount;
+    private User buyer;
+    private List<Product> products;
 
-    public Order(String id, String name, LocalDate date, String price, String seller, String buyer) {
-        this.id = id;
-        this.name = name;
+    private OrderStatus orderStatus;
+
+    public Order(LocalDate date, User buyer, List<Product> products) {
+        this.id = nextId++;
         this.date = date;
-        this.price = price;
-        this.seller = seller;
         this.buyer = buyer;
+        this.products = products;
+        this.amount = calculateAmount();
+        this.orderStatus = OrderStatus.PENDING;
     }
 
-    public String getId() {
+    private double calculateAmount() {
+        amount = 0;
+        for(Product product : products) {
+            amount += product.getProductPrice();
+        }
+        return amount;
+    }
+
+    public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public String getPrice() {
-        return price;
+    public double getAmount() {
+        return amount;
     }
 
-    public String getSeller() {
-        return seller;
-    }
-
-    public String getBuyer() {
+    @JsonIgnoreProperties({"shoppingCart"})
+    public User getBuyer() {
         return buyer;
     }
 }

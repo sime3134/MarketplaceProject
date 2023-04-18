@@ -3,6 +3,7 @@ package org.marketplace.server.controller;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import org.marketplace.server.common.exceptions.CartException;
+import org.marketplace.server.model.ShoppingCart;
 import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
 import org.marketplace.server.service.CartService;
@@ -33,6 +34,31 @@ public class CartController {
     }
 
     public void removeFromCart(Context ctx) {
+        Integer productId = ctx.pathParam("productId") != null ?
+                Integer.valueOf(ctx.pathParam("productId")) : null;
 
+        Integer userId = ctx.sessionAttribute("userId") != null ?
+                Integer.valueOf(ctx.sessionAttribute("userId")) : null;
+
+        try {
+            cartService.removeProductFromCart(productId, userId);
+            ctx.status(HttpStatus.OK);
+        } catch (CartException e) {
+            System.out.println(e.getMessage());
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+        }
+    }
+
+    public void getCart(Context ctx) {
+        Integer userId = ctx.sessionAttribute("userId") != null ?
+                Integer.valueOf(ctx.sessionAttribute("userId")) : null;
+
+        try {
+            ShoppingCart userCart = cartService.getCart(userId);
+            ctx.header("Content-type", "application/json").json(userCart);
+        } catch(CartException e) {
+            System.out.println(e.getMessage());
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+        }
     }
 }
