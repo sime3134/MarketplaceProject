@@ -1,0 +1,60 @@
+package org.marketplace.server.model.deserializers;
+
+import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.marketplace.server.model.Order;
+import org.marketplace.server.model.OrderStatus;
+import org.marketplace.server.model.Product;
+import org.marketplace.server.model.User;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class OrderDeserializer extends JsonDeserializer<Order> {
+    private final List<User> userList;
+    private final List<Product> productList;
+
+    public OrderDeserializer(List<User> userTable, List<Product> productTable) {
+        this.userList = userTable;
+        this.productList = productTable;
+    }
+
+    @Override
+    public Order deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+        JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+
+        int id = node.get("id").asInt();
+        JsonNode dateTimeNode = node.get("timestamp");
+        LocalDateTime date = LocalDateTime.of(dateTimeNode.get(0).asInt(), dateTimeNode.get(1).asInt(),
+                dateTimeNode.get(2).asInt(), dateTimeNode.get(3).asInt(), dateTimeNode.get(4).asInt(), dateTimeNode.get(5).asInt());
+        int buyerId = node.get("buyer").get("id").asInt();
+        User buyer = findUserById(buyerId);
+        int productId = node.get("product").get("id").asInt();
+        Product product = findProductById(productId);
+        OrderStatus orderStatus = OrderStatus.descriptionValueOf(node.get("orderStatus").get("status").asText());
+
+        return new Order(id, buyer, product, date, orderStatus);
+    }
+
+    private Product findProductById(int productId) {
+        for (Product product : productList) {
+            if (product.getId() == productId) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    private User findUserById(int sellerId) {
+        for (User user : userList) {
+            if (user.getId() == sellerId) {
+                return user;
+            }
+        }
+        return null;
+    }
+}

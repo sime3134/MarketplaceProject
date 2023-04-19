@@ -18,4 +18,13 @@ public enum OrderStatus {
     public String getStatus() {
         return status;
     }
+
+    public static OrderStatus descriptionValueOf(String status) {
+        for (OrderStatus orderStatus : OrderStatus.values()) {
+            if (orderStatus.getStatus().equals(status)) {
+                return orderStatus;
+            }
+        }
+        return null;
+    }
 }

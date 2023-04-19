@@ -3,11 +3,13 @@ package org.marketplace.server.service;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.OrderException;
 import org.marketplace.server.model.Order;
+import org.marketplace.server.model.Product;
 import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.OrderRepository;
 import org.marketplace.server.repositories.UserRepository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
@@ -20,7 +22,7 @@ public class OrderService {
         orderRepository = OrderRepository.getInstance();
     }
 
-    public void placeOrder(Integer userId) throws OrderException {
+    public List<Order> placeOrder(Integer userId) throws OrderException {
         User user = userRepository.findUserById(userId);
 
         if(user == null) {
@@ -31,8 +33,16 @@ public class OrderService {
             throw new OrderException("Cart is empty", HttpStatus.CONFLICT_409);
         }
 
-        Order order = new Order(LocalDate.now(), user, user.getCart().getProducts());
+        List<Order> orders = new ArrayList<>();
+
+        for(Product product : user.getCart().getProducts()) {
+            Order order = new Order(LocalDateTime.now(), user, product);
+            orderRepository.addNewOrder(order);
+            orders.add(order);
+        }
         user.getCart().getProducts().clear();
+
+        return orders;
     }
 
     public List<Order> getUserOrders(Integer userId) throws OrderException {
@@ -42,6 +52,8 @@ public class OrderService {
             throw new OrderException("User with id " + userId + " does not exist", HttpStatus.NOT_FOUND_404);
         }
 
-        return orderRepository.getAllOrders();
+        List<Order> allOrders = orderRepository.getAllOrders();
+
+        return allOrders.stream().filter(order -> order.getBuyer().getId() == userId).toList();
     }
 }

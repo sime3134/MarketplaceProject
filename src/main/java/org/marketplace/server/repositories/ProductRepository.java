@@ -11,7 +11,7 @@ public class ProductRepository {
 
     private final Database database;
 
-    public ProductRepository() {
+    private ProductRepository() {
         database = Database.getInstance();
     }
 

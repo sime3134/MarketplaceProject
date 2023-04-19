@@ -23,7 +23,6 @@ public class UserController {
         String username = ctx.formParam("username");
         String password = ctx.formParam("password");
 
-
         try {
             User loggedInUser = userAuthenticatorService.authenticate(username, password);
             ctx.sessionAttribute("userId", loggedInUser.getIdAsString());

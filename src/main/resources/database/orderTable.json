@@ -1,0 +1,28 @@
+[ {
+  "id" : 0,
+  "timestamp" : [ 2023, 4, 19, 23, 40, 56, 68719300 ],
+  "buyer" : {
+    "id" : 0
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Macbook Pro",
+      "id" : 0
+    },
+    "productPrice" : 8900.0,
+    "seller" : {
+      "firstName" : "Danny",
+      "lastName" : "Gazic",
+      "emailAddress" : "dannygazic@gmail.com",
+      "dateOfBirth" : [ 2023, 4, 19 ],
+      "username" : "danny.gazic",
+      "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+      "notifications" : [ ],
+      "id" : 3
+    },
+    "id" : 0
+  },
+  "orderStatus" : {
+    "status" : "Pending"
+  }
+} ]

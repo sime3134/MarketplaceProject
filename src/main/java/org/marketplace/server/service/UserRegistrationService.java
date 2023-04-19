@@ -38,12 +38,8 @@ public class UserRegistrationService {
         String hashedPassword = Hasher.hashPassword(password);
 
         User newUser = new User(firstName, lastName, email, parsedDateOfBirth, username, hashedPassword);
-        boolean success = userRepository.addUser(newUser);
+        userRepository.addUser(newUser);
 
-        if (success) {
-            return newUser;
-        } else {
-            throw new UserRegistrationException("Something went wrong while registering the user.");
-        }
+        return newUser;
     }
 }

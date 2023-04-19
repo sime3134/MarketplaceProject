@@ -18,7 +18,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public ProductService() {
-        productRepository = new ProductRepository();
+        productRepository = ProductRepository.getInstance();
     }
     public List<Product> getFilteredProducts(Integer productTypeId, Double minPrice, Double maxPrice,
                                              String condition) throws ProductException {

@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
        fetch("/api/v1/cart")
        .then(async (response) => response.json())
        .then((data) => {
-       console.log(data);
            data.products.forEach((product) => {
                 cart.push(product);
            });
@@ -41,7 +40,6 @@ function removeProductFromCart(productId) {
 }
 
 function refreshCart() {
-    console.log("refreshing cart");
     let numberOfProductsInCart = 0;
     const numberOfProductsInCartElement = document.getElementById("numberOfProductsInCart");
     cartElement.innerHTML = "";

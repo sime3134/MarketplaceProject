@@ -1,13 +1,6 @@
 package org.marketplace.server.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.marketplace.server.common.Observer;
-
-import java.util.List;
-
 public class Product {
-
-    private List<Observer> observers;
     private final ProductType productType;
     private final double productPrice;
 
@@ -35,6 +28,18 @@ public class Product {
         this.seller = seller;
         this.id = nextId++;
         this.isAvailable = true;
+    }
+
+    public Product(int id, ProductType productType, double productPrice, String yearOfProduction,
+                   String color, ProductCondition productCondition, User seller, boolean isAvailable) {
+        this.productType = productType;
+        this.productPrice = productPrice;
+        this.yearOfProduction = yearOfProduction;
+        this.color = color;
+        this.productCondition = productCondition;
+        this.seller = seller;
+        this.id = id;
+        this.isAvailable = isAvailable;
     }
 
     public ProductType getProductType() {
@@ -71,5 +76,11 @@ public class Product {
 
     public int getId() {
         return id;
+    }
+
+    public static void updateNextId(int maxId) {
+        if (maxId >= nextId) {
+            nextId = maxId + 1;
+        }
     }
 }

@@ -24,4 +24,13 @@ public enum ProductCondition {
         return description;
     }
 
+    public static ProductCondition descriptionValueOf(String description) {
+        for (ProductCondition productCondition : ProductCondition.values()) {
+            if (productCondition.getDescription().equals(description)) {
+                return productCondition;
+            }
+        }
+        return null;
+    }
+
 }

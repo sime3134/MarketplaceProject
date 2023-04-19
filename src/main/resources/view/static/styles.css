@@ -136,7 +136,7 @@ main {
 
 .error-popup {
   position: fixed;
-  top: 0;
+  top: 200;
   right: 0;
   left: auto;
   width: auto;

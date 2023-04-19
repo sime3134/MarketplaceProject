@@ -1,51 +1,66 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class Order {
 
     private static int nextId = 0;
     private int id;
-    private LocalDate date;
-    private double amount;
+    private LocalDateTime timestamp;
     private User buyer;
-    private List<Product> products;
-
+    private Product product;
     private OrderStatus orderStatus;
 
-    public Order(LocalDate date, User buyer, List<Product> products) {
+    public Order () {
+
+    }
+
+    public Order(LocalDateTime timestamp, User buyer, Product product) {
         this.id = nextId++;
-        this.date = date;
+        this.timestamp = timestamp;
         this.buyer = buyer;
-        this.products = products;
-        this.amount = calculateAmount();
+        this.product = product;
         this.orderStatus = OrderStatus.PENDING;
     }
 
-    private double calculateAmount() {
-        amount = 0;
-        for(Product product : products) {
-            amount += product.getProductPrice();
-        }
-        return amount;
+    public Order(int id, User buyer, Product product, LocalDateTime date, OrderStatus orderStatus) {
+        this.id = id;
+        this.timestamp = date;
+        this.buyer = buyer;
+        this.product = product;
+        this.orderStatus = orderStatus;
     }
 
     public int getId() {
         return id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public double getAmount() {
-        return amount;
+    public static void updateNextId(int maxId) {
+        if (maxId >= nextId) {
+            nextId = maxId + 1;
+        }
     }
 
-    @JsonIgnoreProperties({"shoppingCart"})
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    @JsonIgnoreProperties({"color", "yearOfProduction",
+            "productCondition", "available"})
+    public Product getProduct() {
+        return product;
+    }
+
+    @JsonIgnoreProperties({"notifications","firstName","lastName","password", "shoppingCart", "dateOfBirth",
+            "emailAddress", "username", "hashedPassword"})
     public User getBuyer() {
         return buyer;
     }

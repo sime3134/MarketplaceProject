@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(url)
       .then(async (response) => response.json()) // Parse response as JSON
       .then((data) => {
-      if(data.products.length > 0) {
+      if(data.length > 0) {
         // Create HTML for each product and append it to the products section
         const productsHtml = `<h2>Products</h2>` + data
           .map(

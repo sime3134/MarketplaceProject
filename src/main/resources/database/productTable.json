@@ -1,51 +1,231 @@
 [ {
-  "firstName" : "Simon",
-  "lastName" : "Jern",
-  "emailAddress" : "simon.jern@mail.com",
-  "dateOfBirth" : [ 2023, 4, 18 ],
-  "username" : "simon.jern",
-  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "productType" : {
+    "name" : "Macbook Pro",
+    "id" : 0
+  },
+  "productPrice" : 8900.0,
+  "color" : "White",
+  "yearOfProduction" : "2018",
+  "productCondition" : {
+    "description" : "Good"
+  },
+  "seller" : {
+    "firstName" : "Danny",
+    "lastName" : "Gazic",
+    "emailAddress" : "dannygazic@gmail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "danny.gazic",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 3
+  },
   "id" : 0,
-  "notifications" : [ ],
-  "idAsString" : "0"
+  "available" : true
 }, {
-  "firstName" : "Johan",
-  "lastName" : "Salomonsson",
-  "emailAddress" : "johan.salomonsson@mail.com",
-  "dateOfBirth" : [ 2023, 4, 18 ],
-  "username" : "johan.salomonsson",
-  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "productType" : {
+    "name" : "Macbook Pro",
+    "id" : 0
+  },
+  "productPrice" : 2500.0,
+  "color" : "Black",
+  "yearOfProduction" : "2018",
+  "productCondition" : {
+    "description" : "Not Working Properly"
+  },
+  "seller" : {
+    "firstName" : "Erik",
+    "lastName" : "Larsson",
+    "emailAddress" : "erik.larsson@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "erik.larsson",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 2
+  },
   "id" : 1,
-  "notifications" : [ ],
-  "idAsString" : "1"
+  "available" : true
 }, {
-  "firstName" : "Erik",
-  "lastName" : "Larsson",
-  "emailAddress" : "erik.larsson@mail.com",
-  "dateOfBirth" : [ 2023, 4, 18 ],
-  "username" : "erik.larsson",
-  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "productType" : {
+    "name" : "Iphone 11",
+    "id" : 4
+  },
+  "productPrice" : 1000.0,
+  "color" : "Grey",
+  "yearOfProduction" : "2019",
+  "productCondition" : {
+    "description" : "Not Working Properly"
+  },
+  "seller" : {
+    "firstName" : "Simon",
+    "lastName" : "Jern",
+    "emailAddress" : "simon.jern@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "simon.jern",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 0
+  },
   "id" : 2,
-  "notifications" : [ ],
-  "idAsString" : "2"
+  "available" : true
 }, {
-  "firstName" : "Danny",
-  "lastName" : "Gazic",
-  "emailAddress" : "dannygazic@gmail.com",
-  "dateOfBirth" : [ 2023, 4, 18 ],
-  "username" : "danny.gazic",
-  "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+  "productType" : {
+    "name" : "Iphone 11 Pro Max",
+    "id" : 6
+  },
+  "productPrice" : 6500.0,
+  "color" : "Red",
+  "yearOfProduction" : "2018",
+  "productCondition" : {
+    "description" : "Good"
+  },
+  "seller" : {
+    "firstName" : "Erik",
+    "lastName" : "Larsson",
+    "emailAddress" : "erik.larsson@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "erik.larsson",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 2
+  },
   "id" : 3,
-  "notifications" : [ ],
-  "idAsString" : "3"
+  "available" : true
 }, {
-  "firstName" : "John",
-  "lastName" : "Doe",
-  "emailAddress" : "john.doe@mail.com",
-  "dateOfBirth" : [ 2023, 4, 18 ],
-  "username" : "john.doe",
-  "hashedPassword" : "password",
+  "productType" : {
+    "name" : "Iphone 12",
+    "id" : 7
+  },
+  "productPrice" : 30000.0,
+  "color" : "Gold",
+  "yearOfProduction" : "2021",
+  "productCondition" : {
+    "description" : "Very Good"
+  },
+  "seller" : {
+    "firstName" : "John",
+    "lastName" : "Doe",
+    "emailAddress" : "john.doe@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "john.doe",
+    "hashedPassword" : "password",
+    "notifications" : [ ],
+    "id" : 4
+  },
   "id" : 4,
-  "notifications" : [ ],
-  "idAsString" : "4"
+  "available" : true
+}, {
+  "productType" : {
+    "name" : "Samsung Galaxy S23",
+    "id" : 8
+  },
+  "productPrice" : 6300.0,
+  "color" : "Black",
+  "yearOfProduction" : "2023",
+  "productCondition" : {
+    "description" : "Good"
+  },
+  "seller" : {
+    "firstName" : "Johan",
+    "lastName" : "Salomonsson",
+    "emailAddress" : "johan.salomonsson@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "johan.salomonsson",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 1
+  },
+  "id" : 5,
+  "available" : true
+}, {
+  "productType" : {
+    "name" : "Samsung Galaxy S23",
+    "id" : 8
+  },
+  "productPrice" : 10000.0,
+  "color" : "White",
+  "yearOfProduction" : "2023",
+  "productCondition" : {
+    "description" : "Very Good"
+  },
+  "seller" : {
+    "firstName" : "Danny",
+    "lastName" : "Gazic",
+    "emailAddress" : "dannygazic@gmail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "danny.gazic",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 3
+  },
+  "id" : 6,
+  "available" : true
+}, {
+  "productType" : {
+    "name" : "Macbook Air",
+    "id" : 1
+  },
+  "productPrice" : 6000.0,
+  "color" : "White",
+  "yearOfProduction" : "2018",
+  "productCondition" : {
+    "description" : "Good"
+  },
+  "seller" : {
+    "firstName" : "Danny",
+    "lastName" : "Gazic",
+    "emailAddress" : "dannygazic@gmail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "danny.gazic",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 3
+  },
+  "id" : 7,
+  "available" : true
+}, {
+  "productType" : {
+    "name" : "Macbook",
+    "id" : 2
+  },
+  "productPrice" : 2000.0,
+  "color" : "White",
+  "yearOfProduction" : "2016",
+  "productCondition" : {
+    "description" : "Not Working Properly"
+  },
+  "seller" : {
+    "firstName" : "Simon",
+    "lastName" : "Jern",
+    "emailAddress" : "simon.jern@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "simon.jern",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 0
+  },
+  "id" : 8,
+  "available" : true
+}, {
+  "productType" : {
+    "name" : "Iphone 11 Pro",
+    "id" : 5
+  },
+  "productPrice" : 7500.0,
+  "color" : "Black",
+  "yearOfProduction" : "2021",
+  "productCondition" : {
+    "description" : "Good"
+  },
+  "seller" : {
+    "firstName" : "John",
+    "lastName" : "Doe",
+    "emailAddress" : "john.doe@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "john.doe",
+    "hashedPassword" : "password",
+    "notifications" : [ ],
+    "id" : 4
+  },
+  "id" : 9,
+  "available" : true
 } ]

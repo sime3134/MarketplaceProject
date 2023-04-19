@@ -1,6 +1,9 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.marketplace.server.common.Observable;
 import org.marketplace.server.common.Observer;
 
@@ -9,20 +12,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Observer {
-    private final String firstName;
-    private final String lastName;
-    private final String emailAddress;
-    private final LocalDate dateOfBirth;
-    private final String username;
-    private final String hashedPassword;
+    private String firstName;
+    private String lastName;
+    private String emailAddress;
+    private LocalDate dateOfBirth;
+    private String username;
+    private String hashedPassword;
 
-    private final int id;
+    private int id;
 
     private static int nextId = 0;
 
-    private final List<String> notifications;
+    private List<String> notifications;
 
     private ShoppingCart shoppingCart;
+
+    @JsonCreator
+    public User(@JsonProperty("firstName") String firstName,
+                @JsonProperty("lastName") String lastName,
+                @JsonProperty("emailAddress") String emailAddress,
+                @JsonProperty("dateOfBirth") JsonNode dateOfBirth,
+                @JsonProperty("username") String username,
+                @JsonProperty("hashedPassword") String hashedPassword,
+                @JsonProperty("notifications") List<String> notifications,
+                @JsonProperty("id") int id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.dateOfBirth = LocalDate.of(dateOfBirth.get(0).asInt(), dateOfBirth.get(1).asInt(), dateOfBirth.get(2).asInt());
+        this.username = username;
+        this.hashedPassword = hashedPassword;
+        this.notifications = notifications != null ? notifications : new ArrayList<>();
+        this.id = id;
+        shoppingCart = new ShoppingCart();
+    }
 
     public User(String firstName, String lastName, String emailAddress,
                 LocalDate dateOfBirth, String username, String hashedPassword) {
@@ -36,6 +59,7 @@ public class User implements Observer {
         shoppingCart = new ShoppingCart();
         id = nextId++;
     }
+
     public String getFirstName() {
         return firstName;
     }
@@ -60,6 +84,7 @@ public class User implements Observer {
         return hashedPassword;
     }
 
+    @JsonIgnore
     public String getIdAsString() {
         return String.valueOf(id);
     }
@@ -80,5 +105,11 @@ public class User implements Observer {
     @JsonIgnore
     public ShoppingCart getCart() {
         return shoppingCart;
+    }
+
+    public static void updateNextId(int maxId) {
+        if (maxId >= nextId) {
+            nextId = maxId + 1;
+        }
     }
 }

@@ -22,8 +22,8 @@ public class OrderController {
                 Integer.valueOf(ctx.sessionAttribute("userId")) : null;
 
         try {
-            orderService.placeOrder(userId);
-            ctx.status(HttpStatus.OK_200);
+            List<Order> orders = orderService.placeOrder(userId);
+            ctx.status(HttpStatus.OK_200).json(orders);
         } catch (OrderException e) {
             System.out.println(e.getMessage());
             ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
@@ -33,7 +33,6 @@ public class OrderController {
     public void getUserOrders(Context context) {
         Integer userId = context.sessionAttribute("userId") != null ?
                 Integer.valueOf(context.sessionAttribute("userId")) : null;
-
         try {
             List<Order> orders = orderService.getUserOrders(userId);
             context.header("Content-type", "application/json").json(orders);

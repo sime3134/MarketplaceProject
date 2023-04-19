@@ -5,7 +5,6 @@ import org.marketplace.server.model.User;
 
 public class UserRepository {
     private static UserRepository instance;
-
     private Database database;
     private UserRepository() {
         database = Database.getInstance();
@@ -25,7 +24,7 @@ public class UserRepository {
         return database.findUserById(id);
     }
 
-    public synchronized boolean addUser(User newUser) {
-        return database.addUser(newUser);
+    public synchronized void addUser(User newUser) {
+        database.addUser(newUser);
     }
 }

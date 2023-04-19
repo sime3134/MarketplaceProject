@@ -1,8 +1,12 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.marketplace.server.common.Observable;
 import org.marketplace.server.common.Observer;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +17,14 @@ public class ProductType implements Observable {
     private final int id;
 
     private static int nextId = 0;
+
+    @JsonCreator
+    public ProductType(@JsonProperty("name") String name,
+                       @JsonProperty("id") int id) {
+        this.name = name;
+        observers = new ArrayList<>();
+        this.id = id;
+    }
 
     public ProductType(String name) {
         this.name = name;
@@ -42,6 +54,12 @@ public class ProductType implements Observable {
     public void notifyObservers() {
         for (Observer observer : observers) {
             observer.update(this);
+        }
+    }
+
+    public static void updateNextId(int maxId) {
+        if (maxId >= nextId) {
+            nextId = maxId + 1;
         }
     }
 }
