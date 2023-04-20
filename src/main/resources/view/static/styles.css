@@ -134,36 +134,6 @@ main {
     background-color: #555;
 }
 
-.error-popup {
-  position: fixed;
-  top: 200;
-  right: 0;
-  left: auto;
-  width: auto;
-  background-color: red;
-  padding: 10px;
-  text-align: center;
-  z-index: 9999;
-  border: 2px solid white;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.error-popup p {
-  margin: 0;
-  color: white;
-}
-
-.error-message {
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-        border-radius: 4px;
-        color: #721c24;
-        display: none;
-        margin-top: 20px;
-        padding: 10px 15px;
-}
-
 #logout-button {
     background-color: transparent;
     color: white;
@@ -333,3 +303,37 @@ main {
   background-color: #c0392b;
 }
 
+/* Error message container */
+#error-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Error message */
+.error-message {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+/* Info error type */
+.error-message.info {
+  background-color: rgb(59 130 246);
+}
+
+/* Error error type */
+.error-message.error {
+  background-color: rgb(239 68 68);
+}
+
+/* Success error type */
+.error-message.success {
+  background-color: rgb(34 197 94);;
+}

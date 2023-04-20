@@ -9,7 +9,13 @@ document.addEventListener("DOMContentLoaded", function () {
 // Fetch cart and populate
     function populateCart() {
        fetch("/api/v1/cart")
-       .then(async (response) => response.json())
+       .then(response => {
+             if (response.ok) {
+               return response.json();
+             } else {
+               throw new Error('Error retrieving cart!');
+             }
+           })
        .then((data) => {
            data.products.forEach((product) => {
                 cart.push(product);
@@ -22,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
        })
          .catch((error) => {
             console.error(error);
+            showError(error.message, ErrorType.Warning);
          });
     }
 
@@ -33,8 +40,6 @@ function removeProductFromCart(productId) {
                 const index = cart.indexOf(product);
                 cart.splice(index, 1);
                 refreshCart();
-            }else{
-                console.error("Something happened on the server when trying to remove the product from the cart");
             }
         })
 }
@@ -77,13 +82,10 @@ function refreshCart() {
                 cart.push(product);
                 refreshCart();
             }
-          })
-          .catch(error => {
-            console.error(error.message);
           });
         }
 
-        const addProductToCartOnServer = async (productId) => {
+    const addProductToCartOnServer = async (productId) => {
           return fetch(`/api/v1/cart/${productId}`, {
             method: 'POST',
           })
@@ -91,11 +93,14 @@ function refreshCart() {
               if (response.ok) {
                 return true;
               } else {
-                throw new Error('Error updating cart');
-              }
+                return response.json().then(data => {
+                    throw new Error(data.message);
+              });
+            }
             })
             .catch(error => {
-              console.error(error.message);
+                showError(error.message, ErrorType.Error);
+                console.error(error.message);
             });
         };
 
@@ -111,6 +116,7 @@ function refreshCart() {
                 return true;
               } catch (error) {
                 console.error("Error updating cart:", error);
+                showError(error.message, ErrorType.Error);
                 return false;
               }
             };

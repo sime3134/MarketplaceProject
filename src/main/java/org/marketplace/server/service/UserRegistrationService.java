@@ -1,5 +1,6 @@
 package org.marketplace.server.service;
 
+import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.DateParser;
 import org.marketplace.server.common.Hasher;
 import org.marketplace.server.model.User;
@@ -28,11 +29,11 @@ public class UserRegistrationService {
         try{
             parsedDateOfBirth = DateParser.parse(dateOfBirth);
         } catch (DateTimeParseException e) {
-            throw new UserRegistrationException("Not a valid date of birth");
+            throw new UserRegistrationException("Not a valid date of birth", HttpStatus.BAD_REQUEST_400);
         }
 
         if (userRepository.findUserByUsername(username) != null) {
-            throw new UserRegistrationException("This username is already taken.");
+            throw new UserRegistrationException("This username is already taken.", HttpStatus.BAD_REQUEST_400);
         }
 
         String hashedPassword = Hasher.hashPassword(password);

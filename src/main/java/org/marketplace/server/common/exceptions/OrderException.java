@@ -1,13 +1,7 @@
 package org.marketplace.server.common.exceptions;
 
-public class OrderException extends Exception {
-    private int status;
-    public OrderException(String message, int status) {
-        super(message);
-        this.status = status;
-    }
-
-    public int getStatus() {
-        return status;
+public class OrderException extends ExceptionWithStatusCode {
+    public OrderException(String message, int statusCode) {
+        super(message, statusCode);
     }
 }

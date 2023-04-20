@@ -1,5 +1,6 @@
 package org.marketplace.server.service;
 
+import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.Hasher;
 import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.UserRepository;
@@ -16,13 +17,13 @@ public class UserAuthenticatorService {
         User user = userRepository.findUserByUsername(username);
 
         if (user == null) {
-            throw new UserAuthenticationException("The provided username or password is incorrect.");
+            throw new UserAuthenticationException("The provided username or password is incorrect.", HttpStatus.UNAUTHORIZED_401);
         }
 
         boolean passwordMatches = Hasher.verifyPassword(password, user.getHashedPassword());
 
         if (!passwordMatches) {
-            throw new UserAuthenticationException("The provided username or password is incorrect.");
+            throw new UserAuthenticationException("The provided username or password is incorrect.", HttpStatus.UNAUTHORIZED_401);
         }
 
         return user;

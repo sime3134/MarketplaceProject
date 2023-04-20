@@ -2,6 +2,7 @@ package org.marketplace.server.service;
 
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.OrderException;
+import org.marketplace.server.common.exceptions.UserException;
 import org.marketplace.server.model.Order;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.User;
@@ -13,20 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
-    private final UserRepository userRepository;
-
     private final OrderRepository orderRepository;
 
     public OrderService() {
-        userRepository = UserRepository.getInstance();
         orderRepository = OrderRepository.getInstance();
     }
 
-    public List<Order> placeOrder(Integer userId) throws OrderException {
-        User user = userRepository.findUserById(userId);
+    public List<Order> placeOrder(User user) throws OrderException {
 
         if(user == null) {
-            throw new OrderException("User with id " + userId + " does not exist", HttpStatus.NOT_FOUND_404);
+            throw new OrderException("User with this id does not exist", HttpStatus.NOT_FOUND_404);
         }
 
         if(user.getCart().getProducts().isEmpty()) {
@@ -45,15 +42,14 @@ public class OrderService {
         return orders;
     }
 
-    public List<Order> getUserOrders(Integer userId) throws OrderException {
-        User user = userRepository.findUserById(userId);
+    public List<Order> getUserOrders(User user) throws UserException {
 
         if(user == null) {
-            throw new OrderException("User with id " + userId + " does not exist", HttpStatus.NOT_FOUND_404);
+            throw new UserException("The requested user could not be found", HttpStatus.NOT_FOUND_404);
         }
 
         List<Order> allOrders = orderRepository.getAllOrders();
 
-        return allOrders.stream().filter(order -> order.getBuyer().getId() == userId).toList();
+        return allOrders.stream().filter(order -> order.getBuyer().getId() == user.getId()).toList();
     }
 }

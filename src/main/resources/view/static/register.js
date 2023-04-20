@@ -14,7 +14,6 @@ function handleRegister(event) {
     const lastName = document.getElementById('lastName').value;
     const email = document.getElementById('email').value;
     const dateOfBirth = document.getElementById('dateOfBirth').value;
-    const errorMessageElement = document.getElementById('errorMessage');
 
     const formData = new FormData();
     formData.append('username', username);
@@ -34,14 +33,12 @@ function handleRegister(event) {
           window.location.href = '/login';
         } else if (response.status === 400) {
           const errorResponse = await response.json();
-          errorMessageElement.innerText = errorResponse.message;
-          errorMessageElement.style.display = 'block';
+          showError(errorResponse.message, ErrorType.Error);
         } else {
           throw new Error('Something went wrong... Try again later!');
         }
       })
     } catch (error) {
-      errorMessageElement.innerText = error.message;
-      errorMessageElement.style.display = 'block';
+      showError(error.message, ErrorType.Error);
     }
 }

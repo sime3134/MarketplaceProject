@@ -1,7 +1,7 @@
 package org.marketplace.server.common.exceptions;
 
-public class UserAuthenticationException extends Throwable {
-    public UserAuthenticationException(String message) {
-        super(message);
+public class UserAuthenticationException extends ExceptionWithStatusCode {
+    public UserAuthenticationException(String message, int statusCode) {
+        super(message, statusCode);
     }
 }

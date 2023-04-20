@@ -23,10 +23,10 @@ function populateOrders() {
 function refreshOrders() {
     const ordersSection = document.querySelector("#orders");
     if(orders.length > 0) {
-    const ordersHtml = `<h2>Orders</h2>` + orders
+    const ordersHtml = `<h2>Orders</h2>` +
+    orders
         .map(
             (order) => {
-            console.log(order)
                 return `
                 <div class="order">
                     <h3>Order ID: ${order.id}</h3>
@@ -71,5 +71,7 @@ function refreshOrders() {
                 })
                 .catch(error => {
                   console.error(error.message);
+                  showError(error.message, ErrorType.Error);
+                  return false;
                 });
             };
