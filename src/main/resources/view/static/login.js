@@ -28,7 +28,7 @@ function handleLogin(event) {
       console.log('Error response:', errorResponse);
       showError(errorResponse.message, ErrorType.Error);
     } else {
-      throw new Error('Something went wrong... Try again later!');
+      throw new Error('Something went wrong on the server. Try again later!');
     }
   })
   .catch(error => {

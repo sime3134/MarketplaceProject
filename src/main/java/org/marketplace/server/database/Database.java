@@ -82,6 +82,24 @@ public class Database {
         }
     }
 
+    public synchronized void addProduct(Product product) {
+        productTable.add(product);
+        try {
+            saveListToFile("src/main/resources/database/" + AppConstants.PRODUCT_TABLE, productTable);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void addProductType(ProductType productType) {
+        productTypeTable.add(productType);
+        try {
+            saveListToFile("src/main/resources/database/" + AppConstants.PRODUCT_TYPE_TABLE, productTypeTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<User> getUserTable() {
         return userTable;
     }
@@ -96,5 +114,10 @@ public class Database {
 
     public List<ProductType> getProductTypeTable() {
         return productTypeTable;
+    }
+
+    public ProductType getProductTypeById(Integer id) {
+        return id != null ?
+                productTypeTable.stream().filter(productType -> productType.getId() == id).findFirst().orElse(null) : null;
     }
 }

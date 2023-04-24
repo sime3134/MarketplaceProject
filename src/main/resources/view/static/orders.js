@@ -66,12 +66,15 @@ function refreshOrders() {
                   if (response.ok) {
                     return true;
                   } else {
-                    throw new Error('Error submitting order');
+                    return response.json().then(data => {
+                        showError(error.message, ErrorType.Error);
+                        return false;
+                    });
                   }
                 })
                 .catch(error => {
                   console.error(error.message);
-                  showError(error.message, ErrorType.Error);
+                  showError("Something went wrong on the server. Please try again later!", ErrorType.Error);
                   return false;
                 });
             };

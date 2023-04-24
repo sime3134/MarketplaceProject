@@ -94,15 +94,17 @@ function refreshCart() {
                 return true;
               } else {
                 return response.json().then(data => {
-                    throw new Error(data.message);
+                    showError(error.message, ErrorType.Error);
+                    return false;
               });
             }
             })
             .catch(error => {
-                showError(error.message, ErrorType.Error);
+                showError("Something went wrong on the server. Please try again later.", ErrorType.Error);
                 console.error(error.message);
+                return false;
             });
-        };
+        }
 
         const removeProductFromCartOnServer = async (productId) => {
               try {
@@ -111,12 +113,13 @@ function refreshCart() {
                 });
 
                 if (!response.ok) {
-                  throw new Error(`HTTP error ${response.message}`);
+                  showError(error.message, ErrorType.Error);
+                  return false;
                 }
                 return true;
               } catch (error) {
                 console.error("Error updating cart:", error);
-                showError(error.message, ErrorType.Error);
+                showError("Something went wrong on the server. Please try again later.", ErrorType.Error);
                 return false;
               }
             };

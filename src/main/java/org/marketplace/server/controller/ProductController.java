@@ -1,14 +1,15 @@
 package org.marketplace.server.controller;
 
 import io.javalin.http.Context;
+import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.ExceptionWithStatusCode;
 import org.marketplace.server.model.Product;
+import org.marketplace.server.model.ProductCondition;
 import org.marketplace.server.model.ProductType;
 import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
-import org.marketplace.server.service.OrderService;
 import org.marketplace.server.service.ProductService;
-import org.marketplace.server.common.exceptions.ProductException;
+import org.marketplace.server.service.ProductTypeService;
 import org.marketplace.server.service.UserService;
 
 import java.util.List;
@@ -16,14 +17,14 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    private final UserService userService;
 
-    private final OrderService orderService;
+    private final ProductTypeService productTypeService;
+    private final UserService userService;
 
     public ProductController() {
         productService = new ProductService();
         userService = new UserService();
-        orderService = new OrderService();
+        productTypeService = new ProductTypeService();
     }
     public void getFilteredProducts(Context ctx) {
         Integer productTypeId = ctx.queryParam("productTypeId") != null ? Integer.parseInt(ctx.queryParam(
@@ -32,23 +33,45 @@ public class ProductController {
         Double minPrice = ctx.queryParam("minPrice") != null ? Double.parseDouble(ctx.queryParam("minPrice")) : null;
         Double maxPrice = ctx.queryParam("maxPrice") != null ? Double.parseDouble(ctx.queryParam("maxPrice")) : null;
 
-        try {
-            List<Product> filteredProducts = productService.getFilteredProducts(productTypeId, minPrice,
-                    maxPrice, condition);
-            ctx.header("Content-type", "application/json").json(filteredProducts);
-        } catch (ExceptionWithStatusCode e) {
-            System.out.println(e.getMessage());
-            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
-        }
+
+        ProductType productType = productTypeService.findProductTypeById(productTypeId);
+
+        List<Product> filteredProducts = productService.getFilteredProducts(productType, minPrice,
+                maxPrice, condition);
+        ctx.header("Content-type", "application/json").json(filteredProducts);
     }
 
     public void getAllProductTypes(Context ctx) {
+        List<ProductType> productTypes = productTypeService.getAllProductTypes();
+        ctx.header("Content-type", "application/json").json(productTypes);
+    }
+
+    public void addProduct(Context ctx) {
+        Integer productTypeId = ctx.formParam("productTypeId") != null ? Integer.parseInt(ctx.formParam(
+                "productTypeId")) : null;
+        Double price = ctx.formParam("price") != null ? Double.parseDouble(ctx.formParam("price")) : null;
+        String yearOfProduction = ctx.formParam("yearOfProduction");
+        String color = ctx.formParam("color");
+        String productCondition = ctx.formParam("condition");
+        Integer userId = ctx.sessionAttribute("userId") != null ?
+                Integer.valueOf(ctx.sessionAttribute("userId")) : null;
+
         try {
-            List<ProductType> productTypes = productService.getAllProductTypes();
-            ctx.header("Content-type", "application/json").json(productTypes);
-        } catch (ProductException e) {
+            User user = userService.findUserById(userId);
+            ProductType productType = productTypeService.findProductTypeByIdNullIllegal(productTypeId);
+            ProductCondition condition = ProductCondition.valueOf(productCondition);
+
+            productService.addProduct(productType, user, price, yearOfProduction, color, condition);
+        } catch (ExceptionWithStatusCode e) {
             System.out.println(e.getMessage());
             ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            ctx.status(HttpStatus.NOT_FOUND_404).json(new ErrorResponse("Something went wrong trying to add the " +
+                    "product"));
         }
+
     }
+
+
 }

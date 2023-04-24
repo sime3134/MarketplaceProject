@@ -13,12 +13,6 @@ public class CartService {
 
     public void addProductToCart(Product product, User user, List<Order> userOrders) throws CartException {
 
-        if(user == null) {
-            throw new CartException("Could not find the user on the server.", HttpStatus.NOT_FOUND_404);
-        }
-        if(product == null) {
-            throw new CartException("Could not find the product on the server.", HttpStatus.NOT_FOUND_404);
-        }
         if(user.getCart().getProducts().contains(product)) {
             throw new CartException("You have already added this product to your cart.",
                     HttpStatus.CONFLICT_409);
@@ -32,12 +26,6 @@ public class CartService {
 
     public void removeProductFromCart(Product product, User user) throws CartException {
 
-        if(user == null) {
-            throw new CartException("User with received id does not exist", HttpStatus.NOT_FOUND_404);
-        }
-        if(product == null) {
-            throw new CartException("Product with received id does not exist", HttpStatus.NOT_FOUND_404);
-        }
         if(!user.getCart().getProducts().contains(product)) {
             throw new CartException("Product with id " + product.getId() + " does not exist in the cart",
                     HttpStatus.NOT_FOUND_404);
@@ -47,12 +35,7 @@ public class CartService {
 
     }
 
-    public ShoppingCart getCart(User user) throws CartException {
-
-        if(user == null) {
-            throw new CartException("User with the received id does not exist", HttpStatus.NOT_FOUND_404);
-        }
-
+    public ShoppingCart getCart(User user) {
         return user.getCart();
     }
 }

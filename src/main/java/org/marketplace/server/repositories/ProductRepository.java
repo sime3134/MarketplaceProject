@@ -2,7 +2,6 @@ package org.marketplace.server.repositories;
 
 import org.marketplace.server.database.Database;
 import org.marketplace.server.model.Product;
-import org.marketplace.server.model.ProductType;
 
 import java.util.List;
 
@@ -26,11 +25,11 @@ public class ProductRepository {
         return database.getAllProducts();
     }
 
-    public synchronized List<ProductType> getAllProductTypes() {
-        return database.getAllProductTypes();
-    }
-
     public synchronized Product getProductById(int id) {
         return database.getProductById(id);
+    }
+
+    public void addNewProduct(Product product) {
+        database.addProduct(product);
     }
 }

@@ -1,4 +1,4 @@
-const products = [];
+let products = [];
 
   const searchForm = document.getElementById('search-form');
       if (searchForm) {
@@ -8,7 +8,17 @@ const products = [];
           });
       } else {
           console.error('Could not find search form!');
-  }
+        }
+
+  const productForm = document.getElementById('product-form');
+        if (productForm) {
+            productForm.addEventListener('submit', function (event) {
+                  event.preventDefault();
+                  addNewProduct();
+            });
+        } else {
+            console.error('Could not find product form!');
+        }
 
 document.addEventListener("DOMContentLoaded", function () {
     populateProducts();
@@ -19,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Fetch products and populate
   function populateProducts() {
-  const productsSection = document.querySelector("#products");
   const searchForm = document.getElementById('search-form');
+  products = [];
 
   const url = new URL("/api/v1/product", window.location.origin);
 
@@ -97,3 +107,57 @@ document.addEventListener("DOMContentLoaded", function () {
         productsSection.innerHTML = "<h2>No products found</h2>";
     }
 }
+
+function addNewProduct() {
+    addNewProductToServer()
+    .then((success) => {
+       if (success) {
+            const productForm = document.getElementById('product-form');
+            productForm.reset();
+            populateProducts();
+        }
+    });
+}
+
+const addNewProductToServer = async () => {
+    const productForm = document.getElementById('product-form');
+
+    const url = new URL("/api/v1/product", window.location.origin);
+
+    const formData = new FormData();
+
+    for (const element of productForm.elements) {
+        if (element.tagName === "INPUT" || element.tagName === "SELECT") {
+          if (element.value) {
+            formData.append(element.name, element.value);
+          }else {
+            if(element.placeholder) {
+                showError(element.placeholder + " is required", ErrorType.Error);
+            }else if(element.dataset.placeholder) {
+                showError(element.dataset.placeholder + " is required", ErrorType.Error);
+            }
+          }
+        }
+      }
+
+      return fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+          .then(response => {
+            if (response.ok) {
+              return true;
+            } else {
+              return response.json().then(data => {
+              console.log(data);
+                showError(error.message, ErrorType.Error);
+                return false;
+              });
+            }
+          })
+          .catch(error => {
+            console.error(error.message);
+            showError("Something went wrong on the server. Please try again later.", ErrorType.Error);
+            return false;
+          });
+ }

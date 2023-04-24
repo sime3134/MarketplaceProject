@@ -61,20 +61,20 @@
 
     <section id="sell" class="tab-content sell">
         <h2>Sell</h2>
-        <form>
-            <select id="product-type2">
+        <form id="product-form">
+            <select name="productTypeId" id="product-type2" data-placeholder="Product type" required>
                 <option value="">Select product type</option>
                 <!-- Add product types here -->
             </select>
-            <input type="number" placeholder="Price">
-            <input type="number" placeholder="Year of production">
-            <input type="text" placeholder="Color">
-            <select>
+            <input name="price" type="number" placeholder="Price" required>
+            <input name="yearOfProduction" type="number" placeholder="Year of production" required>
+            <input name="color" type="text" placeholder="Color" required>
+            <select name="condition" data-placeholder="Condition" required>
                 <option value="">Select condition</option>
-                <option value="new">New</option>
-                <option value="verygood">Very Good</option>
-                <option value="good">Good</option>
-                <option value="notworking">Not Working Properly</option>
+                <option value="NEW">New</option>
+                <option value="VERY_GOOD">Very Good</option>
+                <option value="GOOD">Good</option>
+                <option value="NOT_WORKING">Not Working Properly</option>
             </select>
             <button type="submit">Sell Product</button>
         </form>

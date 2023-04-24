@@ -28,6 +28,8 @@ public class Router {
 
         app.get(apiPrefix + "/product", productController::getFilteredProducts, Role.USER);
 
+        app.post(apiPrefix + "/product", productController::addProduct, Role.USER);
+
         app.get(apiPrefix + "/product_type", productController::getAllProductTypes, Role.USER);
 
         app.post(apiPrefix + "/login", userController::handleUserAuthentication, Role.ANYONE);

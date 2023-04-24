@@ -228,4 +228,50 @@
   },
   "id" : 9,
   "available" : true
+}, {
+  "productType" : {
+    "name" : "Macbook Pro",
+    "id" : 0
+  },
+  "productPrice" : 2000.0,
+  "color" : "Yellow",
+  "yearOfProduction" : "1986",
+  "productCondition" : {
+    "description" : "New"
+  },
+  "seller" : {
+    "firstName" : "Simon",
+    "lastName" : "Jern",
+    "emailAddress" : "simon.jern@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "simon.jern",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 0
+  },
+  "id" : 10,
+  "available" : true
+}, {
+  "productType" : {
+    "name" : "Macbook Mini",
+    "id" : 3
+  },
+  "productPrice" : 2000.0,
+  "color" : "Black",
+  "yearOfProduction" : "1986",
+  "productCondition" : {
+    "description" : "Very Good"
+  },
+  "seller" : {
+    "firstName" : "Simon",
+    "lastName" : "Jern",
+    "emailAddress" : "simon.jern@mail.com",
+    "dateOfBirth" : [ 2023, 4, 19 ],
+    "username" : "simon.jern",
+    "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+    "notifications" : [ ],
+    "id" : 0
+  },
+  "id" : 11,
+  "available" : true
 } ]

@@ -27,7 +27,7 @@
   }
 }, {
   "id" : 1,
-  "timestamp" : [ 2023, 4, 20, 14, 17, 13, 785715100 ],
+  "timestamp" : [ 2023, 4, 20, 14, 17, 13 ],
   "buyer" : {
     "id" : 0
   },
@@ -54,7 +54,7 @@
   }
 }, {
   "id" : 2,
-  "timestamp" : [ 2023, 4, 20, 14, 17, 13, 799713900 ],
+  "timestamp" : [ 2023, 4, 20, 14, 17, 13 ],
   "buyer" : {
     "id" : 0
   },
@@ -75,6 +75,33 @@
       "id" : 2
     },
     "id" : 1
+  },
+  "orderStatus" : {
+    "status" : "Pending"
+  }
+}, {
+  "id" : 3,
+  "timestamp" : [ 2023, 4, 23, 19, 10, 54, 311243900 ],
+  "buyer" : {
+    "id" : 0
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Iphone 11 Pro Max",
+      "id" : 6
+    },
+    "productPrice" : 6500.0,
+    "seller" : {
+      "firstName" : "Erik",
+      "lastName" : "Larsson",
+      "emailAddress" : "erik.larsson@mail.com",
+      "dateOfBirth" : [ 2023, 4, 19 ],
+      "username" : "erik.larsson",
+      "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
+      "notifications" : [ ],
+      "id" : 2
+    },
+    "id" : 3
   },
   "orderStatus" : {
     "status" : "Pending"
