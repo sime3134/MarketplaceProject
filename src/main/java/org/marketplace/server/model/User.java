@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.marketplace.server.common.Observable;
 import org.marketplace.server.common.Observer;
 import org.marketplace.server.model.notifications.Notification;
+import org.marketplace.server.model.notifications.PurchaseNotification;
 import org.marketplace.server.model.notifications.SubscriptionNotification;
 
 import java.time.LocalDate;
@@ -117,5 +118,9 @@ public class User implements Observer {
 
     public void addNotification(Notification notification) {
         notifications.add(notification);
+    }
+
+    public void removeNotification(Integer notificationIndex) {
+        notifications.remove(notificationIndex.intValue());
     }
 }

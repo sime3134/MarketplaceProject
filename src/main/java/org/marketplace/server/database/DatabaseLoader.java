@@ -131,16 +131,6 @@ public class DatabaseLoader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        Order order1 = new Order(LocalDateTime.now(), user1, product1);
-
-        database.getOrderTable().add(order1);
-
-        try {
-            database.saveListToFile(AppConstants.ORDER_TABLE, database.getOrderTable());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void loadUserListFromFile(String filename) throws IOException {

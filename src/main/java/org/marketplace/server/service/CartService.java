@@ -20,6 +20,9 @@ public class CartService {
         if(userOrders.stream().anyMatch(order -> order.getProduct().getId() == product.getId())) {
             throw new CartException("You have already bought this product.", HttpStatus.CONFLICT_409);
         }
+        if(user.getId() == product.getSeller().getId()) {
+            throw new CartException("You cannot buy your own product.", HttpStatus.CONFLICT_409);
+        }
 
         user.getCart().addProductToCart(product);
     }

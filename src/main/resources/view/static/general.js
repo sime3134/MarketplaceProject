@@ -9,11 +9,15 @@ function connectUser() {
     const messageData = JSON.parse(event.data);
     if(messageData) {
         if(messageData.messageType == "ERROR") {
-          showNotification(messageData.message, NotificationType.Error);
-        } else if(messageData.messageType == "INFO") {
+            showNotification(messageData.message, NotificationType.Error);
+        } else if(messageData.messageType == "INFO" || messageData.messageType == "PURCHASE_NOTIFICATION") {
             showNotification(messageData.message, NotificationType.Info);
         } else if(messageData.messageType == "SUCCESS") {
             showNotification(messageData.message, NotificationType.Success);
+        }else if(messageData.messageType == "ORDER_STATUS_NOTIFICATION") {
+            showNotification(messageData.message, NotificationType.Info);
+            populateOrders();
+            populateProducts();
         }
 
         updateNotificationView();

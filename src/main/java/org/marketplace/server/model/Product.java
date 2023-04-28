@@ -66,12 +66,12 @@ public class Product {
         return isAvailable;
     }
 
-    public User getSeller() {
-        return seller;
-    }
-
     public void toggleAvailability() {
         isAvailable = !isAvailable;
+    }
+
+    public User getSeller() {
+        return seller;
     }
 
     public int getId() {

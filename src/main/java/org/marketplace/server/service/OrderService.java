@@ -2,7 +2,10 @@ package org.marketplace.server.service;
 
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.OrderException;
+import org.marketplace.server.common.exceptions.OrderNotFoundException;
+import org.marketplace.server.common.exceptions.UserNotFoundException;
 import org.marketplace.server.model.Order;
+import org.marketplace.server.model.OrderStatus;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.OrderRepository;
@@ -37,15 +40,37 @@ public class OrderService {
         return orders;
     }
 
-    public void removeOrders(List<Order> orders) {
-        for(Order order : orders) {
-            orderRepository.removeOrder(order);
-        }
-    }
-
     public List<Order> getUserOrders(User user) {
         List<Order> allOrders = orderRepository.getAllOrders();
 
         return allOrders.stream().filter(order -> order.getBuyer().getId() == user.getId()).toList();
+    }
+
+    public void updateOrderStatus(Integer orderId, User user, Boolean newOrderStatus) throws OrderException {
+        Order order = orderRepository.findOrderById(orderId);
+
+        if(order == null) {
+            throw new OrderException("Order not found", HttpStatus.NOT_FOUND_404);
+        }
+
+        if(order.getProduct().getSeller().getId() != user.getId()) {
+            throw new OrderException("You are not the owner of this order", HttpStatus.FORBIDDEN_403);
+        }
+
+        if(order.getOrderStatus() == OrderStatus.ACCEPTED) {
+            throw new OrderException("Order already accepted", HttpStatus.CONFLICT_409);
+        }
+
+        orderRepository.updateOrder(order, newOrderStatus);
+    }
+
+    public Order findOrderById(Integer orderId) throws OrderNotFoundException {
+        Order order = orderRepository.findOrderById(orderId);
+
+        if(order == null) {
+            throw new OrderNotFoundException();
+        }
+
+        return order;
     }
 }

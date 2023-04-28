@@ -139,4 +139,32 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    public void updateOrder(Order order, boolean newOrderStatus) {
+        order.setOrderStatus(newOrderStatus);
+        try {
+            saveListToFile(AppConstants.ORDER_TABLE, orderTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void removeNotificationFromUser(User user, Integer notificationIndex) {
+        user.removeNotification(notificationIndex);
+        try {
+            saveListToFile(AppConstants.USER_TABLE, userTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toggleProductAvailability(Product product) {
+        product.toggleAvailability();
+        try {
+            saveListToFile(AppConstants.PRODUCT_TABLE, productTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

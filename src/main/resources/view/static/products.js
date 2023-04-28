@@ -85,19 +85,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const productsHtml = `<h2>Products</h2>` +
             products.map(
                 (product) => {
+                console.log(product);
                     return `
-                   <div class="product">
-                          <h3>${product.productType.name}</h3>
-                          <p>Price: ${product.productPrice}SEK</p>
-                          <p>Condition: ${product.productCondition.description}</p>
-                          <p>Color: ${product.color}</p>
-                          <p>Year of production: ${product.yearOfProduction}</p>
-                          <p>Seller: ${product.seller.username}</p>
-                          <p>Status: ${product.isAvailable ? 'Sold' : 'Available'}</p>
-                          <button onclick="addProductToCart(${product.id})" id="buy-button"
-                            class="buy-button">Add to cart</button>
+                      <div class="product${product.available ? '' : ' sold'}">
+                        <h3>${product.productType.name}</h3>
+                        <p><b>Status: ${product.available ? 'Available' : 'Sold'}</b></p>
+                        <p><b>Price: ${product.productPrice}SEK</b></p>
+                        <p>Condition: ${product.productCondition.description}</p>
+                        <p>Color: ${product.color}</p>
+                        <p>Year of production: ${product.yearOfProduction}</p>
+                        <p>Seller: ${product.seller.username}</p>
+                        ${product.available ?
+                          `<button onclick="addProductToCart(${product.id})" id="buy-button" class="buy-button">Add to cart</button>`
+                          : ''}
                       </div>
-                `;
+                    `;
                 })
             .join("");
         productsSection.innerHTML = productsHtml;

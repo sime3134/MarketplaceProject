@@ -107,4 +107,21 @@ public class UserController {
             ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
         }
     }
+
+    public void removeNotification(Context ctx) {
+        Integer userId = ctx.sessionAttribute("userId") != null ?
+                Integer.valueOf(ctx.sessionAttribute("userId")) : null;
+
+        Integer notificationIndex = Integer.valueOf(ctx.pathParam("notificationIndex"));
+
+        try {
+            User user = userService.findUserById(userId);
+
+            notificationService.removeNotification(user, notificationIndex);
+            ctx.status(HttpStatus.OK_200);
+        } catch (ExceptionWithStatusCode e) {
+            System.out.println(e.getMessage());
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+        }
+    }
 }

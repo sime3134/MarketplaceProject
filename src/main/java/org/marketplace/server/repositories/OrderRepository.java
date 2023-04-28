@@ -3,7 +3,6 @@ package org.marketplace.server.repositories;
 import org.marketplace.server.database.Database;
 import org.marketplace.server.model.Order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderRepository {
@@ -32,5 +31,20 @@ public class OrderRepository {
 
     public void removeOrder(Order order) {
         database.removeOrder(order);
+    }
+
+    public Order findOrderById(Integer orderId) {
+        List<Order> orders = database.getOrderTable();
+
+        for(Order order : orders) {
+            if(order.getId() == orderId) {
+                return order;
+            }
+        }
+        return null;
+    }
+
+    public void updateOrder(Order order, boolean newOrderStatus) {
+        database.updateOrder(order, newOrderStatus);
     }
 }

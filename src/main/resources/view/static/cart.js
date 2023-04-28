@@ -54,7 +54,7 @@ function refreshCart() {
         cartElement.innerHTML += `
             <div class="cart-item">
               <div class="cart-item-details">
-                <h4 class="cart-item-title">${product.productType.name}</h4>
+                <p class="cart-item-title"><b>${product.productType.name}</b></p>
                 <p class="cart-item-price">Price: ${product.productPrice}SEK</p>
                 <p class="cart-item-seller">Seller: ${product.seller.username}</p>
               </div>

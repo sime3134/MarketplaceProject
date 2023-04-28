@@ -36,9 +36,10 @@ public class ProductController {
 
         ProductType productType = productTypeService.findProductTypeById(productTypeId);
 
-        List<Product> filteredProducts = productService.getFilteredProducts(productType, minPrice,
+        List<Product> products = productService.getFilteredProducts(productType, minPrice,
                 maxPrice, condition);
-        ctx.header("Content-type", "application/json").json(filteredProducts);
+        products = productService.orderByStatus(products);
+        ctx.header("Content-type", "application/json").json(products);
     }
 
     public void getAllProductTypes(Context ctx) {

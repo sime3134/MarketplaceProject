@@ -3,5 +3,7 @@ package org.marketplace.server.model;
 public enum MessageType {
     INFO,
     ERROR,
-    SUCCESS
+    SUCCESS,
+    ORDER_STATUS_NOTIFICATION,
+    PURCHASE_NOTIFICATION,
 }

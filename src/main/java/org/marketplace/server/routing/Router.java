@@ -12,12 +12,10 @@ import org.marketplace.server.model.Role;
 
 public class Router {
     private final String apiPrefix = "/api/v1";
-
     private final OrderController orderController;
     private final ProductController productController;
     private final UserController userController;
     private final CartController cartController;
-
     private final ObjectMapper objectMapper;
 
     public Router() {
@@ -61,7 +59,11 @@ public class Router {
 
         app.post(apiPrefix + "/order", orderController::placeOrder, Role.USER);
 
+        app.put(apiPrefix + "/order/{orderId}", orderController::updateOrderAndProductStatus, Role.USER);
+
         app.get(apiPrefix + "/notification", userController::getUserNotifications, Role.USER);
+
+        app.post(apiPrefix + "/notification/{notificationIndex}", userController::removeNotification, Role.USER);
 
         //RENDERING
 

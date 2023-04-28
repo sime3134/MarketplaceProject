@@ -1,8 +1,6 @@
 package org.marketplace.server.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 
@@ -63,5 +61,13 @@ public class Order {
             "emailAddress", "username", "hashedPassword"})
     public User getBuyer() {
         return buyer;
+    }
+
+    public void setOrderStatus(Boolean accepted) {
+        if (accepted) {
+            this.orderStatus = OrderStatus.ACCEPTED;
+        } else {
+            this.orderStatus = OrderStatus.REJECTED;
+        }
     }
 }

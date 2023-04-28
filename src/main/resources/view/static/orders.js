@@ -4,6 +4,30 @@ document.addEventListener("DOMContentLoaded", function () {
     populateOrders();
 });
 
+function makePurchaseDecision(orderId, accepted, notificationIndex) {
+    fetch(`/api/v1/order/${orderId}?accepted=${accepted}&notificationIndex=${notificationIndex}`, {
+        method: "PUT",
+    })
+    .then(async (response) => {
+        if (response.ok) {
+            updateNotificationView();
+            if(accepted) {
+                showNotification("Confirmation was sent to the buyer.", NotificationType.Success);
+                populateProducts();
+            }
+        } else {
+            response.json().then((data) => {
+                showNotification(data.message, NotificationType.Error);
+                console.error(data.message);
+            });
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
+    });
+    }
+
 function populateOrders() {
     fetch("/api/v1/order")
     .then(async (response) => response.json())

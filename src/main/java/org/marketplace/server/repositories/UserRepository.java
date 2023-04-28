@@ -32,4 +32,8 @@ public class UserRepository {
     public void addNotification(User user, Notification notification) {
         database.addNotificationToUser(user, notification);
     }
+
+    public void removeNotification(User user, Integer notificationIndex) {
+        database.removeNotificationFromUser(user, notificationIndex);
+    }
 }

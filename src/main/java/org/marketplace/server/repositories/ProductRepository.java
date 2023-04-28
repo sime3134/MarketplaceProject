@@ -32,4 +32,8 @@ public class ProductRepository {
     public void addNewProduct(Product product) {
         database.addProduct(product);
     }
+
+    public void toggleProductAvailability(Product product) {
+        database.toggleProductAvailability(product);
+    }
 }

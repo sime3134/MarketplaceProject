@@ -28,7 +28,9 @@ function showNotification(message, type) {
 }
 
 function updateNotificationView() {
-  const notificationsList = document.getElementById('notificationsList');
+    let numberOfNotifications = 0;
+    const notificationsList = document.getElementById('notificationsList');
+    const notificationCount = document.getElementById('numberOfNotifications');
     notificationsList.innerHTML = "";
 
     fetch ('/api/v1/notification', {
@@ -46,22 +48,61 @@ function updateNotificationView() {
     })
     .then(data => {
         data.forEach(notification => {
-            notificationsList.innerHTML += `
-                <div class="cart-item">
-                  <div class="cart-item-details">
-                    <h4 class="cart-item-title">${notification.message}</h4>
-                    <p class="cart-item-price">Buyer: ${notification.buyerUsername}</p>
-                    <p class="cart-item-seller">Product: ${notification.productName} for ${notification
-                    .productPrice}SEK</p>
-                  </div>
-                  <button onclick="" id="cart-item-accept">Accept</button>
-                  <button onclick="" id="cart-item-remove">Reject</button>
-                </div>
-            `;
+            notificationsList.innerHTML +=
+                getNotificationHtml(notification, numberOfNotifications);
+            numberOfNotifications++;
         });
+        notificationCount.innerHTML = `(${numberOfNotifications})`;
     })
     .catch(error => {
         console.error('Unable to get notifications.', error);
         showNotification("Could not refresh notifications. Please reload the page.", NotificationType.Error);
+    });
+}
+
+function getNotificationHtml(notification, notificationIndex) {
+    if(notification.notificationType == "purchaseNotification") {
+        return `
+        <div class="cart-item">
+          <div class="cart-item-details">
+            <p class="cart-item-title"><b>${notification.message}</b></p>
+            <p class="cart-item-price">Buyer: ${notification.buyerUsername}</p>
+            <p class="cart-item-seller">Product: ${notification.productName}</p>
+            <p class="cart-item-seller">Price: ${notification.productPrice}SEK</p>
+          </div>
+          <div class="cart-item-buttons">
+              <button onclick="makePurchaseDecision(${notification.orderId}, true, ${notificationIndex})"
+              id="cart-item-accept">Accept</button>
+              <button onclick="makePurchaseDecision(${notification.orderId}, false, ${notificationIndex})"
+              id="cart-item-remove">Reject</button>
+          </div>
+        </div>
+        `;
+    } else if(notification.notificationType == "orderStatusNotification") {
+        return `
+        <div class="cart-item">
+          <div class="cart-item-details">
+            <p class="cart-item-title"><b>${notification.message}</b></p>
+          </div>
+          <div class="cart-item-buttons">
+              <button onclick="removeNotification(${notificationIndex})" id="cart-item-remove">X</button>
+          </div>
+        </div>
+        `;
+    }
+}
+
+function removeNotification(notificationIndex) {
+    fetch(`/api/v1/notification/${notificationIndex}`, {
+        method: 'POST',
+    })
+    .then(response => {
+        if(response.ok) {
+            updateNotificationView();
+        } else {
+            return response.json().then(data => {
+                showNotification(data.message, NotificationType.Error);
+            });
+        }
     });
 }

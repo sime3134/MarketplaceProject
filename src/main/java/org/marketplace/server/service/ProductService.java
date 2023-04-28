@@ -10,6 +10,7 @@ import org.marketplace.server.model.ProductType;
 import org.marketplace.server.service.filters.*;
 import org.marketplace.server.service.pipelines.ProductPipeline;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService {
@@ -68,5 +69,28 @@ public class ProductService {
         productValidator.validateColor(color);
 
         productRepository.addNewProduct(new Product(productType, price, yearOfProduction, color, productCondition, user));
+    }
+
+    public void toggleProductAvailability(int id) throws ProductNotFoundException {
+        Product product = findProductById(id);
+        productRepository.toggleProductAvailability(product);
+    }
+
+    public List<Product> orderByStatus(List<Product> products) {
+        List<Product> mutableList = new ArrayList<>(products);
+        if(mutableList.isEmpty()) {
+            return mutableList;
+        }
+
+        mutableList.sort((p1, p2) -> {
+            if(p1.isAvailable() && !p2.isAvailable()) {
+                return -1;
+            }
+            if(!p1.isAvailable() && p2.isAvailable()) {
+                return 1;
+            }
+            return 0;
+        });
+        return mutableList;
     }
 }
