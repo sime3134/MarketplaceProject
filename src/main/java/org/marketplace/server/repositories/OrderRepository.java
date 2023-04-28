@@ -29,4 +29,8 @@ public class OrderRepository {
     public void addNewOrder(Order order) {
         database.addOrder(order);
     }
+
+    public void removeOrder(Order order) {
+        database.removeOrder(order);
+    }
 }

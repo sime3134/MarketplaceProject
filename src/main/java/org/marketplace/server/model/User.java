@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.marketplace.server.common.Observable;
 import org.marketplace.server.common.Observer;
+import org.marketplace.server.model.notifications.Notification;
+import org.marketplace.server.model.notifications.SubscriptionNotification;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class User implements Observer {
 
     private static int nextId = 0;
 
-    private List<String> notifications;
+    private List<Notification> notifications;
 
     private ShoppingCart shoppingCart;
 
@@ -34,7 +36,7 @@ public class User implements Observer {
                 @JsonProperty("dateOfBirth") JsonNode dateOfBirth,
                 @JsonProperty("username") String username,
                 @JsonProperty("hashedPassword") String hashedPassword,
-                @JsonProperty("notifications") List<String> notifications,
+                @JsonProperty("notifications") List<Notification> notifications,
                 @JsonProperty("id") int id) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -93,13 +95,13 @@ public class User implements Observer {
         return id;
     }
 
-    public List<String> getNotifications() {
+    public List<Notification> getNotifications() {
         return notifications;
     }
 
     @Override
     public void update(Observable observable) {
-        notifications.add("A product type that you have subscribed to has been added to the marketplace.");
+        notifications.add(new SubscriptionNotification());
         //TODO: web socket call to notify the user
     }
     @JsonIgnore
@@ -111,5 +113,9 @@ public class User implements Observer {
         if (maxId >= nextId) {
             nextId = maxId + 1;
         }
+    }
+
+    public void addNotification(Notification notification) {
+        notifications.add(notification);
     }
 }

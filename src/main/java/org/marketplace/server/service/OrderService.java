@@ -28,12 +28,19 @@ public class OrderService {
 
         for(Product product : user.getCart().getProducts()) {
             Order order = new Order(LocalDateTime.now(), user, product);
+
             orderRepository.addNewOrder(order);
             orders.add(order);
         }
         user.getCart().getProducts().clear();
 
         return orders;
+    }
+
+    public void removeOrders(List<Order> orders) {
+        for(Order order : orders) {
+            orderRepository.removeOrder(order);
+        }
     }
 
     public List<Order> getUserOrders(User user) {

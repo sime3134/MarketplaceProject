@@ -14,11 +14,11 @@ function logout() {
           window.location.href = "/login";
         } else {
           // Handle error or show a message to the user.
-          console.error("Logout failed.");
+          throw new Error();
         }
       })
       .catch((error) => {
         // Handle network errors or other issues.
-        console.error("Error during logout:", error);
+        showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
       });
   }

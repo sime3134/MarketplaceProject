@@ -67,14 +67,14 @@ function refreshOrders() {
                     return true;
                   } else {
                     return response.json().then(data => {
-                        showError(error.message, ErrorType.Error);
+                        showNotification(data.message, NotificationType.Error);
                         return false;
                     });
                   }
                 })
                 .catch(error => {
                   console.error(error.message);
-                  showError("Something went wrong on the server. Please try again later!", ErrorType.Error);
+                  showNotification("Something went wrong on the server. Please try again later!", NotificationType.Error);
                   return false;
                 });
             };

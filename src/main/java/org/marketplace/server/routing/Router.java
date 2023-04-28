@@ -1,5 +1,8 @@
 package org.marketplace.server.routing;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.javalin.Javalin;
 import org.marketplace.server.controller.CartController;
 import org.marketplace.server.controller.OrderController;
@@ -13,14 +16,22 @@ public class Router {
     private final OrderController orderController;
     private final ProductController productController;
     private final UserController userController;
-
     private final CartController cartController;
 
+    private final ObjectMapper objectMapper;
+
     public Router() {
-        orderController = new OrderController();
+        objectMapper = new ObjectMapper();
+        setupObjectMapper();
+        orderController = new OrderController(objectMapper);
         productController = new ProductController();
-        userController = new UserController();
+        userController = new UserController(objectMapper);
         cartController = new CartController();
+    }
+
+    private void setupObjectMapper() {
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     public void setupEndpoints(Javalin app) {
@@ -33,6 +44,8 @@ public class Router {
         app.get(apiPrefix + "/product_type", productController::getAllProductTypes, Role.USER);
 
         app.post(apiPrefix + "/login", userController::handleUserAuthentication, Role.ANYONE);
+
+        app.ws(apiPrefix + "/connect", userController::handleUserConnection, Role.USER);
 
         app.post(apiPrefix + "/register", userController::handleUserRegistration, Role.ANYONE);
 
@@ -47,6 +60,8 @@ public class Router {
         app.get(apiPrefix + "/order", orderController::getUserOrders, Role.USER);
 
         app.post(apiPrefix + "/order", orderController::placeOrder, Role.USER);
+
+        app.get(apiPrefix + "/notification", userController::getUserNotifications, Role.USER);
 
         //RENDERING
 

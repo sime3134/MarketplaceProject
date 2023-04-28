@@ -88,9 +88,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     return `
                    <div class="product">
                           <h3>${product.productType.name}</h3>
-                          <p>Price: ${product.productPrice}</p>
+                          <p>Price: ${product.productPrice}SEK</p>
                           <p>Condition: ${product.productCondition.description}</p>
                           <p>Color: ${product.color}</p>
+                          <p>Year of production: ${product.yearOfProduction}</p>
                           <p>Seller: ${product.seller.username}</p>
                           <p>Status: ${product.isAvailable ? 'Sold' : 'Available'}</p>
                           <button onclick="addProductToCart(${product.id})" id="buy-button"
@@ -115,6 +116,7 @@ function addNewProduct() {
             const productForm = document.getElementById('product-form');
             productForm.reset();
             populateProducts();
+            showNotification("Product added successfully", NotificationType.Success);
         }
     });
 }
@@ -132,9 +134,9 @@ const addNewProductToServer = async () => {
             formData.append(element.name, element.value);
           }else {
             if(element.placeholder) {
-                showError(element.placeholder + " is required", ErrorType.Error);
+                showNotification(element.placeholder + " is required", NotificationType.Error);
             }else if(element.dataset.placeholder) {
-                showError(element.dataset.placeholder + " is required", ErrorType.Error);
+                showNotification(element.dataset.placeholder + " is required", NotificationType.Error);
             }
           }
         }
@@ -149,15 +151,14 @@ const addNewProductToServer = async () => {
               return true;
             } else {
               return response.json().then(data => {
-              console.log(data);
-                showError(error.message, ErrorType.Error);
+                showNotification(data.message, NotificationType.Error);
                 return false;
               });
             }
           })
           .catch(error => {
             console.error(error.message);
-            showError("Something went wrong on the server. Please try again later.", ErrorType.Error);
+            showNotification("Something went wrong on the server. Please try again later.", NotificationType.Error);
             return false;
           });
  }

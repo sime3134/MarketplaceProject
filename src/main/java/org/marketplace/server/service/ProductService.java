@@ -1,13 +1,12 @@
 package org.marketplace.server.service;
 
-import org.eclipse.jetty.http.HttpStatus;
+import org.marketplace.server.common.exceptions.IllegalProductArgumentException;
 import org.marketplace.server.common.exceptions.ProductNotFoundException;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.ProductCondition;
 import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.ProductRepository;
 import org.marketplace.server.model.ProductType;
-import org.marketplace.server.common.exceptions.ProductException;
 import org.marketplace.server.service.filters.*;
 import org.marketplace.server.service.pipelines.ProductPipeline;
 
@@ -17,8 +16,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ProductValidator productValidator;
+
     public ProductService() {
         productRepository = ProductRepository.getInstance();
+        productValidator = new ProductValidator();
     }
     public List<Product> getFilteredProducts(ProductType productType, Double minPrice, Double maxPrice,
                                                      String condition) {
@@ -59,7 +61,12 @@ public class ProductService {
     }
 
     public void addProduct(ProductType productType, User user, Double price, String yearOfProduction,
-                           String color, ProductCondition productCondition) {;
+                           String color, ProductCondition productCondition) throws IllegalProductArgumentException {
+
+        productValidator.validatePrice(price);
+        productValidator.validateYearOfProduction(yearOfProduction);
+        productValidator.validateColor(color);
+
         productRepository.addNewProduct(new Product(productType, price, yearOfProduction, color, productCondition, user));
     }
 }

@@ -7,6 +7,7 @@ import org.marketplace.server.common.AppConstants;
 import org.marketplace.server.model.*;
 import org.marketplace.server.model.deserializers.OrderDeserializer;
 import org.marketplace.server.model.deserializers.ProductDeserializer;
+import org.marketplace.server.model.notifications.PurchaseNotification;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,6 +69,12 @@ public class DatabaseLoader {
                 user5
         ));
 
+        try {
+            database.saveListToFile(AppConstants.USER_TABLE, database.getUserTable());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         ProductType productType1 = new ProductType("Macbook Pro");
         ProductType productType2 = new ProductType("Macbook Air");
         ProductType productType3 = new ProductType("Macbook");
@@ -88,6 +95,12 @@ public class DatabaseLoader {
                 productType8,
                 productType9
         ));
+
+        try {
+            database.saveListToFile(AppConstants.PRODUCT_TYPE_TABLE, database.getProductTypeTable());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         Product product1 = new Product(productType1, 8900, "2018", "White", ProductCondition.GOOD, user4);
         Product product2 = new Product(productType1, 2500, "2018", "Black", ProductCondition.NOT_WORKING, user3);
@@ -113,14 +126,26 @@ public class DatabaseLoader {
                 product10
         ));
 
+        try {
+            database.saveListToFile(AppConstants.PRODUCT_TABLE, database.getProductTable());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         Order order1 = new Order(LocalDateTime.now(), user1, product1);
 
         database.getOrderTable().add(order1);
+
+        try {
+            database.saveListToFile(AppConstants.ORDER_TABLE, database.getOrderTable());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void loadUserListFromFile(String filename) throws IOException {
         File file = new File(filename);
-        if (!file.exists()) {
+        if (!file.exists() || file.length() == 0) {
             return;
         }
         List<User> list = objectMapper.readValue(file, new TypeReference<>() {});
@@ -131,7 +156,7 @@ public class DatabaseLoader {
 
     private void loadProductListFromFile(String filename) throws IOException {
         File file = new File(filename);
-        if (!file.exists()) {
+        if (!file.exists() || file.length() == 0) {
             return;
         }
 
@@ -143,7 +168,7 @@ public class DatabaseLoader {
 
     private void loadProductTypeListFromFile(String filename) throws IOException {
         File file = new File(filename);
-        if (!file.exists()) {
+        if (!file.exists() || file.length() == 0) {
             return;
         }
 
@@ -155,7 +180,7 @@ public class DatabaseLoader {
 
     private void loadOrderListFromFile(String filename) throws IOException {
         File file = new File(filename);
-        if (!file.exists()) {
+        if (!file.exists() || file.length() == 0) {
             return;
         }
 

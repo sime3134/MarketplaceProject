@@ -1,6 +1,6 @@
 package org.marketplace.server.model.deserializers;
 
-import com.fasterxml.jackson.core.JacksonException;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -46,6 +46,7 @@ public class OrderDeserializer extends JsonDeserializer<Order> {
                 return product;
             }
         }
+        System.out.println("Product with id " + productId + " not found");
         return null;
     }
 
@@ -55,6 +56,7 @@ public class OrderDeserializer extends JsonDeserializer<Order> {
                 return user;
             }
         }
+        System.out.println("User with id " + sellerId + " not found");
         return null;
     }
 }

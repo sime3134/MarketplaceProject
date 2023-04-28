@@ -13,18 +13,21 @@ import java.time.format.DateTimeParseException;
 public class UserRegistrationService {
     private final UserRepository userRepository;
 
+    private final UserValidator userValidator;
+
     public UserRegistrationService() {
         userRepository = UserRepository.getInstance();
+        userValidator = new UserValidator();
     }
 
     public User register(String firstName, String lastName, String email, String dateOfBirth, String username,
                          String password) throws UserRegistrationException {
-        UserValidator.validateUsername(username);
-        UserValidator.validatePassword(password);
-        UserValidator.validateFirstName(firstName);
-        UserValidator.validateLastName(lastName);
-        UserValidator.validateEmail(email);
-        UserValidator.validateDateOfBirth(dateOfBirth);
+        userValidator.validateUsername(username);
+        userValidator.validatePassword(password);
+        userValidator.validateFirstName(firstName);
+        userValidator.validateLastName(lastName);
+        userValidator.validateEmail(email);
+        userValidator.validateDateOfBirth(dateOfBirth);
         LocalDate parsedDateOfBirth;
         try{
             parsedDateOfBirth = DateParser.parse(dateOfBirth);

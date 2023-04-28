@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
        })
          .catch((error) => {
             console.error(error);
-            showError(error.message, ErrorType.Warning);
+            showNotification(error.message, NotificationType.Warning);
          });
     }
 
@@ -55,7 +55,7 @@ function refreshCart() {
             <div class="cart-item">
               <div class="cart-item-details">
                 <h4 class="cart-item-title">${product.productType.name}</h4>
-                <p class="cart-item-price">Price: ${product.productPrice}</p>
+                <p class="cart-item-price">Price: ${product.productPrice}SEK</p>
                 <p class="cart-item-seller">Seller: ${product.seller.username}</p>
               </div>
               <button onclick="removeProductFromCart(${product.id})" id="cart-item-remove">Remove</button>
@@ -94,13 +94,13 @@ function refreshCart() {
                 return true;
               } else {
                 return response.json().then(data => {
-                    showError(error.message, ErrorType.Error);
+                    showNotification(data.message, NotificationType.Error);
                     return false;
               });
             }
             })
             .catch(error => {
-                showError("Something went wrong on the server. Please try again later.", ErrorType.Error);
+                showError("Something went wrong on the server. Please try again later.", NotificationType.Error);
                 console.error(error.message);
                 return false;
             });
@@ -113,13 +113,16 @@ function refreshCart() {
                 });
 
                 if (!response.ok) {
-                  showError(error.message, ErrorType.Error);
-                  return false;
+                    return response.json().then(data => {
+                        showNotification(data.message, NotificationType.Error);
+                        return false;
+                    });
                 }
                 return true;
               } catch (error) {
                 console.error("Error updating cart:", error);
-                showError("Something went wrong on the server. Please try again later.", ErrorType.Error);
+                showNotification("Something went wrong on the server. Please try again later.", NotificationType
+                .Error);
                 return false;
               }
             };

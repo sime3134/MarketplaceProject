@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.marketplace.server.common.AppConstants;
 import org.marketplace.server.model.*;
+import org.marketplace.server.model.notifications.Notification;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,21 +44,21 @@ public class Database {
         return userTable.stream().filter(user1 -> user1.getUsername().equals(username)).findFirst().orElse(null);
     }
 
-    public synchronized User findUserById(int id) {
-        return userTable.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
+    public synchronized User findUserById(Integer id) {
+        return id != null ?userTable.stream().filter(user -> user.getId() == id).findFirst().orElse(null) : null;
     }
 
     public synchronized void addUser(User newUser) {
         userTable.add(newUser);
         try {
-                saveListToFile("src/main/resources/database/" + AppConstants.USER_TABLE, userTable);
+            saveListToFile(AppConstants.USER_TABLE, userTable);
         } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private synchronized  <T> void saveListToFile(String filename, List<T> list) throws IOException {
-        File file = new File(filename);
+    public synchronized  <T> void saveListToFile(String filename, List<T> list) throws IOException {
+        File file = new File("src/main/resources/database/" + filename);
         objectMapper.writeValue(file, list);
     }
 
@@ -76,7 +77,7 @@ public class Database {
     public synchronized void addOrder(Order order) {
         orderTable.add(order);
         try {
-            saveListToFile("src/main/resources/database/" + AppConstants.ORDER_TABLE, orderTable);
+            saveListToFile(AppConstants.ORDER_TABLE, orderTable);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -85,7 +86,7 @@ public class Database {
     public synchronized void addProduct(Product product) {
         productTable.add(product);
         try {
-            saveListToFile("src/main/resources/database/" + AppConstants.PRODUCT_TABLE, productTable);
+            saveListToFile(AppConstants.PRODUCT_TABLE, productTable);
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,7 +95,7 @@ public class Database {
     public synchronized void addProductType(ProductType productType) {
         productTypeTable.add(productType);
         try {
-            saveListToFile("src/main/resources/database/" + AppConstants.PRODUCT_TYPE_TABLE, productTypeTable);
+            saveListToFile(AppConstants.PRODUCT_TYPE_TABLE, productTypeTable);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,5 +120,23 @@ public class Database {
     public ProductType getProductTypeById(Integer id) {
         return id != null ?
                 productTypeTable.stream().filter(productType -> productType.getId() == id).findFirst().orElse(null) : null;
+    }
+
+    public void removeOrder(Order order) {
+        orderTable.remove(order);
+        try {
+            saveListToFile(AppConstants.ORDER_TABLE, orderTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addNotificationToUser(User user, Notification notification) {
+        user.addNotification(notification);
+        try {
+            saveListToFile(AppConstants.USER_TABLE, userTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

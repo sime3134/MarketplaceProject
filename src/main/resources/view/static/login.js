@@ -25,13 +25,12 @@ function handleLogin(event) {
       window.location.href = '/';
     } else if (response.status === 401) {
       const errorResponse = await response.json();
-      console.log('Error response:', errorResponse);
-      showError(errorResponse.message, ErrorType.Error);
+      showNotification(errorResponse.message, NotificationType.Error);
     } else {
       throw new Error('Something went wrong on the server. Try again later!');
     }
   })
   .catch(error => {
-    showError(error.message, ErrorType.Warning);
+    showNotification(error.message, NotificationType.Warning);
   });
 }

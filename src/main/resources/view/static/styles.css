@@ -303,16 +303,30 @@ main {
   background-color: #c0392b;
 }
 
-/* Error message container */
-#error-container {
+#cart-item-accept {
+  background-color: #2ecc71;
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+#cart-item-accept:hover {
+  background-color: #27ae60;
+}
+
+/* notification message container */
+#notification-container {
   position: fixed;
-  top: 20px;
+  top: 100px;
   right: 20px;
   z-index: 1000;
 }
 
-/* Error message */
-.error-message {
+/* notification message */
+.notification-message {
   display: flex;
   align-items: center;
   padding: 10px 15px;
@@ -323,17 +337,17 @@ main {
   color: white;
 }
 
-/* Info error type */
-.error-message.info {
+/* Info notification type */
+.notification-message.info {
   background-color: rgb(59 130 246);
 }
 
-/* Error error type */
-.error-message.error {
+/* Error notification type */
+.notification-message.error {
   background-color: rgb(239 68 68);
 }
 
-/* Success error type */
-.error-message.success {
+/* Success notification type */
+.notification-message.success {
   background-color: rgb(34 197 94);;
 }
