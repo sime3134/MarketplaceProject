@@ -1,52 +1,6 @@
 [ {
   "id" : 0,
-  "timestamp" : [ 2023, 4, 28, 17, 30, 58 ],
-  "buyer" : {
-    "id" : 4
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Iphone 11",
-      "id" : 4
-    },
-    "productPrice" : 1000.0,
-    "seller" : {
-      "firstName" : "Simon",
-      "lastName" : "Jern",
-      "username" : "simon.jern",
-      "id" : 0
-    },
-    "id" : 2
-  },
-  "orderStatus" : {
-    "status" : "Accepted"
-  }
-}, {
-  "id" : 1,
-  "timestamp" : [ 2023, 4, 28, 18, 3, 45 ],
-  "buyer" : {
-    "id" : 4
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Macbook",
-      "id" : 2
-    },
-    "productPrice" : 2000.0,
-    "seller" : {
-      "firstName" : "Simon",
-      "lastName" : "Jern",
-      "username" : "simon.jern",
-      "id" : 0
-    },
-    "id" : 8
-  },
-  "orderStatus" : {
-    "status" : "Accepted"
-  }
-}, {
-  "id" : 2,
-  "timestamp" : [ 2023, 4, 30, 16, 29 ],
+  "timestamp" : "2023-05-01T01:34:39.7996099",
   "buyer" : {
     "id" : 0
   },
@@ -63,52 +17,6 @@
       "id" : 3
     },
     "id" : 0
-  },
-  "orderStatus" : {
-    "status" : "Accepted"
-  }
-}, {
-  "id" : 3,
-  "timestamp" : [ 2023, 4, 30, 16, 35, 4 ],
-  "buyer" : {
-    "id" : 0
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Macbook Pro",
-      "id" : 0
-    },
-    "productPrice" : 2500.0,
-    "seller" : {
-      "firstName" : "Erik",
-      "lastName" : "Larsson",
-      "username" : "erik.larsson",
-      "id" : 2
-    },
-    "id" : 1
-  },
-  "orderStatus" : {
-    "status" : "Pending"
-  }
-}, {
-  "id" : 4,
-  "timestamp" : [ 2023, 4, 30, 17, 7, 15 ],
-  "buyer" : {
-    "id" : 0
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Samsung Galaxy S23",
-      "id" : 8
-    },
-    "productPrice" : 6300.0,
-    "seller" : {
-      "firstName" : "Johan",
-      "lastName" : "Salomonsson",
-      "username" : "johan.salomonsson",
-      "id" : 1
-    },
-    "id" : 5
   },
   "orderStatus" : {
     "status" : "Pending"

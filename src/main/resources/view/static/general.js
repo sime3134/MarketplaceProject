@@ -16,8 +16,8 @@ function connectUser() {
             showNotification(messageData.message, NotificationType.Success);
         }else if(messageData.messageType == "ORDER_STATUS_NOTIFICATION") {
             showNotification(messageData.message, NotificationType.Info);
-            populateOrders();
-            populateProducts();
+            orders.populateOrders();
+            products.populateProducts();
         }
 
         updateNotificationView();

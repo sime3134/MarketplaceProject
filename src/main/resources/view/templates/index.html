@@ -31,6 +31,7 @@
         <ul class="tabs">
             <li class="tab active" data-tab="buy">Buy</li>
             <li class="tab" data-tab="sell">Sell</li>
+            <li class="tab" data-tab="subscription">Subscriptions</li>
             <li class="tab" data-tab="history">History</li>
         </ul>
     </div>
@@ -60,7 +61,7 @@
 
     <section id="sell" class="tab-content sell">
         <h2>Sell</h2>
-        <form id="product-form">
+        <form id="sell-form">
             <select name="productTypeId" id="product-type2" data-placeholder="Product type" required>
                 <option value="">Select product type</option>
                 <!-- Add product types here -->
@@ -77,6 +78,12 @@
             </select>
             <button type="submit">Sell Product</button>
         </form>
+    </section>
+
+    <section id="subscription" class="tab-content search">
+        <h2>Subscriptions</h2>
+        <div id="subscriptions">
+        </div>
     </section>
 
     <section id="history" class="tab-content search">
@@ -98,9 +105,9 @@
 <script src="general.js"></script>
 <script src="notification.js"></script>
 <script src="orders.js"></script>
+<script src="products.js"></script>
 <script src="cart.js"></script>
 <script src="logout.js"></script>
 <script src="tabs.js"></script>
-<script src="products.js"></script>
 </body>
 </html>

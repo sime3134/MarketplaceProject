@@ -16,8 +16,9 @@ public class ServerLauncher {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
-        // Configure Javalin to use the custom ObjectMapper
+        // Configure Javalin to use our custom ObjectMapper
         JavalinJackson jj = new JavalinJackson(objectMapper);
 
         Javalin app = Javalin.create(config -> {

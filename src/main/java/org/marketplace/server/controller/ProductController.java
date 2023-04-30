@@ -74,5 +74,19 @@ public class ProductController {
 
     }
 
+    public void getProduct(Context ctx) {
+        Integer productId = ctx.pathParam("productId") != null ? Integer.parseInt(ctx.pathParam("productId")) : null;
 
+        try {
+            Product product = productService.findProductById(productId);
+            ctx.header("Content-type", "application/json").json(product);
+        } catch (ExceptionWithStatusCode e) {
+            System.out.println(e.getMessage());
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            ctx.status(HttpStatus.NOT_FOUND_404).json(new ErrorResponse("Something went wrong trying to get the " +
+                    "product"));
+        }
+    }
 }

@@ -25,10 +25,10 @@ public class OrderController {
 
     private final FormValidator formValidator;
 
-    public OrderController(ObjectMapper objectMapper) {
+    public OrderController() {
         orderService = new OrderService();
         userService = new UserService();
-        notificationService = NotificationService.getInstance(objectMapper);
+        notificationService = NotificationService.getInstance();
         productService = new ProductService();
         formValidator = new FormValidator();
     }

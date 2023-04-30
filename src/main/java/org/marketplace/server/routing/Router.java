@@ -16,20 +16,12 @@ public class Router {
     private final ProductController productController;
     private final UserController userController;
     private final CartController cartController;
-    private final ObjectMapper objectMapper;
 
     public Router() {
-        objectMapper = new ObjectMapper();
-        setupObjectMapper();
-        orderController = new OrderController(objectMapper);
+        orderController = new OrderController();
         productController = new ProductController();
-        userController = new UserController(objectMapper);
+        userController = new UserController();
         cartController = new CartController();
-    }
-
-    private void setupObjectMapper() {
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.registerModule(new JavaTimeModule());
     }
 
     public void setupEndpoints(Javalin app) {
@@ -39,7 +31,9 @@ public class Router {
 
         app.post(apiPrefix + "/product", productController::addProduct, Role.USER);
 
-        app.get(apiPrefix + "/product_type", productController::getAllProductTypes, Role.USER);
+        app.get(apiPrefix + "/product/{productId}", productController::getProduct, Role.USER);
+
+        app.get(apiPrefix + "/product-type", productController::getAllProductTypes, Role.USER);
 
         app.post(apiPrefix + "/login", userController::handleUserAuthentication, Role.ANYONE);
 

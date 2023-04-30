@@ -28,10 +28,7 @@ public class OrderDeserializer extends JsonDeserializer<Order> {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
         int id = node.get("id").asInt();
-        JsonNode dateTimeNode = node.get("timestamp");
-        LocalDateTime date = LocalDateTime.of(dateTimeNode.get(0).asInt(), dateTimeNode.get(1).asInt(),
-                dateTimeNode.get(2).asInt(), dateTimeNode.get(3).asInt(), dateTimeNode.get(4).asInt(),
-                dateTimeNode.get(5) != null ? dateTimeNode.get(5).asInt() : 0);
+        LocalDateTime date = LocalDateTime.parse(node.get("timestamp").asText());
         int buyerId = node.get("buyer").get("id").asInt();
         User buyer = findUserById(buyerId);
         int productId = node.get("product").get("id").asInt();

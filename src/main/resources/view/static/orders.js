@@ -1,131 +1,142 @@
-let orders = [];
+const orders = {
+    orderList: [],
 
-const orderSearchForm = document.querySelector("#order-search-form");
-if(orderSearchForm) {
-    orderSearchForm.addEventListener("submit", handleOrderSearch);
-} else {
-    console.error("Could not find order search form!");
-}
+    async init() {
+        this.registerEventListeners();
+        await this.populateOrders();
+    },
 
-document.addEventListener("DOMContentLoaded", function () {
-    populateOrders();
-});
+    registerEventListeners() {
+        const orderSearchForm = document.querySelector("#order-search-form");
 
-function handleOrderSearch() {
-    event.preventDefault(); // Prevent form submission and page reload
-    populateOrders();
-}
-
-function makePurchaseDecision(orderId, accepted, notificationIndex) {
-    fetch(`/api/v1/order/${orderId}?accepted=${accepted}&notificationIndex=${notificationIndex}`, {
-        method: "PUT",
-    })
-    .then(async (response) => {
-        if (response.ok) {
-            updateNotificationView();
-            if(accepted) {
-                showNotification("Confirmation was sent to the buyer.", NotificationType.Success);
-                populateProducts();
-            }
+        if (orderSearchForm) {
+            orderSearchForm.addEventListener("submit", this.handleOrderSearch.bind(this));
         } else {
-            response.json().then((data) => {
+            console.error("Could not find order search form!");
+        }
+    },
+
+    async handleOrderSearch(event) {
+        event.preventDefault(); // Prevent form submission and page reload
+        await this.populateOrders();
+    },
+
+    async populateOrders() {
+        try {
+            const startDateField = document.querySelector("#start-date");
+            const endDateField = document.querySelector("#end-date");
+            const response = await fetch(`/api/v1/order?startDate=${startDateField.value}&endDate=${endDateField.value}`, {
+                method: "GET",
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                this.orderList = [];
+                if (data.length > 0) {
+                    data.map((order) => {
+                        this.orderList.push(order);
+                    });
+                }
+                this.refreshOrders();
+            } else {
+                const data = await response.json();
                 showNotification(data.message, NotificationType.Error);
                 console.error(data.message);
-            });
-        }
-    })
-    .catch((error) => {
-        console.error(error);
-        showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
-    });
-}
-
-async function populateOrders() {
-    try {
-        const startDateField = document.querySelector("#start-date");
-        const endDateField = document.querySelector("#end-date");
-        const response = await fetch(`/api/v1/order?startDate=${startDateField.value}&endDate=${endDateField.value}`, {
-            method: "GET",
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            orders = [];
-            if (data.length > 0) {
-                data.map((order) => {
-                    orders.push(order);
-                });
             }
-            refreshOrders();
+        } catch (error) {
+            console.error(error);
+            showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
+        }
+    },
+
+    refreshOrders() {
+        const ordersSection = document.querySelector("#orders");
+        if (this.orderList.length > 0) {
+            const ordersHtml = `<h2>Orders</h2>` +
+                this.orderList
+                    .map((order) => {
+                        const orderDate = new Date(order.timestamp);
+
+                        // Format the date and time
+                        const formattedDate = orderDate.toLocaleDateString();
+                        const formattedTime = orderDate.toLocaleTimeString();
+
+                        return `
+                            <div class="order">
+                                <h3>Order ID: ${order.id}</h3>
+                                <p>Ordered at: ${formattedDate}, ${formattedTime}</p>
+                                <p>Order Total: ${order.product.productPrice}</p>
+                                <p>Order Status: ${order.orderStatus.status}</p>
+                                <p>Order Item: ${order.product.productType.name}</p>
+                                <p style="padding-left: 20px">Seller: ${order.product.seller.username}</p>
+                                <p style="padding-left: 20px">Price: ${order.product.productPrice}</p>
+                            </div>
+                        `;
+                    })
+                    .join("");
+            ordersSection.innerHTML = ordersHtml;
         } else {
-            const data = await response.json();
-            showNotification(data.message, NotificationType.Error);
-            console.error(data.message);
+            ordersSection.innerHTML = `
+            <h2>Orders</h2>
+            <p>No orders found</p>`;
         }
-    } catch (error) {
-        console.error(error);
-        showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
-    }
-}
+    },
 
-function refreshOrders() {
-    const ordersSection = document.querySelector("#orders");
-    if(orders.length > 0) {
-    const ordersHtml = `<h2>Orders</h2>` +
-    orders
-        .map(
-            (order) => {
-                return `
-                <div class="order">
-                    <h3>Order ID: ${order.id}</h3>
-                    <p>Ordered at: ${order.timestamp[0]}-${order.timestamp[1]}-${order.timestamp[2]}, ${order
-                    .timestamp[3]}.${order.timestamp[4]}</p>
-                    <p>Order Total: ${order.product.productPrice}</p>
-                    <p>Order Status: ${order.orderStatus.status}</p>
-                    <p>Order Item: ${order.product.productType.name}</p>
-                    <p style="padding-left: 20px">Seller: ${order.product.seller.username}</p>
-                    <p style="padding-left: 20px">Price: ${order.product.productPrice}</p>
-                </div>
-            `;
-            })
-        .join("");
-    ordersSection.innerHTML = ordersHtml;
-    } else {
-        ordersSection.innerHTML = `
-        <h2>Orders</h2>
-        <p>No orders found</p>`;
-    }
-}
+    async makePurchaseDecision(orderId, accepted, notificationIndex) {
+        try {
+            const response = await fetch(`/api/v1/order/${orderId}?accepted=${accepted}&notificationIndex=${notificationIndex}`, {
+                method: "PUT",
+            });
 
- function placeOrder() {
-    placeOrderOnServer()
-        .then((success) => {
-            if(success) {
-                cart = [];
-                refreshCart();
-                populateOrders();
-                showNotification("Order placed successfully!", NotificationType.Success);
+            if (response.ok) {
+                updateNotificationView();
+                if (accepted) {
+                    showNotification("Confirmation was sent to the buyer.", NotificationType.Success);
+                    await products.populateProducts();
+                }
+            } else {
+                const data = await response.json();
+                showNotification(data.message, NotificationType.Error);
+                console.error(data.message);
             }
-        });
-    }
+        } catch (error) {
+            console.error(error);
+            showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
+        }
+    },
 
-    const placeOrderOnServer = async () => {
-              return fetch(`/api/v1/order`, {
+    async placeOrder() {
+        const success = await this.placeOrderOnServer();
+
+        if (success) {
+            cart.cartList = [];
+            cart.refreshCart();
+            await this.populateOrders();
+            showNotification("Order placed successfully!", NotificationType.Success);
+        }
+    },
+
+    async placeOrderOnServer() {
+        try {
+            const response = await fetch(`/api/v1/order`, {
                 method: 'POST',
-              })
-                .then(response => {
-                  if (response.ok) {
-                    return true;
-                  } else {
-                    return response.json().then(data => {
-                        showNotification(data.message, NotificationType.Error);
-                        return false;
-                    });
-                  }
-                })
-                .catch(error => {
-                  console.error(error.message);
-                  showNotification("Something went wrong on the server. Please try again later!", NotificationType.Error);
-                  return false;
-                });
-            };
+            });
+
+            if (response.ok) {
+                return true;
+            } else {
+                const data = await response.json();
+                showNotification(data.message, NotificationType.Error);
+                return false;
+            }
+        } catch (error) {
+            console.error(error.message);
+            showNotification("Something went wrong on the server. Please try again later!", NotificationType.Error);
+            return false;
+        }
+    },
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    orders.init();
+});

@@ -37,6 +37,7 @@ public class Database {
         objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         new DatabaseLoader(objectMapper, this).loadFromFile();
     }
 

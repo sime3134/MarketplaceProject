@@ -16,7 +16,7 @@
     "id" : 3
   },
   "id" : 0,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Macbook Pro",
@@ -54,7 +54,7 @@
     "id" : 0
   },
   "id" : 2,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Iphone 11 Pro Max",
@@ -168,7 +168,7 @@
     "id" : 0
   },
   "id" : 8,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Iphone 11 Pro",

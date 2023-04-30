@@ -3,11 +3,9 @@ package org.marketplace.server.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.marketplace.server.common.Observable;
 import org.marketplace.server.common.Observer;
 import org.marketplace.server.model.notifications.Notification;
-import org.marketplace.server.model.notifications.PurchaseNotification;
 import org.marketplace.server.model.notifications.SubscriptionNotification;
 
 import java.time.LocalDate;
@@ -34,7 +32,7 @@ public class User implements Observer {
     public User(@JsonProperty("firstName") String firstName,
                 @JsonProperty("lastName") String lastName,
                 @JsonProperty("emailAddress") String emailAddress,
-                @JsonProperty("dateOfBirth") JsonNode dateOfBirth,
+                @JsonProperty("dateOfBirth") LocalDate dateOfBirth,
                 @JsonProperty("username") String username,
                 @JsonProperty("hashedPassword") String hashedPassword,
                 @JsonProperty("notifications") List<Notification> notifications,
@@ -42,7 +40,7 @@ public class User implements Observer {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.dateOfBirth = LocalDate.of(dateOfBirth.get(0).asInt(), dateOfBirth.get(1).asInt(), dateOfBirth.get(2).asInt());
+        this.dateOfBirth = LocalDate.of(dateOfBirth.getYear(), dateOfBirth.getMonth(), dateOfBirth.getDayOfMonth());
         this.username = username;
         this.hashedPassword = hashedPassword;
         this.notifications = notifications != null ? notifications : new ArrayList<>();

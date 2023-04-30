@@ -28,10 +28,10 @@ public class UserController {
 
     private final NotificationService notificationService;
 
-    public UserController(ObjectMapper objectMapper) {
+    public UserController() {
         this.userAuthenticatorService = new UserAuthenticatorService();
         this.userRegistrationService = new UserRegistrationService();
-        this.notificationService = NotificationService.getInstance(objectMapper);
+        this.notificationService = NotificationService.getInstance();
         this.userService = new UserService();
     }
 

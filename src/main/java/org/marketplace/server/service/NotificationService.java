@@ -23,22 +23,19 @@ public class NotificationService {
 
     private final Map<Integer, WsContext> userWsMap;
 
-    private final ObjectMapper objectMapper;
-
     private static NotificationService instance;
 
     private final UserRepository userRepository;
 
-    public static NotificationService getInstance(ObjectMapper objectMapper) {
+    public static NotificationService getInstance() {
         if(instance == null) {
-            instance = new NotificationService(objectMapper);
+            instance = new NotificationService();
         }
         return instance;
     }
 
-    private NotificationService(ObjectMapper objectMapper) {
+    private NotificationService() {
         userWsMap = new ConcurrentHashMap<>();
-        this.objectMapper = objectMapper;
         userRepository = UserRepository.getInstance();
     }
 
@@ -68,10 +65,8 @@ public class NotificationService {
                 NotificationSocketMessage notificationSocketMessage = new NotificationSocketMessage("New order placed for your " +
                         "product: " + order.getProduct().getProductType().getName(), MessageType.PURCHASE_NOTIFICATION);
 
-                String json;
-                json = objectMapper.writeValueAsString(notificationSocketMessage);
                 try {
-                    sellerCtx.send(json);
+                    sellerCtx.send(notificationSocketMessage);
                 } catch (Exception e) {
                     throw new NotificationException("Error while sending " +
                             "notification to seller.", HttpStatus.INTERNAL_SERVER_ERROR_500);
@@ -93,10 +88,9 @@ public class NotificationService {
                     order.getProduct().getProductType().getName() + " has been " + (accepted ? "accepted" : "rejected") +
                     " by " + order.getProduct().getSeller().getUsername() + ".",
                     MessageType.ORDER_STATUS_NOTIFICATION);
-            String json;
-            json = objectMapper.writeValueAsString(notificationSocketMessage);
+
             try {
-                buyerCtx.send(json);
+                buyerCtx.send(notificationSocketMessage);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new NotificationException("Error while sending " +

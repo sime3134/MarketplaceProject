@@ -1,130 +1,136 @@
-let cart = [];
+const cart = {
+    cartList: [],
+    cartElement: document.getElementById("cartList"),
 
-const cartElement = document.getElementById("cartList");
+    async init() {
+        this.cartList = await this.populateCart();
+        this.refreshCart();
+    },
 
-document.addEventListener("DOMContentLoaded", function () {
-    populateCart();
-});
+    async populateCart() {
+        try {
+          const response = await fetch("/api/v1/cart");
+          if (response.ok) {
+            const data = await response.json();
+            return data.products;
+          } else {
+            throw new Error("Error retrieving cart!");
+          }
+        } catch (error) {
+          console.error(error);
+          showNotification(error.message, NotificationType.Warning);
+          return [];
+        }
+    },
 
-// Fetch cart and populate
-    function populateCart() {
-       fetch("/api/v1/cart")
-       .then(response => {
-             if (response.ok) {
-               return response.json();
-             } else {
-               throw new Error('Error retrieving cart!');
-             }
-           })
-       .then((data) => {
-           data.products.forEach((product) => {
-                cart.push(product);
-           });
-           refreshCart();
-           if(data.products.length > 0) {
-               const totalPriceSpan = document.getElementById("totalPriceSpan");
-                  totalPriceSpan.innerHTML = data.totalPrice;
-           }
-       })
-         .catch((error) => {
-            console.error(error);
-            showNotification(error.message, NotificationType.Warning);
-         });
-    }
+    async addProductToCart(productId) {
+        const success = await this.addProductToCartOnServer(productId);
+        if (success) {
+          const product = await this.getProductFromServer(productId);
+          this.cartList.push(product);
+          this.refreshCart();
+          showNotification("Product added to cart!", NotificationType.Success);
+        }
+    },
 
-function removeProductFromCart(productId) {
-    removeProductFromCartOnServer(productId)
-        .then((success) => {
-            if(success) {
-                const product = cart.find((product) => product.id === productId);
-                const index = cart.indexOf(product);
-                cart.splice(index, 1);
-                refreshCart();
-                showNotification("Product removed from cart!", NotificationType.Success);
-            }
-        })
-}
+    async getProductFromServer(productId) {
+        try {
+          const response = await fetch(`/api/v1/product/${productId}`);
+          if (response.ok) {
+            const data = await response.json();
+            return data;
+          } else {
+            const data = await response.json();
+            showNotification(data.message, NotificationType.Warning);
+          }
+        } catch (error) {
+          console.error(error);
+          showNotification("Something went wrong on the server. Try again later.", NotificationType.Warning);
+          return null;
+        }
+    },
 
-function refreshCart() {
-    let numberOfProductsInCart = 0;
-    const numberOfProductsInCartElement = document.getElementById("numberOfProductsInCart");
-    cartElement.innerHTML = "";
-    if(cart.length > 0) {
-        cart.forEach((product) => {
-        numberOfProductsInCart++;
-        cartElement.innerHTML += `
-            <div class="cart-item">
-              <div class="cart-item-details">
-                <p class="cart-item-title"><b>${product.productType.name}</b></p>
-                <p class="cart-item-price">Price: ${product.productPrice}SEK</p>
-                <p class="cart-item-seller">Seller: ${product.seller.username}</p>
+    async removeProductFromCart(productId) {
+        const success = await this.removeProductFromCartOnServer(productId);
+        if (success) {
+          const product = this.cartList.find((product) => product.id === productId);
+          const index = this.cartList.indexOf(product);
+          this.cartList.splice(index, 1);
+          this.refreshCart();
+          showNotification("Product removed from cart!", NotificationType.Success);
+        }
+    },
+
+    refreshCart() {
+        let numberOfProductsInCart = 0;
+        const numberOfProductsInCartElement = document.getElementById("numberOfProductsInCart");
+        this.cartElement.innerHTML = "";
+
+        if (this.cartList.length > 0) {
+          this.cartList.forEach((product) => {
+            numberOfProductsInCart++;
+            this.cartElement.innerHTML += `
+              <div class="cart-item">
+                <div class="cart-item-details">
+                  <p class="cart-item-title"><b>${product.productType.name}</b></p>
+                  <p class="cart-item-price">Price: ${product.productPrice}SEK</p>
+                  <p class="cart-item-seller">Seller: ${product.seller.username}</p>
+                </div>
+                <button onclick="cart.removeProductFromCart(${product.id})" id="cart-item-remove">Remove</button>
               </div>
-              <button onclick="removeProductFromCart(${product.id})" id="cart-item-remove">Remove</button>
-            </div>
             `;
-        });
-        cartElement.innerHTML += `<p><b>Total price: <span id="totalPriceSpan"></span></b></p>`;
-        cartElement.innerHTML += `<button id="placeOrderButton">Place your order</button>`;
-        const placeOrderButton = document.getElementById("placeOrderButton");
-        const totalPriceSpan = document.getElementById("totalPriceSpan");
-        placeOrderButton.addEventListener("click", placeOrder);
-        totalPriceSpan.innerHTML = cart.reduce((total, product) => total + product.productPrice, 0);
+          });
+          this.cartElement.innerHTML += `<p><b>Total price: <span id="totalPriceSpan"></span></b></p>`;
+          this.cartElement.innerHTML += `<button id="placeOrderButton">Place your order</button>`;
+          const placeOrderButton = document.getElementById("placeOrderButton");
+          const totalPriceSpan = document.getElementById("totalPriceSpan");
+          placeOrderButton.addEventListener("click", orders.placeOrder.bind(orders));
+          totalPriceSpan.innerHTML = this.cartList.reduce((total, product) => total + product.productPrice, 0);
         } else {
-            cartElement.innerHTML = "Your cart is empty";
+          this.cartElement.innerHTML = "Your cart is empty";
         }
         numberOfProductsInCartElement.innerHTML = `(${numberOfProductsInCart})`;
-    }
+    },
 
-    function addProductToCart(productId) {
-        addProductToCartOnServer(productId)
-          .then((success) => {
-            if(success) {
-                const product = products.find((product) => product.id === productId);
-                cart.push(product);
-                refreshCart();
-                showNotification("Product added to cart!", NotificationType.Success);
-            }
+    async addProductToCartOnServer(productId) {
+        try {
+          const response = await fetch(`/api/v1/cart/${productId}`, {
+            method: "POST",
           });
-        }
 
-    const addProductToCartOnServer = async (productId) => {
-          return fetch(`/api/v1/cart/${productId}`, {
-            method: 'POST',
-          })
-            .then(response => {
-              if (response.ok) {
-                return true;
-              } else {
-                return response.json().then(data => {
-                    showNotification(data.message, NotificationType.Error);
-                    return false;
-              });
-            }
-            })
-            .catch(error => {
-                showError("Something went wrong on the server. Please try again later.", NotificationType.Error);
-                console.error(error.message);
-                return false;
+          if (response.ok) {
+            return true;
+          } else {
+            const data = await response.json();
+            showNotification(data.message, NotificationType.Error);
+            return false;
+          }
+        } catch (error) {
+          showError("Something went wrong on the server. Please try again later.", NotificationType.Error);
+          console.error(error.message);
+          return false;
+        }
+    },
+
+    async removeProductFromCartOnServer(productId) {
+        try {
+            const response = await fetch(`/api/v1/cart/${productId}`, {
+                method: "DELETE",
             });
+        if (!response.ok) {
+            const data = await response.json();
+            showNotification(data.message, NotificationType.Error);
+            return false;
         }
+            return true;
+        } catch (error) {
+            console.error("Error updating cart:", error);
+            showNotification("Something went wrong on the server. Please try again later.", NotificationType.Error);
+            return false;
+        }
+    },
+};
 
-        const removeProductFromCartOnServer = async (productId) => {
-              try {
-                const response = await fetch(`/api/v1/cart/${productId}`, {
-                  method: "DELETE",
-                });
-
-                if (!response.ok) {
-                    return response.json().then(data => {
-                        showNotification(data.message, NotificationType.Error);
-                        return false;
-                    });
-                }
-                return true;
-              } catch (error) {
-                console.error("Error updating cart:", error);
-                showNotification("Something went wrong on the server. Please try again later.", NotificationType
-                .Error);
-                return false;
-              }
-            };
+document.addEventListener("DOMContentLoaded", function () {
+    cart.init();
+});
