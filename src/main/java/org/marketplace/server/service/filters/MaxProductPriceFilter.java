@@ -4,11 +4,11 @@ import org.marketplace.server.model.Product;
 
 import java.util.List;
 
-public class MaxPriceFilter implements ProductFilter {
+public class MaxProductPriceFilter implements Filter<Product> {
 
-    private Double maxPrice;
+    private final Double maxPrice;
 
-    public MaxPriceFilter(Double maxPrice) {
+    public MaxProductPriceFilter(Double maxPrice) {
         this.maxPrice = maxPrice;
     }
 

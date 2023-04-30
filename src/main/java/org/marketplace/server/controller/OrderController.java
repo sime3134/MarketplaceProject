@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.http.Context;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.ExceptionWithStatusCode;
+import org.marketplace.server.common.exceptions.OrderException;
 import org.marketplace.server.model.Order;
 import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
-import org.marketplace.server.service.NotificationService;
-import org.marketplace.server.service.OrderService;
-import org.marketplace.server.service.ProductService;
-import org.marketplace.server.service.UserService;
+import org.marketplace.server.service.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrderController {
@@ -24,11 +23,14 @@ public class OrderController {
 
     private final ProductService productService;
 
+    private final FormValidator formValidator;
+
     public OrderController(ObjectMapper objectMapper) {
         orderService = new OrderService();
         userService = new UserService();
         notificationService = NotificationService.getInstance(objectMapper);
         productService = new ProductService();
+        formValidator = new FormValidator();
     }
 
     public void placeOrder(Context ctx) {
@@ -61,17 +63,40 @@ public class OrderController {
 
     }
 
-    public void getUserOrders(Context context) {
-        Integer userId = context.sessionAttribute("userId") != null ?
-                Integer.valueOf(context.sessionAttribute("userId")) : null;
-        try {
-            User user = userService.findUserById(userId);
+    public void getUserOrders(Context ctx) {
+        Integer userId = ctx.sessionAttribute("userId") != null ?
+                Integer.valueOf(ctx.sessionAttribute("userId")) : null;
 
-            List<Order> orders = orderService.getUserOrders(user);
-            context.header("Content-type", "application/json").json(orders);
+        String startDateString = ctx.queryParam("startDate") != null && !ctx.queryParam("startDate").isBlank() ?
+                ctx.queryParam("startDate") : null;
+        String endDateString = ctx.queryParam("endDate") != null && !ctx.queryParam("endDate").isBlank() ?
+                ctx.queryParam("endDate") : null;
+
+        try {
+            LocalDate startDate = parseDate(startDateString);
+            LocalDate endDate = parseDate(endDateString);
+
+            formValidator.validateDateOrder(startDate, endDate);
+
+            User user = userService.findUserById(userId);
+            List<Order> orders = orderService.getUserOrders(user, startDate, endDate);
+
+            ctx.header("Content-type", "application/json").json(orders);
         } catch (ExceptionWithStatusCode e) {
             System.out.println(e.getMessage());
-            context.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+        }
+    }
+
+    private LocalDate parseDate(String dateString) throws OrderException {
+        if (dateString == null) {
+            return null;
+        }
+
+        try {
+            return LocalDate.parse(dateString);
+        } catch (Exception e) {
+            throw new OrderException("Invalid date format in search.", HttpStatus.BAD_REQUEST_400);
         }
     }
 

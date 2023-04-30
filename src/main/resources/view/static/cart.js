@@ -40,6 +40,7 @@ function removeProductFromCart(productId) {
                 const index = cart.indexOf(product);
                 cart.splice(index, 1);
                 refreshCart();
+                showNotification("Product removed from cart!", NotificationType.Success);
             }
         })
 }
@@ -81,6 +82,7 @@ function refreshCart() {
                 const product = products.find((product) => product.id === productId);
                 cart.push(product);
                 refreshCart();
+                showNotification("Product added to cart!", NotificationType.Success);
             }
           });
         }

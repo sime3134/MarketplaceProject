@@ -37,7 +37,7 @@
 
     <section id="buy" class="tab-content active search">
         <h2>Search</h2>
-        <form id="search-form">
+        <form id="products-search-form">
             <select name="productTypeId" id="product-type">
                 <option value="">Select product type</option>
                 <!-- Add product types here -->
@@ -79,9 +79,16 @@
         </form>
     </section>
 
-    <section id="history" class="tab-content">
+    <section id="history" class="tab-content search">
+        <h2>History</h2>
+        <form id="order-search-form">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="start-date">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" name="end-date">
+            <button type="submit">Search</button>
+        </form>
         <div id="orders">
-            <h2>Orders</h2>
         </div>
     </section>
 

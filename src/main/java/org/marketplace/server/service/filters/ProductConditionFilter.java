@@ -5,10 +5,9 @@ import org.marketplace.server.model.ProductCondition;
 
 import java.util.List;
 
-public class ConditionFilter implements ProductFilter {
-
+public class ProductConditionFilter implements Filter<Product> {
     private final ProductCondition condition;
-    public ConditionFilter(String condition) {
+    public ProductConditionFilter(String condition) {
         this.condition = ProductCondition.valueOf(condition);
     }
 

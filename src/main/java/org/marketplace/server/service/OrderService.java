@@ -9,7 +9,11 @@ import org.marketplace.server.model.OrderStatus;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.OrderRepository;
+import org.marketplace.server.service.filters.MaxOrderDateFilter;
+import org.marketplace.server.service.filters.MinOrderDateFilter;
+import org.marketplace.server.service.pipelines.Pipeline;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +45,20 @@ public class OrderService {
     }
 
     public List<Order> getUserOrders(User user) {
-        List<Order> allOrders = orderRepository.getAllOrders();
+        return orderRepository.getUserOrders(user);
+    }
 
-        return allOrders.stream().filter(order -> order.getBuyer().getId() == user.getId()).toList();
+    public List<Order> getUserOrders(User user, LocalDate startDate, LocalDate endDate) {
+        Pipeline<Order> pipeline = new Pipeline<>();
+
+        if(startDate != null) {
+            pipeline.addFilter(new MinOrderDateFilter(startDate));
+        }
+        if(endDate != null) {
+            pipeline.addFilter(new MaxOrderDateFilter(endDate));
+        }
+
+        return pipeline.execute(orderRepository.getUserOrders(user));
     }
 
     public void updateOrderStatus(Integer orderId, User user, Boolean newOrderStatus) throws OrderException {

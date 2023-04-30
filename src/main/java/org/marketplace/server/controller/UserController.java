@@ -63,7 +63,7 @@ public class UserController {
             ctx.status(HttpStatus.CREATED_201);
         } catch (UserRegistrationException e) {
             System.out.println(e.getMessage());
-            ctx.status(HttpStatus.BAD_REQUEST_400).json(new ErrorResponse(e.getMessage()));
+            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
         }
     }
 

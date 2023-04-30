@@ -1,8 +1,20 @@
 let orders = [];
 
+const orderSearchForm = document.querySelector("#order-search-form");
+if(orderSearchForm) {
+    orderSearchForm.addEventListener("submit", handleOrderSearch);
+} else {
+    console.error("Could not find order search form!");
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     populateOrders();
 });
+
+function handleOrderSearch() {
+    event.preventDefault(); // Prevent form submission and page reload
+    populateOrders();
+}
 
 function makePurchaseDecision(orderId, accepted, notificationIndex) {
     fetch(`/api/v1/order/${orderId}?accepted=${accepted}&notificationIndex=${notificationIndex}`, {
@@ -26,24 +38,36 @@ function makePurchaseDecision(orderId, accepted, notificationIndex) {
         console.error(error);
         showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
     });
-    }
-
-function populateOrders() {
-    fetch("/api/v1/order")
-    .then(async (response) => response.json())
-    .then((data) => {
-        orders = [];
-        if(data.length > 0) {
-            data.map((order) => {
-                orders.push(order);
-            });
-        }
-        refreshOrders();
-    })
-    .catch((error) => {
-        console.error(error);
-    });
 }
+
+async function populateOrders() {
+    try {
+        const startDateField = document.querySelector("#start-date");
+        const endDateField = document.querySelector("#end-date");
+        const response = await fetch(`/api/v1/order?startDate=${startDateField.value}&endDate=${endDateField.value}`, {
+            method: "GET",
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            orders = [];
+            if (data.length > 0) {
+                data.map((order) => {
+                    orders.push(order);
+                });
+            }
+            refreshOrders();
+        } else {
+            const data = await response.json();
+            showNotification(data.message, NotificationType.Error);
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error(error);
+        showNotification("Something went wrong on the server. Try again later!", NotificationType.Error);
+    }
+}
+
 function refreshOrders() {
     const ordersSection = document.querySelector("#orders");
     if(orders.length > 0) {
@@ -67,7 +91,9 @@ function refreshOrders() {
         .join("");
     ordersSection.innerHTML = ordersHtml;
     } else {
-        ordersSection.innerHTML = `<p>No orders found</p>`;
+        ordersSection.innerHTML = `
+        <h2>Orders</h2>
+        <p>No orders found</p>`;
     }
 }
 
@@ -78,6 +104,7 @@ function refreshOrders() {
                 cart = [];
                 refreshCart();
                 populateOrders();
+                showNotification("Order placed successfully!", NotificationType.Success);
             }
         });
     }

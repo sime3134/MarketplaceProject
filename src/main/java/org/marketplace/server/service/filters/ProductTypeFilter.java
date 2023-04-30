@@ -5,11 +5,11 @@ import org.marketplace.server.model.ProductType;
 
 import java.util.List;
 
-public class TypeFilter implements ProductFilter {
+public class ProductTypeFilter implements Filter<Product> {
 
     private final ProductType productType;
 
-    public TypeFilter(ProductType productType) {
+    public ProductTypeFilter(ProductType productType) {
         this.productType = productType;
     }
 

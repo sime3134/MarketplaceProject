@@ -1,5 +1,7 @@
 package org.marketplace.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 public class Product {
     private final ProductType productType;
     private final double productPrice;
@@ -70,6 +72,7 @@ public class Product {
         isAvailable = !isAvailable;
     }
 
+    @JsonIgnoreProperties({"hashedPassword", "emailAddress", "dateOfBirth", "notifications"})
     public User getSeller() {
         return seller;
     }

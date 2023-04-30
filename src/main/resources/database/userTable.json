@@ -14,7 +14,15 @@
   "dateOfBirth" : [ 2023, 4, 28 ],
   "username" : "johan.salomonsson",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
-  "notifications" : [ ],
+  "notifications" : [ {
+    "type" : "purchaseNotification",
+    "buyerUsername" : "simon.jern",
+    "productName" : "Samsung Galaxy S23",
+    "productPrice" : 6300.0,
+    "orderId" : 4,
+    "message" : "You have a new purchase!",
+    "notificationType" : "purchaseNotification"
+  } ],
   "id" : 1
 }, {
   "firstName" : "Erik",
@@ -23,7 +31,15 @@
   "dateOfBirth" : [ 2023, 4, 28 ],
   "username" : "erik.larsson",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
-  "notifications" : [ ],
+  "notifications" : [ {
+    "type" : "purchaseNotification",
+    "buyerUsername" : "simon.jern",
+    "productName" : "Macbook Pro",
+    "productPrice" : 2500.0,
+    "orderId" : 3,
+    "message" : "You have a new purchase!",
+    "notificationType" : "purchaseNotification"
+  } ],
   "id" : 2
 }, {
   "firstName" : "Danny",

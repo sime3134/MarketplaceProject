@@ -4,11 +4,11 @@ import org.marketplace.server.model.Product;
 
 import java.util.List;
 
-public class MinPriceFilter implements ProductFilter {
+public class MinProductPriceFilter implements Filter<Product> {
 
-    private Double minPrice;
+    private final Double minPrice;
 
-    public MinPriceFilter(Double minPrice) {
+    public MinProductPriceFilter(Double minPrice) {
         this.minPrice = minPrice;
     }
     @Override

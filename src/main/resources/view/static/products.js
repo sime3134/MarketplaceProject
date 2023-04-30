@@ -1,24 +1,24 @@
 let products = [];
 
-  const searchForm = document.getElementById('search-form');
-      if (searchForm) {
-          searchForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-                populateProducts();
-          });
-      } else {
-          console.error('Could not find search form!');
-        }
+const searchForm = document.getElementById('products-search-form');
+if (searchForm) {
+  searchForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        populateProducts();
+  });
+} else {
+  console.error('Could not find search form!');
+}
 
-  const productForm = document.getElementById('product-form');
-        if (productForm) {
-            productForm.addEventListener('submit', function (event) {
-                  event.preventDefault();
-                  addNewProduct();
-            });
-        } else {
-            console.error('Could not find product form!');
-        }
+const productForm = document.getElementById('product-form');
+if (productForm) {
+    productForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          addNewProduct();
+    });
+} else {
+    console.error('Could not find product form!');
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     populateProducts();
@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Fetch products and populate
   function populateProducts() {
-  const searchForm = document.getElementById('search-form');
   products = [];
 
   const url = new URL("/api/v1/product", window.location.origin);
@@ -85,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const productsHtml = `<h2>Products</h2>` +
             products.map(
                 (product) => {
-                console.log(product);
                     return `
                       <div class="product${product.available ? '' : ' sold'}">
                         <h3>${product.productType.name}</h3>

@@ -1,5 +1,7 @@
 package org.marketplace.server.repositories;
 
+import org.eclipse.jetty.http.HttpStatus;
+import org.marketplace.server.common.exceptions.UserRegistrationException;
 import org.marketplace.server.database.Database;
 import org.marketplace.server.model.notifications.Notification;
 import org.marketplace.server.model.User;
@@ -25,7 +27,11 @@ public class UserRepository {
         return database.findUserById(id);
     }
 
-    public synchronized void addUser(User newUser) {
+    public synchronized void addUser(User newUser) throws UserRegistrationException {
+        if(findUserByUsername(newUser.getUsername()) != null) {
+            throw new UserRegistrationException("User with username " + newUser.getUsername() + " already " +
+                    "exists!", HttpStatus.CONFLICT_409);
+        }
         database.addUser(newUser);
     }
 

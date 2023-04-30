@@ -2,6 +2,7 @@ package org.marketplace.server.repositories;
 
 import org.marketplace.server.database.Database;
 import org.marketplace.server.model.Order;
+import org.marketplace.server.model.User;
 
 import java.util.List;
 
@@ -46,5 +47,9 @@ public class OrderRepository {
 
     public void updateOrder(Order order, boolean newOrderStatus) {
         database.updateOrder(order, newOrderStatus);
+    }
+
+    public List<Order> getUserOrders(User user) {
+        return database.getUserOrders(user);
     }
 }

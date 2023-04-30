@@ -8,7 +8,7 @@ import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.ProductRepository;
 import org.marketplace.server.model.ProductType;
 import org.marketplace.server.service.filters.*;
-import org.marketplace.server.service.pipelines.ProductPipeline;
+import org.marketplace.server.service.pipelines.Pipeline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,37 +17,37 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    private final ProductValidator productValidator;
+    private final FormValidator formValidator;
 
     public ProductService() {
         productRepository = ProductRepository.getInstance();
-        productValidator = new ProductValidator();
+        formValidator = new FormValidator();
     }
     public List<Product> getFilteredProducts(ProductType productType, Double minPrice, Double maxPrice,
                                                      String condition) {
 
         List<Product> allProducts = productRepository.getAllProducts();
 
-        ProductPipeline productPipeline = buildProductPipeline(productType, minPrice, maxPrice, condition);
+        Pipeline<Product> productPipeline = buildProductPipeline(productType, minPrice, maxPrice, condition);
 
         return productPipeline.execute(allProducts);
     }
 
-    private ProductPipeline buildProductPipeline(ProductType productType, Double minPrice, Double maxPrice,
+    private Pipeline<Product> buildProductPipeline(ProductType productType, Double minPrice, Double maxPrice,
                                                  String condition) {
-        ProductPipeline productPipeline = new ProductPipeline();
+        Pipeline<Product> productPipeline = new Pipeline<>();
 
         if(productType != null) {
-            productPipeline.addFilter(new TypeFilter(productType));
+            productPipeline.addFilter(new ProductTypeFilter(productType));
         }
         if(minPrice != null) {
-            productPipeline.addFilter(new MinPriceFilter(minPrice));
+            productPipeline.addFilter(new MinProductPriceFilter(minPrice));
         }
         if(maxPrice != null) {
-            productPipeline.addFilter(new MaxPriceFilter(maxPrice));
+            productPipeline.addFilter(new MaxProductPriceFilter(maxPrice));
         }
         if(condition != null) {
-            productPipeline.addFilter(new ConditionFilter(condition));
+            productPipeline.addFilter(new ProductConditionFilter(condition));
         }
         return productPipeline;
     }
@@ -64,9 +64,9 @@ public class ProductService {
     public void addProduct(ProductType productType, User user, Double price, String yearOfProduction,
                            String color, ProductCondition productCondition) throws IllegalProductArgumentException {
 
-        productValidator.validatePrice(price);
-        productValidator.validateYearOfProduction(yearOfProduction);
-        productValidator.validateColor(color);
+        formValidator.validatePrice(price);
+        formValidator.validateYearOfProduction(yearOfProduction);
+        formValidator.validateColor(color);
 
         productRepository.addNewProduct(new Product(productType, price, yearOfProduction, color, productCondition, user));
     }

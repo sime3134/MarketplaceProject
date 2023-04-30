@@ -167,4 +167,8 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    public List<Order> getUserOrders(User user) {
+        return orderTable.stream().filter(order -> order.getBuyer().equals(user)).toList();
+    }
 }
