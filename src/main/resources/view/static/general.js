@@ -18,6 +18,9 @@ function connectUser() {
             showNotification(messageData.message, NotificationType.Info);
             orders.populateOrders();
             products.populateProducts();
+        }else if(messageData.messageType == "SUBSCRIPTION_NOTIFICATION") {
+            showNotification(messageData.message, NotificationType.Info);
+            products.populateProducts();
         }
 
         updateNotificationView();

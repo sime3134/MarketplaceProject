@@ -8,6 +8,11 @@ import org.marketplace.server.common.exceptions.UserRegistrationException;
 
 import java.time.LocalDate;
 
+/**
+ * Class that contains logic for validating all input
+ * the user will give, for example checking that the
+ * username contains enough characters
+ */
 public class FormValidator {
 
     public void validateUsername(String username) throws UserRegistrationException {

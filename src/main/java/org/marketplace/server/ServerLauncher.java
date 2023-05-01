@@ -10,6 +10,9 @@ import io.javalin.rendering.template.JavalinThymeleaf;
 import org.marketplace.server.routing.Router;
 import org.marketplace.server.service.AccessService;
 
+/**
+ * The class that starts the system.
+ */
 public class ServerLauncher {
     public static void main(String[] args) {
 

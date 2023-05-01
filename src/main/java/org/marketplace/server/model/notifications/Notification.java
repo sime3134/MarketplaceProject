@@ -3,6 +3,11 @@ package org.marketplace.server.model.notifications;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * abstract class for crating a notification message by specifying the message and its type.
+ *      types include: purchase, Subscription and order status.
+ */
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         property = "type")

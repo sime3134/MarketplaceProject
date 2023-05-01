@@ -8,7 +8,6 @@ const products = {
         this.productList = await this.populateProducts();
 
         await this.populateProductTypes("product-type");
-        await this.populateProductTypes("product-type2");
     },
 
     registerEventListeners() {
@@ -104,7 +103,7 @@ const products = {
     },
 
     async populateProductTypes(selectId) {
-        const productTypeSelect = document.getElementById(selectId);
+        const productTypeSelects = document.getElementsByClassName(selectId);
 
         try {
             const response = await fetch("/api/v1/product-type", {method: 'GET'});
@@ -112,12 +111,14 @@ const products = {
             if (response.ok) {
                 const data = await response.json();
                 if (data.length > 0) {
-                    data.map((productType) => {
-                        const option = document.createElement('option');
-                        option.value = productType.id;
-                        option.text = productType.name;
-                        productTypeSelect.appendChild(option);
-                    });
+                    for (const productTypeSelect of productTypeSelects) {
+                        data.map((productType) => {
+                            const option = document.createElement('option');
+                            option.value = productType.id;
+                            option.text = productType.name;
+                            productTypeSelect.appendChild(option);
+                        });
+                    }
                 }
             }else {
                 const data = await response.json();

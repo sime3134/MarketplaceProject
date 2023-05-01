@@ -2,6 +2,10 @@ package org.marketplace.server.model.dto;
 
 import org.marketplace.server.model.MessageType;
 
+/**
+ * Class used to store notification message
+ */
+
 public class NotificationSocketMessage {
     private String message;
     private MessageType messageType;

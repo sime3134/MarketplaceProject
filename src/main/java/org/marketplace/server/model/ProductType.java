@@ -2,17 +2,22 @@ package org.marketplace.server.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.marketplace.server.common.Observable;
 import org.marketplace.server.common.Observer;
+import org.marketplace.server.service.NotificationService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
+
 public class ProductType implements Observable {
     private final String name;
-    private final List<Observer> observers;
+    private static final List<Observer> observers = List.of(NotificationService.getInstance());
+
+    private final List<Integer> subscribers;
 
     private final int id;
 
@@ -20,15 +25,16 @@ public class ProductType implements Observable {
 
     @JsonCreator
     public ProductType(@JsonProperty("name") String name,
+                       @JsonProperty("subscribers") List<Integer> subscribers,
                        @JsonProperty("id") int id) {
         this.name = name;
-        observers = new ArrayList<>();
+        this.subscribers = subscribers != null ? subscribers : new ArrayList<>();
         this.id = id;
     }
 
     public ProductType(String name) {
         this.name = name;
-        observers = new ArrayList<>();
+        subscribers = new ArrayList<>();
         id = nextId++;
     }
 
@@ -38,6 +44,10 @@ public class ProductType implements Observable {
 
     public int getId() {
         return id;
+    }
+
+    public List<Integer> getSubscribers() {
+        return subscribers;
     }
 
     @Override
@@ -61,5 +71,13 @@ public class ProductType implements Observable {
         if (maxId >= nextId) {
             nextId = maxId + 1;
         }
+    }
+
+    public void addSubscriber(Integer userId) {
+        subscribers.add(userId);
+    }
+
+    public void removeSubscriber(Integer id) {
+        subscribers.remove(id);
     }
 }

@@ -3,6 +3,11 @@ package org.marketplace.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class used to create a shopping cart for users with functionalities such as:
+ *      adding a product to cart, removing a product and retreiving a product from cart.
+ */
+
 public class ShoppingCart {
 
     private final List<Product> productsInCart;

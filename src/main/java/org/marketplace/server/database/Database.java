@@ -12,6 +12,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Database class that contains the data we need to
+ * run the system, it contains lists with the data
+ * and logic to add new data to the files.
+ */
 public class Database {
     private final ObjectMapper objectMapper;
     private static Database instance;
@@ -171,5 +176,41 @@ public class Database {
 
     public List<Order> getUserOrders(User user) {
         return orderTable.stream().filter(order -> order.getBuyer().equals(user)).toList();
+    }
+
+    public void addSubscriptionToUser(User user, ProductType productType) {
+        user.addSubscription(productType.getId());
+        try {
+            saveListToFile(AppConstants.USER_TABLE, userTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addSubscriber(ProductType productType, User user) {
+        productType.addSubscriber(user.getId());
+        try {
+            saveListToFile(AppConstants.PRODUCT_TYPE_TABLE, productTypeTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeSubscriptionFromUser(User user, ProductType productType) {
+        user.removeSubscription(productType.getId());
+        try {
+            saveListToFile(AppConstants.USER_TABLE, userTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeSubscriberFromProductType(ProductType productType, User user) {
+        productType.removeSubscriber(user.getId());
+        try {
+            saveListToFile(AppConstants.PRODUCT_TYPE_TABLE, productTypeTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -16,6 +16,11 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that handles the reading of the file and
+ * populating the lists in the database with data.
+ * Also contains a method that was used to add mock up data.
+ */
 public class DatabaseLoader {
 
     private final ObjectMapper objectMapper;

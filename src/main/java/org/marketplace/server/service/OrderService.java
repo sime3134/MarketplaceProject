@@ -18,6 +18,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles the orders for example it does
+ * things such as placing orders, getting a users
+ * orders (either all orders or from a selected period).
+ */
 public class OrderService {
     private final OrderRepository orderRepository;
 
@@ -61,8 +66,11 @@ public class OrderService {
         return pipeline.execute(orderRepository.getUserOrders(user));
     }
 
-    public void updateOrderStatus(Integer orderId, User user, Boolean newOrderStatus) throws OrderException {
-        Order order = orderRepository.findOrderById(orderId);
+    public void updateOrderStatus(Order order, User user, Boolean newOrderStatus) throws OrderException {
+
+        if(newOrderStatus == null) {
+            throw new OrderException("Order status cannot be null", HttpStatus.BAD_REQUEST_400);
+        }
 
         if(order == null) {
             throw new OrderException("Order not found", HttpStatus.NOT_FOUND_404);

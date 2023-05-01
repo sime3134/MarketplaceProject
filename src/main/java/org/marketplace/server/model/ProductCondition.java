@@ -2,6 +2,10 @@ package org.marketplace.server.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * Enum type class for specifying the conditions for a product
+ */
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ProductCondition {
 

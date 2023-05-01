@@ -6,9 +6,12 @@ import org.marketplace.server.model.User;
 import org.marketplace.server.repositories.UserRepository;
 import org.marketplace.server.common.exceptions.UserAuthenticationException;
 
+/**
+ * This class is responsible for authenticating users
+ * by verifying that their login details are correct.
+ */
 public class UserAuthenticatorService {
     private final UserRepository userRepository;
-
     public UserAuthenticatorService() {
         userRepository = UserRepository.getInstance();
     }

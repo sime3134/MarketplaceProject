@@ -13,6 +13,12 @@ import org.marketplace.server.service.pipelines.Pipeline;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class that handles product related events
+ * such as building a pipeline and getting a filtered
+ * list of products based on chosen parameters, finding
+ * a product with its id and adding a new product.
+ */
 public class ProductService {
 
     private final ProductRepository productRepository;

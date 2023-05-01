@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Class used for deserializing Orders from JSON format
+ */
+
 public class OrderDeserializer extends JsonDeserializer<Order> {
     private final List<User> userList;
     private final List<Product> productList;

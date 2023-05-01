@@ -3,6 +3,7 @@ package org.marketplace.server.controller;
 import io.javalin.http.Context;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.ExceptionWithStatusCode;
+import org.marketplace.server.common.exceptions.ProductTypeNotFoundException;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.ProductCondition;
 import org.marketplace.server.model.ProductType;
@@ -13,6 +14,11 @@ import org.marketplace.server.service.ProductTypeService;
 import org.marketplace.server.service.UserService;
 
 import java.util.List;
+
+/**
+ * A class used to handle operations for products
+ *      can retreive products by filtering, get types of products, add a product and get a product
+ */
 
 public class ProductController {
 
@@ -63,6 +69,7 @@ public class ProductController {
             ProductCondition condition = ProductCondition.valueOf(productCondition);
 
             productService.addProduct(productType, user, price, yearOfProduction, color, condition);
+            productType.notifyObservers();
         } catch (ExceptionWithStatusCode e) {
             System.out.println(e.getMessage());
             ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));

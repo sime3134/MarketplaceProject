@@ -3,16 +3,13 @@ package org.marketplace.server.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.marketplace.server.common.Observable;
-import org.marketplace.server.common.Observer;
 import org.marketplace.server.model.notifications.Notification;
-import org.marketplace.server.model.notifications.SubscriptionNotification;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User implements Observer {
+public class User {
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -26,6 +23,8 @@ public class User implements Observer {
 
     private List<Notification> notifications;
 
+    private List<Integer> subscriptions;
+
     private ShoppingCart shoppingCart;
 
     @JsonCreator
@@ -36,6 +35,7 @@ public class User implements Observer {
                 @JsonProperty("username") String username,
                 @JsonProperty("hashedPassword") String hashedPassword,
                 @JsonProperty("notifications") List<Notification> notifications,
+                @JsonProperty("subscriptions") List<Integer> subscriptions,
                 @JsonProperty("id") int id) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,7 +45,8 @@ public class User implements Observer {
         this.hashedPassword = hashedPassword;
         this.notifications = notifications != null ? notifications : new ArrayList<>();
         this.id = id;
-        shoppingCart = new ShoppingCart();
+        this.shoppingCart = new ShoppingCart();
+        this.subscriptions = subscriptions != null ? subscriptions : new ArrayList<>();
     }
 
     public User(String firstName, String lastName, String emailAddress,
@@ -56,9 +57,10 @@ public class User implements Observer {
         this.dateOfBirth = dateOfBirth;
         this.username = username;
         this.hashedPassword = hashedPassword;
-        notifications = new ArrayList<>();
-        shoppingCart = new ShoppingCart();
-        id = nextId++;
+        this.notifications = new ArrayList<>();
+        this.shoppingCart = new ShoppingCart();
+        this.subscriptions = new ArrayList<>();
+        this.id = nextId++;
     }
 
     public String getFirstName() {
@@ -94,14 +96,12 @@ public class User implements Observer {
         return id;
     }
 
-    public List<Notification> getNotifications() {
-        return notifications;
+    public List<Integer> getSubscriptions() {
+        return subscriptions;
     }
 
-    @Override
-    public void update(Observable observable) {
-        notifications.add(new SubscriptionNotification());
-        //TODO: web socket call to notify the user
+    public List<Notification> getNotifications() {
+        return notifications;
     }
     @JsonIgnore
     public ShoppingCart getCart() {
@@ -120,5 +120,13 @@ public class User implements Observer {
 
     public void removeNotification(Integer notificationIndex) {
         notifications.remove(notificationIndex.intValue());
+    }
+
+    public void addSubscription(Integer id) {
+        subscriptions.add(id);
+    }
+
+    public void removeSubscription(Integer id) {
+        subscriptions.remove(id);
     }
 }

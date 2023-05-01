@@ -45,7 +45,7 @@ main {
 }
 
 /* Forms and other sections */
-.search form, .sell form, .register form, .login form {
+form {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -58,14 +58,14 @@ main {
     border: 1px solid #ccc;
 }
 
-.search input, .search select, .sell input, .sell select, .register input, .login input {
+select, input {
     flex: 1 1 100%;
     padding: 5px;
     border-radius: 3px;
     border: 1px solid #ddd;
 }
 
-#placeOrderButton, .search button, .sell button, .register button, .login button {
+button, #placeOrderButton {
     background-color: #333;
     color: white;
     font-size: 16px;
@@ -76,16 +76,16 @@ main {
     margin-top: 10px;
 }
 
-.search button:hover, .sell button:hover, .register button:hover, .login button:hover {
+button:hover, #placeOrderButton:hover {
     background-color: #555;
 }
 
-.inbox {
+.dropdown {
     position: relative;
     display: inline-block;
 }
 
-.inbox button {
+.dropdown button, #logout-button {
     background-color: transparent;
     color: white;
     font-size: 16px;
@@ -93,13 +93,14 @@ main {
     border-radius: 3px;
     border: none;
     cursor: pointer;
+    margin-top: 0;
 }
 
-.inbox button:hover {
+.dropdown button:hover, #logout-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.inbox .messages {
+.dropdown .content {
     display: none;
     position: absolute;
     min-width: 200px;
@@ -112,40 +113,8 @@ main {
     color: #333;
 }
 
-.inbox:hover .messages {
+.dropdown:hover .content {
     display: block;
-}
-
-.history {
-    margin-top: 10px;
-}
-
-.history-btn {
-    display: inline-block;
-    background-color: #333;
-    color: white;
-    font-size: 16px;
-    padding: 8px 20px;
-    border-radius: 3px;
-    text-decoration: none;
-}
-
-.history-btn:hover {
-    background-color: #555;
-}
-
-#logout-button {
-    background-color: transparent;
-    color: white;
-    font-size: 16px;
-    padding: 8px 20px;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-}
-
-#logout-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Tab Container */
@@ -201,7 +170,7 @@ main {
 }
 
 /* Products section */
-.products, .orders {
+.products, .orders, .subscriptions {
     text-align: center;
     padding: 20px;
     background-color: #fff;
@@ -212,12 +181,12 @@ main {
     max-width: 800px;
 }
 
-.products h2, .orders h2 {
+.products h2, .orders h2, .subscriptions h2 {
     margin-top: 0;
     margin-bottom: 10px;
 }
 
-.product, .order {
+.product, .order, .subscription {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
@@ -232,7 +201,7 @@ main {
     opacity: 0.5;
 }
 
-.product h3, .order h3 {
+.product h3, .order h3, .subscription h3 {
     margin-top: 0;
     margin-bottom: 10px;
 }
@@ -241,26 +210,11 @@ main {
     margin: 0;
 }
 
-.product button, .order button {
-    background-color: #333;
-    color: white;
-    font-size: 16px;
-    padding: 8px 20px;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.product button:hover, .order button:hover {
-    background-color: #555;
-}
-
 .product p:last-of-type, .order p:last-of-type {
     margin-bottom: 10px;
 }
 
-.cart-item {
+.dropdown-item {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -272,21 +226,20 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.cart-item-title {
+.dropdown-item-title {
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 5px;
   margin-block-start: 0;
 }
 
-.cart-item-price,
-.cart-item-seller {
+.dropdown-item-other {
   font-size: 14px;
   color: #666;
-  margin-bottom: 2px;
+  margin: 0;
 }
 
-#cart-item-remove {
+.dropdown-item .negative-button {
   background-color: #e74c3c;
   color: white;
   font-size: 12px;
@@ -296,11 +249,11 @@ main {
   cursor: pointer;
 }
 
-#cart-item-remove:hover {
+.dropdown-item .negative-button:hover {
   background-color: #c0392b;
 }
 
-#cart-item-accept {
+.dropdown-item .positive-button, .positive-button {
   background-color: #2ecc71;
   color: white;
   font-size: 12px;
@@ -310,7 +263,7 @@ main {
   cursor: pointer;
 }
 
-#cart-item-accept:hover {
+.dropdown-item .positive-button:hover {
   background-color: #27ae60;
 }
 

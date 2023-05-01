@@ -1,5 +1,9 @@
 package org.marketplace.server.model.dto;
 
+/**
+ * Class used for handling Error responses by storing the error message
+ */
+
 public class ErrorResponse {
     private String message;
 

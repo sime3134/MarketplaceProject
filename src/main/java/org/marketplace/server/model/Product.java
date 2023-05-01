@@ -2,6 +2,10 @@ package org.marketplace.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Class for creating a product
+ */
+
 public class Product {
     private final ProductType productType;
     private final double productPrice;
@@ -81,6 +85,11 @@ public class Product {
         return id;
     }
 
+    /**
+     * increments to add unique ID to product
+     *
+     * @param maxId the max id
+     */
     public static void updateNextId(int maxId) {
         if (maxId >= nextId) {
             nextId = maxId + 1;

@@ -5,6 +5,12 @@ import org.marketplace.server.model.Product;
 
 import java.util.List;
 
+/**
+ * A singleton class used for handling requests to the database considering products.
+ *      the offered functions by this class are: Adding new products, change product availability, get list of
+ *      all products and get specific products by ID.
+ */
+
 public class ProductRepository {
     private static ProductRepository instance;
 

@@ -12,6 +12,10 @@ import org.marketplace.server.model.User;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Class used for deserializing Products from JSON format
+ */
+
 public class ProductDeserializer extends JsonDeserializer<Product> {
 
     private final List<User> userList;

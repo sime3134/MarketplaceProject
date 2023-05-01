@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+/**
+ * A notification type class used to create notifications of type Purchase.
+ */
+
 @JsonTypeName("purchaseNotification")
 public class PurchaseNotification extends Notification {
 

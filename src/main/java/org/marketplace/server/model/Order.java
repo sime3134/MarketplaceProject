@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime;
 
+/**
+ * class used to create an Order
+ */
+
 public class Order {
 
     private static int nextId = 0;

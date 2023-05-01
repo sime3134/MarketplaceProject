@@ -10,6 +10,10 @@ import org.marketplace.server.controller.ProductController;
 import org.marketplace.server.controller.UserController;
 import org.marketplace.server.model.Role;
 
+/**
+ * Router class which handles REST requests to the API
+ */
+
 public class Router {
     private final String apiPrefix = "/api/v1";
     private final OrderController orderController;
@@ -58,6 +62,12 @@ public class Router {
         app.get(apiPrefix + "/notification", userController::getUserNotifications, Role.USER);
 
         app.post(apiPrefix + "/notification/{notificationIndex}", userController::removeNotification, Role.USER);
+
+        app.get(apiPrefix + "/subscription", userController::getUserSubscriptions, Role.USER);
+
+        app.post(apiPrefix + "/subscription", userController::addSubscription, Role.USER);
+
+        app.delete(apiPrefix + "/subscription/{productTypeId}", userController::removeSubscription, Role.USER);
 
         //RENDERING
 

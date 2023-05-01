@@ -14,11 +14,12 @@ const cart = {
             const data = await response.json();
             return data.products;
           } else {
-            throw new Error("Error retrieving cart!");
+            const data = await response.json();
+            showNotification(data.message, NotificationType.Warning);
           }
         } catch (error) {
           console.error(error);
-          showNotification(error.message, NotificationType.Warning);
+          showNotification("Something went wrong. Try again later.", NotificationType.Warning);
           return [];
         }
     },
@@ -70,13 +71,13 @@ const cart = {
           this.cartList.forEach((product) => {
             numberOfProductsInCart++;
             this.cartElement.innerHTML += `
-              <div class="cart-item">
-                <div class="cart-item-details">
-                  <p class="cart-item-title"><b>${product.productType.name}</b></p>
-                  <p class="cart-item-price">Price: ${product.productPrice}SEK</p>
-                  <p class="cart-item-seller">Seller: ${product.seller.username}</p>
+              <div class="dropdown-item">
+                <div class="dropdown-item-details">
+                  <p class="dropdown-item-title"><b>${product.productType.name}</b></p>
+                  <p class="dropdown-item-other">Price: ${product.productPrice}SEK</p>
+                  <p class="dropdown-item-other">Seller: ${product.seller.username}</p>
                 </div>
-                <button onclick="cart.removeProductFromCart(${product.id})" id="cart-item-remove">Remove</button>
+                <button onclick="cart.removeProductFromCart(${product.id})" class="negative-button">Remove</button>
               </div>
             `;
           });

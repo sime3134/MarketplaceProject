@@ -6,6 +6,12 @@ import org.marketplace.server.model.User;
 
 import java.util.List;
 
+/**
+ *  A singleton class used for handling requests to the database considering its stored Orders.
+ *      Can be used for retreiving all orders, adding new orders, removing orders, updating orders and finding
+ *      orders by ID.
+ */
+
 public class OrderRepository {
 
     private final Database database;

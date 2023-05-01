@@ -1,5 +1,9 @@
 package org.marketplace.server.common;
 
+/**
+ * Constants used within the application as preset final values
+ */
+
 public class AppConstants {
     public static final int MIN_USERNAME_LENGTH = 5;
     public static final int MIN_PASSWORD_LENGTH = 8;

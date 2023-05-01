@@ -47,11 +47,15 @@ function updateNotificationView() {
         }
     })
     .then(data => {
-        data.forEach(notification => {
-            notificationsList.innerHTML +=
-                getNotificationHtml(notification, numberOfNotifications);
-            numberOfNotifications++;
-        });
+        if(data.length > 0) {
+            data.forEach(notification => {
+                notificationsList.innerHTML +=
+                    getNotificationHtml(notification, numberOfNotifications);
+                numberOfNotifications++;
+            });
+        }else {
+            notificationsList.innerHTML = "No notifications";
+        }
         notificationCount.innerHTML = `(${numberOfNotifications})`;
     })
     .catch(error => {
@@ -63,29 +67,31 @@ function updateNotificationView() {
 function getNotificationHtml(notification, notificationIndex) {
     if(notification.notificationType == "purchaseNotification") {
         return `
-        <div class="cart-item">
-          <div class="cart-item-details">
-            <p class="cart-item-title"><b>${notification.message}</b></p>
-            <p class="cart-item-price">Buyer: ${notification.buyerUsername}</p>
-            <p class="cart-item-seller">Product: ${notification.productName}</p>
-            <p class="cart-item-seller">Price: ${notification.productPrice}SEK</p>
+        <div class="dropdown-item">
+          <div class="dropdown-item-details">
+            <p class="dropdown-item-title"><b>${notification.message}</b></p>
+            <p class="dropdown-item-other">Buyer: ${notification.buyerUsername}</p>
+            <p class="dropdown-item-other">Product: ${notification.productName}</p>
+            <p class="dropdown-item-other">Price: ${notification.productPrice}SEK</p>
           </div>
-          <div class="cart-item-buttons">
-              <button onclick="makePurchaseDecision(${notification.orderId}, true, ${notificationIndex})"
-              id="cart-item-accept">Accept</button>
-              <button onclick="makePurchaseDecision(${notification.orderId}, false, ${notificationIndex})"
-              id="cart-item-remove">Reject</button>
+          <div>
+              <button onclick="orders.makePurchaseDecision(${notification.orderId}, true, ${notificationIndex})"
+              class="positive-button">Accept</button>
+              <button onclick="orders.makePurchaseDecision(${notification.orderId}, false, ${notificationIndex})"
+              class="negative-button">Reject</button>
           </div>
         </div>
         `;
-    } else if(notification.notificationType == "orderStatusNotification") {
+    } else if(notification.notificationType == "orderStatusNotification"
+        || notification.notificationType == "subscriptionNotification") {
         return `
-        <div class="cart-item">
-          <div class="cart-item-details">
-            <p class="cart-item-title"><b>${notification.message}</b></p>
+        <div class="dropdown-item">
+          <div class="dropdown-item-details">
+            <p class="dropdown-item-title"><b>${notification.message}</b></p>
           </div>
-          <div class="cart-item-buttons">
-              <button onclick="removeNotification(${notificationIndex})" id="cart-item-remove">X</button>
+          <div>
+              <button onclick="removeNotification(${notificationIndex})"
+              class="negative-button">X</button>
           </div>
         </div>
         `;

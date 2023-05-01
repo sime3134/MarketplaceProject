@@ -12,6 +12,11 @@ import org.marketplace.server.service.OrderService;
 import org.marketplace.server.service.ProductService;
 import org.marketplace.server.service.UserService;
 
+/**
+ * Class used to controll different functionality for the users shopping cart
+ *      these functionalities include: adding products to a cart, removing them from the cart and to retreive the cart
+ */
+
 public class CartController {
 
     private final CartService cartService;

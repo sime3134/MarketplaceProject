@@ -14,6 +14,11 @@ import org.marketplace.server.service.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * class used to handle different operations for an order placed by a user.
+ *      operations include: placing order, get users orders and update statuses of products
+ */
+
 public class OrderController {
 
     private final OrderService orderService;
@@ -55,9 +60,6 @@ public class OrderController {
         } catch (ExceptionWithStatusCode e) {
             System.out.println(e.getMessage());
             ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            ctx.status(HttpStatus.INTERNAL_SERVER_ERROR_500).json(new ErrorResponse(e.getMessage()));
         }
 
 
@@ -113,17 +115,18 @@ public class OrderController {
         Integer notificationIndex = ctx.queryParam("notificationIndex") != null ?
                 Integer.valueOf(ctx.queryParam("notificationIndex")) : null;
 
-        Order order = null;
+        Order order;
 
         try {
             User user = userService.findUserById(userId);
             order = orderService.findOrderById(orderId);
-            orderService.updateOrderStatus(orderId, user, accepted);
+            orderService.updateOrderStatus(order, user, accepted);
         } catch (ExceptionWithStatusCode e) {
             System.out.println(e.getMessage());
             ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
             return;
         }
+
 
         try {
             productService.toggleProductAvailability(order.getProduct().getId());
@@ -141,10 +144,6 @@ public class OrderController {
         } catch (ExceptionWithStatusCode e) {
             System.out.println(e.getMessage());
             ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            ctx.status(HttpStatus.INTERNAL_SERVER_ERROR_500).json(new ErrorResponse("Something went wrong on " +
-                    "the server. Please try again later."));
         }
     }
 }

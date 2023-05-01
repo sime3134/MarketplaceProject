@@ -6,6 +6,7 @@
   "username" : "simon.jern",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
   "notifications" : [ ],
+  "subscriptions" : [ 1 ],
   "id" : 0
 }, {
   "firstName" : "Johan",
@@ -15,6 +16,7 @@
   "username" : "johan.salomonsson",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
   "notifications" : [ ],
+  "subscriptions" : [ ],
   "id" : 1
 }, {
   "firstName" : "Erik",
@@ -23,7 +25,12 @@
   "dateOfBirth" : "2023-05-01",
   "username" : "erik.larsson",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
-  "notifications" : [ ],
+  "notifications" : [ {
+    "type" : "orderStatusNotification",
+    "message" : "Your order for Iphone 11 has been accepted by simon.jern.",
+    "notificationType" : "orderStatusNotification"
+  } ],
+  "subscriptions" : [ ],
   "id" : 2
 }, {
   "firstName" : "Danny",
@@ -32,15 +39,8 @@
   "dateOfBirth" : "2023-05-01",
   "username" : "danny.gazic",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
-  "notifications" : [ {
-    "type" : "purchaseNotification",
-    "buyerUsername" : "simon.jern",
-    "productName" : "Macbook Pro",
-    "productPrice" : 8900.0,
-    "orderId" : 0,
-    "message" : "You have a new purchase!",
-    "notificationType" : "purchaseNotification"
-  } ],
+  "notifications" : [ ],
+  "subscriptions" : [ ],
   "id" : 3
 }, {
   "firstName" : "John",
@@ -50,5 +50,6 @@
   "username" : "john.doe",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
   "notifications" : [ ],
+  "subscriptions" : [ ],
   "id" : 4
 } ]

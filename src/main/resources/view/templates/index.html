@@ -11,14 +11,14 @@
     <nav>
         <a href="/" class="logo">Marketplace</a>
         <div class="nav-right">
-            <div class="inbox">
+            <div class="dropdown">
                 <button>Notifications <span id="numberOfNotifications"></span></button>
-                <div id="notificationsList" class="messages">
+                <div id="notificationsList" class="content">
                 </div>
             </div>
-            <div class="inbox">
+            <div class="dropdown">
                 <button>My cart <span id="numberOfProductsInCart">(0)</span></button>
-                <div id="cartList" class="messages">
+                <div id="cartList" class="content">
                 </div>
             </div>
             <button id="logout-button">Logout</button>
@@ -39,7 +39,7 @@
     <section id="buy" class="tab-content active search">
         <h2>Search</h2>
         <form id="products-search-form">
-            <select name="productTypeId" id="product-type">
+            <select name="productTypeId" class="product-type">
                 <option value="">Select product type</option>
                 <!-- Add product types here -->
             </select>
@@ -62,7 +62,7 @@
     <section id="sell" class="tab-content sell">
         <h2>Sell</h2>
         <form id="sell-form">
-            <select name="productTypeId" id="product-type2" data-placeholder="Product type" required>
+            <select name="productTypeId" data-placeholder="Product type" class="product-type" required>
                 <option value="">Select product type</option>
                 <!-- Add product types here -->
             </select>
@@ -81,8 +81,16 @@
     </section>
 
     <section id="subscription" class="tab-content search">
-        <h2>Subscriptions</h2>
+        <h2>Add new subscription</h2>
+        <form id="subscription-form">
+            <select name="productTypeId" id="subscribe_product-type" class="product-type" required>
+                <option value="">Select product type</option>
+                <!-- Add product types here with js -->
+            </select>
+            <button type="submit">Subscribe</button>
+        </form>
         <div id="subscriptions">
+            <!-- Add subscriptions here with js -->
         </div>
     </section>
 
@@ -103,6 +111,7 @@
 <div id="notification-container"></div>
 
 <script src="general.js"></script>
+<script src="subscription.js"></script>
 <script src="notification.js"></script>
 <script src="orders.js"></script>
 <script src="products.js"></script>

@@ -9,6 +9,10 @@ import org.marketplace.server.common.exceptions.UserRegistrationException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class is responsible for handling
+ * registration of new users
+ */
 public class UserRegistrationService {
     private final UserRepository userRepository;
 
