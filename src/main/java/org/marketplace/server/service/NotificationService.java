@@ -29,20 +29,11 @@ public class NotificationService implements Observer {
 
     private final Map<Integer, WsContext> userWsMap;
 
-    private static NotificationService instance;
-
     private final UserRepository userRepository;
 
-    public static NotificationService getInstance() {
-        if(instance == null) {
-            instance = new NotificationService();
-        }
-        return instance;
-    }
-
-    private NotificationService() {
+    public NotificationService(UserRepository userRepository) {
         userWsMap = new ConcurrentHashMap<>();
-        userRepository = UserRepository.getInstance();
+        this.userRepository = userRepository;
     }
 
     public void addUserWs(WsConnectContext ctx, Integer userId) {

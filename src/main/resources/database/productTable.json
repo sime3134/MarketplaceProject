@@ -18,7 +18,7 @@
     "id" : 3
   },
   "id" : 0,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Macbook Pro",
@@ -39,7 +39,7 @@
     "id" : 2
   },
   "id" : 1,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Iphone 11",
@@ -56,11 +56,11 @@
     "firstName" : "Simon",
     "lastName" : "Jern",
     "username" : "simon.jern",
-    "subscriptions" : [ 1 ],
+    "subscriptions" : [ ],
     "id" : 0
   },
   "id" : 2,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Iphone 11 Pro Max",
@@ -81,7 +81,7 @@
     "id" : 2
   },
   "id" : 3,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Iphone 12",
@@ -123,7 +123,7 @@
     "id" : 1
   },
   "id" : 5,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Samsung Galaxy S23",
@@ -144,11 +144,11 @@
     "id" : 3
   },
   "id" : 6,
-  "available" : false
+  "available" : true
 }, {
   "productType" : {
     "name" : "Macbook Air",
-    "subscribers" : [ 0 ],
+    "subscribers" : [ ],
     "id" : 1
   },
   "productPrice" : 6000.0,
@@ -182,7 +182,7 @@
     "firstName" : "Simon",
     "lastName" : "Jern",
     "username" : "simon.jern",
-    "subscriptions" : [ 1 ],
+    "subscriptions" : [ ],
     "id" : 0
   },
   "id" : 8,
@@ -210,55 +210,13 @@
   "available" : true
 }, {
   "productType" : {
-    "name" : "Iphone 12",
+    "name" : "Samsung Galaxy S23",
     "subscribers" : [ ],
-    "id" : 7
+    "id" : 8
   },
-  "productPrice" : 2000.0,
-  "color" : "Green",
-  "yearOfProduction" : "1756",
-  "productCondition" : {
-    "description" : "Not Working Properly"
-  },
-  "seller" : {
-    "firstName" : "Johan",
-    "lastName" : "Salomonsson",
-    "username" : "johan.salomonsson",
-    "subscriptions" : [ ],
-    "id" : 1
-  },
-  "id" : 10,
-  "available" : false
-}, {
-  "productType" : {
-    "name" : "Macbook Mini",
-    "subscribers" : [ ],
-    "id" : 3
-  },
-  "productPrice" : 90000.0,
-  "color" : "Superred",
-  "yearOfProduction" : "2078",
-  "productCondition" : {
-    "description" : "Good"
-  },
-  "seller" : {
-    "firstName" : "Johan",
-    "lastName" : "Salomonsson",
-    "username" : "johan.salomonsson",
-    "subscriptions" : [ ],
-    "id" : 1
-  },
-  "id" : 11,
-  "available" : false
-}, {
-  "productType" : {
-    "name" : "Macbook Air",
-    "subscribers" : [ 0 ],
-    "id" : 1
-  },
-  "productPrice" : 90000.0,
-  "color" : "Green",
-  "yearOfProduction" : "1289",
+  "productPrice" : 12000.0,
+  "color" : "Black",
+  "yearOfProduction" : "2009",
   "productCondition" : {
     "description" : "New"
   },
@@ -269,27 +227,6 @@
     "subscriptions" : [ ],
     "id" : 4
   },
-  "id" : 12,
-  "available" : true
-}, {
-  "productType" : {
-    "name" : "Macbook Air",
-    "subscribers" : [ 0 ],
-    "id" : 1
-  },
-  "productPrice" : 9000.0,
-  "color" : "Purple",
-  "yearOfProduction" : "2011",
-  "productCondition" : {
-    "description" : "Good"
-  },
-  "seller" : {
-    "firstName" : "John",
-    "lastName" : "Doe",
-    "username" : "john.doe",
-    "subscriptions" : [ ],
-    "id" : 4
-  },
-  "id" : 13,
-  "available" : true
+  "id" : 10,
+  "available" : false
 } ]

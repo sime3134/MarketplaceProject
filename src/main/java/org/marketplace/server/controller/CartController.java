@@ -3,14 +3,12 @@ package org.marketplace.server.controller;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import org.marketplace.server.common.exceptions.ExceptionWithStatusCode;
+import org.marketplace.server.database.Database;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.ShoppingCart;
 import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
-import org.marketplace.server.service.CartService;
-import org.marketplace.server.service.OrderService;
-import org.marketplace.server.service.ProductService;
-import org.marketplace.server.service.UserService;
+import org.marketplace.server.service.*;
 
 /**
  * Class used to controll different functionality for the users shopping cart
@@ -25,11 +23,11 @@ public class CartController {
 
     private final OrderService orderService;
 
-    public CartController() {
-        cartService = new CartService();
-        userService = new UserService();
-        productService = new ProductService();
-        orderService = new OrderService();
+    public CartController(ServiceHandler serviceHandler) {
+        cartService = serviceHandler.getCartService();
+        userService = serviceHandler.getUserService();
+        productService = serviceHandler.getProductService();
+        orderService = serviceHandler.getOrderService();
     }
 
     public void addToCart(Context ctx) {

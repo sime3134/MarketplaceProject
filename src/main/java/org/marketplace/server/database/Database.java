@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.marketplace.server.common.AppConstants;
 import org.marketplace.server.model.*;
 import org.marketplace.server.model.notifications.Notification;
+import org.marketplace.server.service.NotificationService;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,21 +20,13 @@ import java.util.List;
  */
 public class Database {
     private final ObjectMapper objectMapper;
-    private static Database instance;
 
     private final List<User> userTable;
     private final List<Order> orderTable;
     private final List<Product> productTable;
     private final List<ProductType> productTypeTable;
 
-    public static Database getInstance() {
-        if(instance == null) {
-            instance = new Database();
-        }
-        return instance;
-    }
-
-    private Database() {
+    public Database() {
         userTable = new ArrayList<>();
         orderTable = new ArrayList<>();
         productTable = new ArrayList<>();
@@ -43,7 +36,10 @@ public class Database {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        new DatabaseLoader(objectMapper, this).loadFromFile();
+    }
+
+    public void loadDatabase(NotificationService notificationService) {
+        new DatabaseLoader(objectMapper, this, notificationService).loadFromFile();
     }
 
     public synchronized User findUserByUsername(String username) {
@@ -66,14 +62,6 @@ public class Database {
     public synchronized  <T> void saveListToFile(String filename, List<T> list) throws IOException {
         File file = new File("src/main/resources/database/" + filename);
         objectMapper.writeValue(file, list);
-    }
-
-    public List<Product> getAllProducts() {
-        return productTable;
-    }
-
-    public List<ProductType> getAllProductTypes() {
-        return productTypeTable;
     }
 
     public synchronized Product getProductById(int id) {
@@ -139,6 +127,7 @@ public class Database {
 
     public void addNotificationToUser(User user, Notification notification) {
         user.addNotification(notification);
+        System.out.println(userTable);
         try {
             saveListToFile(AppConstants.USER_TABLE, userTable);
         } catch (IOException e) {
@@ -165,8 +154,8 @@ public class Database {
         }
     }
 
-    public void toggleProductAvailability(Product product) {
-        product.toggleAvailability();
+    public void setProductAsSold(Product product) {
+        product.setProductAsSold();
         try {
             saveListToFile(AppConstants.PRODUCT_TABLE, productTable);
         } catch (IOException e) {

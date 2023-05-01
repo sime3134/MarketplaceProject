@@ -18,8 +18,8 @@ public class UserRegistrationService {
 
     private final FormValidator formValidator;
 
-    public UserRegistrationService() {
-        userRepository = UserRepository.getInstance();
+    public UserRegistrationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
         formValidator = new FormValidator();
     }
 

@@ -15,8 +15,8 @@ import java.util.List;
 public class ProductTypeService {
     private final ProductTypeRepository productTypeRepository;
 
-    public ProductTypeService() {
-        productTypeRepository = ProductTypeRepository.getInstance();
+    public ProductTypeService(ProductTypeRepository productTypeRepository) {
+        this.productTypeRepository = productTypeRepository;
     }
 
     public ProductType findProductTypeByIdNullIllegal(Integer productTypeId) throws ProductTypeNotFoundException {

@@ -5,7 +5,7 @@ const NotificationType = {
   Success: 'success'
 };
 
-let notification = [];
+let updating = false;
 
 // Define the function to show the notification message
 function showNotification(message, type) {
@@ -28,6 +28,10 @@ function showNotification(message, type) {
 }
 
 function updateNotificationView() {
+    if(updating) {
+        return;
+    }
+    updating = true;
     let numberOfNotifications = 0;
     const notificationsList = document.getElementById('notificationsList');
     const notificationCount = document.getElementById('numberOfNotifications');
@@ -61,6 +65,9 @@ function updateNotificationView() {
     .catch(error => {
         console.error('Unable to get notifications.', error);
         showNotification("Could not refresh notifications. Please reload the page.", NotificationType.Error);
+    })
+    .finally(() => {
+        updating = false;
     });
 }
 

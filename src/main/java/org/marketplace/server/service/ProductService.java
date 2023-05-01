@@ -1,5 +1,6 @@
 package org.marketplace.server.service;
 
+import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.IllegalProductArgumentException;
 import org.marketplace.server.common.exceptions.ProductNotFoundException;
 import org.marketplace.server.model.Product;
@@ -25,8 +26,8 @@ public class ProductService {
 
     private final FormValidator formValidator;
 
-    public ProductService() {
-        productRepository = ProductRepository.getInstance();
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
         formValidator = new FormValidator();
     }
     public List<Product> getFilteredProducts(ProductType productType, Double minPrice, Double maxPrice,
@@ -77,9 +78,18 @@ public class ProductService {
         productRepository.addNewProduct(new Product(productType, price, yearOfProduction, color, productCondition, user));
     }
 
-    public void toggleProductAvailability(int id) throws ProductNotFoundException {
+    public void setProductAsSold(int id) throws ProductNotFoundException, IllegalProductArgumentException {
         Product product = findProductById(id);
-        productRepository.toggleProductAvailability(product);
+
+        if(product == null) {
+            throw new ProductNotFoundException();
+        }
+
+        if(!product.isAvailable()) {
+            throw new IllegalProductArgumentException("Product is already sold", HttpStatus.BAD_REQUEST_400);
+        }
+
+        productRepository.setProductAsSold(product);
     }
 
     public List<Product> orderByStatus(List<Product> products) {

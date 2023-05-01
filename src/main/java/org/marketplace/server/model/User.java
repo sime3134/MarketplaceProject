@@ -43,10 +43,10 @@ public class User {
         this.dateOfBirth = LocalDate.of(dateOfBirth.getYear(), dateOfBirth.getMonth(), dateOfBirth.getDayOfMonth());
         this.username = username;
         this.hashedPassword = hashedPassword;
-        this.notifications = notifications != null ? notifications : new ArrayList<>();
+        this.notifications = notifications;
         this.id = id;
         this.shoppingCart = new ShoppingCart();
-        this.subscriptions = subscriptions != null ? subscriptions : new ArrayList<>();
+        this.subscriptions = subscriptions;
     }
 
     public User(String firstName, String lastName, String emailAddress,

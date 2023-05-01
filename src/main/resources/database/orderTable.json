@@ -1,104 +1,14 @@
 [ {
   "id" : 0,
-  "timestamp" : "2023-05-01T01:34:39.7996099",
+  "timestamp" : "2023-05-01T19:14:01.3794153",
   "buyer" : {
-    "id" : 0
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Macbook Pro",
-      "id" : 0
-    },
-    "productPrice" : 8900.0,
-    "seller" : {
-      "firstName" : "Danny",
-      "lastName" : "Gazic",
-      "username" : "danny.gazic",
-      "id" : 3
-    },
-    "id" : 0
-  },
-  "orderStatus" : {
-    "status" : "Accepted"
-  }
-}, {
-  "id" : 1,
-  "timestamp" : "2023-05-01T02:02:16.0204297",
-  "buyer" : {
-    "id" : 0
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Macbook Pro",
-      "id" : 0
-    },
-    "productPrice" : 2500.0,
-    "seller" : {
-      "firstName" : "Erik",
-      "lastName" : "Larsson",
-      "username" : "erik.larsson",
-      "id" : 2
-    },
-    "id" : 1
-  },
-  "orderStatus" : {
-    "status" : "Accepted"
-  }
-}, {
-  "id" : 2,
-  "timestamp" : "2023-05-01T02:02:44.6113026",
-  "buyer" : {
-    "id" : 0
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Iphone 11 Pro Max",
-      "id" : 6
-    },
-    "productPrice" : 6500.0,
-    "seller" : {
-      "firstName" : "Erik",
-      "lastName" : "Larsson",
-      "username" : "erik.larsson",
-      "id" : 2
-    },
-    "id" : 3
-  },
-  "orderStatus" : {
-    "status" : "Rejected"
-  }
-}, {
-  "id" : 3,
-  "timestamp" : "2023-05-01T02:04:49.2474552",
-  "buyer" : {
-    "id" : 2
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Iphone 11",
-      "id" : 4
-    },
-    "productPrice" : 1000.0,
-    "seller" : {
-      "firstName" : "Simon",
-      "lastName" : "Jern",
-      "username" : "simon.jern",
-      "id" : 0
-    },
-    "id" : 2
-  },
-  "orderStatus" : {
-    "status" : "Accepted"
-  }
-}, {
-  "id" : 4,
-  "timestamp" : "2023-05-01T02:16:03.8835738",
-  "buyer" : {
+    "subscriptions" : [ ],
     "id" : 0
   },
   "product" : {
     "productType" : {
       "name" : "Iphone 12",
+      "subscribers" : [ ],
       "id" : 7
     },
     "productPrice" : 30000.0,
@@ -106,6 +16,7 @@
       "firstName" : "John",
       "lastName" : "Doe",
       "username" : "john.doe",
+      "subscriptions" : [ ],
       "id" : 4
     },
     "id" : 4
@@ -114,93 +25,53 @@
     "status" : "Accepted"
   }
 }, {
-  "id" : 5,
-  "timestamp" : "2023-05-01T02:16:03.8905783",
+  "id" : 1,
+  "timestamp" : "2023-05-01T19:14:01.394776",
   "buyer" : {
+    "subscriptions" : [ ],
     "id" : 0
   },
   "product" : {
     "productType" : {
-      "name" : "Samsung Galaxy S23",
-      "id" : 8
+      "name" : "Iphone 11 Pro",
+      "subscribers" : [ ],
+      "id" : 5
     },
-    "productPrice" : 10000.0,
+    "productPrice" : 7500.0,
     "seller" : {
-      "firstName" : "Danny",
-      "lastName" : "Gazic",
-      "username" : "danny.gazic",
-      "id" : 3
+      "firstName" : "John",
+      "lastName" : "Doe",
+      "username" : "john.doe",
+      "subscriptions" : [ ],
+      "id" : 4
     },
-    "id" : 6
+    "id" : 9
   },
   "orderStatus" : {
     "status" : "Rejected"
   }
 }, {
-  "id" : 6,
-  "timestamp" : "2023-05-01T02:17:55.9831649",
+  "id" : 2,
+  "timestamp" : "2023-05-01T19:14:01.3967765",
   "buyer" : {
+    "subscriptions" : [ ],
     "id" : 0
   },
   "product" : {
     "productType" : {
       "name" : "Samsung Galaxy S23",
+      "subscribers" : [ ],
       "id" : 8
     },
-    "productPrice" : 6300.0,
+    "productPrice" : 12000.0,
     "seller" : {
-      "firstName" : "Johan",
-      "lastName" : "Salomonsson",
-      "username" : "johan.salomonsson",
-      "id" : 1
-    },
-    "id" : 5
-  },
-  "orderStatus" : {
-    "status" : "Rejected"
-  }
-}, {
-  "id" : 7,
-  "timestamp" : "2023-05-01T12:30:21.6894223",
-  "buyer" : {
-    "id" : 0
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Iphone 12",
-      "id" : 7
-    },
-    "productPrice" : 2000.0,
-    "seller" : {
-      "firstName" : "Johan",
-      "lastName" : "Salomonsson",
-      "username" : "johan.salomonsson",
-      "id" : 1
+      "firstName" : "John",
+      "lastName" : "Doe",
+      "username" : "john.doe",
+      "subscriptions" : [ ],
+      "id" : 4
     },
     "id" : 10
-  },
-  "orderStatus" : {
-    "status" : "Accepted"
-  }
-}, {
-  "id" : 8,
-  "timestamp" : "2023-05-01T12:31:06.684005",
-  "buyer" : {
-    "id" : 0
-  },
-  "product" : {
-    "productType" : {
-      "name" : "Macbook Mini",
-      "id" : 3
-    },
-    "productPrice" : 90000.0,
-    "seller" : {
-      "firstName" : "Johan",
-      "lastName" : "Salomonsson",
-      "username" : "johan.salomonsson",
-      "id" : 1
-    },
-    "id" : 11
   },
   "orderStatus" : {
     "status" : "Accepted"

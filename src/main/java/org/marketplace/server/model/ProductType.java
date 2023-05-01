@@ -15,8 +15,7 @@ import java.util.List;
 
 public class ProductType implements Observable {
     private final String name;
-    private static final List<Observer> observers = List.of(NotificationService.getInstance());
-
+    private final List<Observer> observers;
     private final List<Integer> subscribers;
 
     private final int id;
@@ -28,13 +27,15 @@ public class ProductType implements Observable {
                        @JsonProperty("subscribers") List<Integer> subscribers,
                        @JsonProperty("id") int id) {
         this.name = name;
-        this.subscribers = subscribers != null ? subscribers : new ArrayList<>();
+        this.subscribers = subscribers;
+        this.observers = new ArrayList<>();
         this.id = id;
     }
 
     public ProductType(String name) {
         this.name = name;
         subscribers = new ArrayList<>();
+        this.observers = new ArrayList<>();
         id = nextId++;
     }
 

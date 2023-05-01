@@ -6,7 +6,7 @@
   "username" : "simon.jern",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
   "notifications" : [ ],
-  "subscriptions" : [ 1 ],
+  "subscriptions" : [ ],
   "id" : 0
 }, {
   "firstName" : "Johan",
@@ -25,11 +25,7 @@
   "dateOfBirth" : "2023-05-01",
   "username" : "erik.larsson",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
-  "notifications" : [ {
-    "type" : "orderStatusNotification",
-    "message" : "Your order for Iphone 11 has been accepted by simon.jern.",
-    "notificationType" : "orderStatusNotification"
-  } ],
+  "notifications" : [ ],
   "subscriptions" : [ ],
   "id" : 2
 }, {

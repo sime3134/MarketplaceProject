@@ -9,16 +9,10 @@ import org.marketplace.server.model.User;
 
 public class UserRepository {
     private static UserRepository instance;
-    private Database database;
+    private final Database database;
 
-    private UserRepository() {
-        database = Database.getInstance();
-    }
-    public static UserRepository getInstance() {
-        if(instance == null) {
-            instance = new UserRepository();
-        }
-        return instance;
+    public UserRepository(Database database) {
+        this.database = database;
     }
 
     public synchronized User findUserByUsername(String username) {
@@ -37,19 +31,19 @@ public class UserRepository {
         database.addUser(newUser);
     }
 
-    public void addNotification(User user, Notification notification) {
+    public synchronized void addNotification(User user, Notification notification) {
         database.addNotificationToUser(user, notification);
     }
 
-    public void removeNotification(User user, Integer notificationIndex) {
+    public synchronized void removeNotification(User user, Integer notificationIndex) {
         database.removeNotificationFromUser(user, notificationIndex);
     }
 
-    public void addSubscription(User user, ProductType productType) {
+    public synchronized void addSubscription(User user, ProductType productType) {
         database.addSubscriptionToUser(user, productType);
     }
 
-    public void removeSubscription(User user, ProductType productType) {
+    public synchronized void removeSubscription(User user, ProductType productType) {
         database.removeSubscriptionFromUser(user, productType);
     }
 }

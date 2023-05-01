@@ -1,17 +1,13 @@
 package org.marketplace.server.service;
 
-import io.javalin.websocket.WsCloseContext;
-import io.javalin.websocket.WsConnectContext;
-import io.javalin.websocket.WsContext;
+import org.eclipse.jetty.http.HttpStatus;
+import org.marketplace.server.common.exceptions.SubscriptionException;
 import org.marketplace.server.common.exceptions.UserNotFoundException;
 import org.marketplace.server.model.ProductType;
 import org.marketplace.server.model.User;
-import org.marketplace.server.model.notifications.Notification;
 import org.marketplace.server.repositories.UserRepository;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class is responsible for some user related
@@ -22,8 +18,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService() {
-        userRepository = UserRepository.getInstance();
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User findUserById(Integer userId) throws UserNotFoundException {
@@ -46,7 +42,13 @@ public class UserService {
         return user;
     }
 
-    public void addSubscription(User user, ProductType productType) {
+    public void addSubscription(User user, ProductType productType) throws SubscriptionException {
+
+        List<Integer> subs = user.getSubscriptions();
+        if(subs.contains(productType.getId())) {
+            throw new SubscriptionException("You are already subscribed to this product type.", HttpStatus.CONFLICT_409);
+        }
+
         userRepository.addSubscription(user, productType);
     }
 

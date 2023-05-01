@@ -3,7 +3,7 @@ package org.marketplace.server.controller;
 import io.javalin.http.Context;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.ExceptionWithStatusCode;
-import org.marketplace.server.common.exceptions.ProductTypeNotFoundException;
+import org.marketplace.server.database.Database;
 import org.marketplace.server.model.Product;
 import org.marketplace.server.model.ProductCondition;
 import org.marketplace.server.model.ProductType;
@@ -11,6 +11,7 @@ import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
 import org.marketplace.server.service.ProductService;
 import org.marketplace.server.service.ProductTypeService;
+import org.marketplace.server.service.ServiceHandler;
 import org.marketplace.server.service.UserService;
 
 import java.util.List;
@@ -27,10 +28,10 @@ public class ProductController {
     private final ProductTypeService productTypeService;
     private final UserService userService;
 
-    public ProductController() {
-        productService = new ProductService();
-        userService = new UserService();
-        productTypeService = new ProductTypeService();
+    public ProductController(ServiceHandler serviceHandler) {
+        productService = serviceHandler.getProductService();
+        userService = serviceHandler.getUserService();
+        productTypeService = serviceHandler.getProductTypeService();
     }
     public void getFilteredProducts(Context ctx) {
         Integer productTypeId = ctx.queryParam("productTypeId") != null ? Integer.parseInt(ctx.queryParam(

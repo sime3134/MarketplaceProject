@@ -1,11 +1,11 @@
 package org.marketplace.server.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.http.Context;
 import io.javalin.websocket.WsConfig;
 import jakarta.servlet.http.HttpSession;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.*;
+import org.marketplace.server.database.Database;
 import org.marketplace.server.model.ProductType;
 import org.marketplace.server.model.User;
 import org.marketplace.server.model.dto.ErrorResponse;
@@ -32,12 +32,12 @@ public class UserController {
 
     private final ProductTypeService productTypeService;
 
-    public UserController() {
-        this.userAuthenticatorService = new UserAuthenticatorService();
-        this.userRegistrationService = new UserRegistrationService();
-        this.notificationService = NotificationService.getInstance();
-        this.userService = new UserService();
-        this.productTypeService = new ProductTypeService();
+    public UserController(ServiceHandler serviceHandler) {
+        this.userAuthenticatorService = serviceHandler.getUserAuthenticatorService();
+        this.userRegistrationService = serviceHandler.getUserRegistrationService();
+        this.notificationService = serviceHandler.getNotificationService();
+        this.userService = serviceHandler.getUserService();
+        this.productTypeService = serviceHandler.getProductTypeService();
     }
 
     public void handleUserAuthentication(Context ctx) {

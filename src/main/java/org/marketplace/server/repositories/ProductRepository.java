@@ -12,23 +12,14 @@ import java.util.List;
  */
 
 public class ProductRepository {
-    private static ProductRepository instance;
-
     private final Database database;
 
-    private ProductRepository() {
-        database = Database.getInstance();
-    }
-
-    public static ProductRepository getInstance() {
-        if(instance == null) {
-            instance = new ProductRepository();
-        }
-        return instance;
+    public ProductRepository(Database database) {
+        this.database = database;
     }
 
     public synchronized List<Product> getAllProducts() {
-        return database.getAllProducts();
+        return database.getProductTable();
     }
 
     public synchronized Product getProductById(int id) {
@@ -39,7 +30,7 @@ public class ProductRepository {
         database.addProduct(product);
     }
 
-    public void toggleProductAvailability(Product product) {
-        database.toggleProductAvailability(product);
+    public void setProductAsSold(Product product) {
+        database.setProductAsSold(product);
     }
 }

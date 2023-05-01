@@ -7,6 +7,7 @@ import io.javalin.Javalin;
 import io.javalin.json.JavalinJackson;
 import io.javalin.plugin.bundled.CorsPluginConfig;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import org.marketplace.server.database.Database;
 import org.marketplace.server.routing.Router;
 import org.marketplace.server.service.AccessService;
 
@@ -31,8 +32,10 @@ public class ServerLauncher {
             config.jsonMapper(jj);
             config.accessManager(new AccessService());
         });
+
+        Database database = new Database();
         //Starts the server
         app.start(8080);
-        new Router().setupEndpoints(app);
+        new Router(database).setupEndpoints(app);
     }
 }

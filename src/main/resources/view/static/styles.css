@@ -239,7 +239,7 @@ button:hover, #placeOrderButton:hover {
   margin: 0;
 }
 
-.dropdown-item .negative-button {
+.dropdown-item .negative-button, .negative-button {
   background-color: #e74c3c;
   color: white;
   font-size: 12px;
@@ -249,7 +249,7 @@ button:hover, #placeOrderButton:hover {
   cursor: pointer;
 }
 
-.dropdown-item .negative-button:hover {
+.dropdown-item .negative-button:hover, .negative-button:hover {
   background-color: #c0392b;
 }
 

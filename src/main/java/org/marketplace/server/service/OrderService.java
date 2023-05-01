@@ -3,7 +3,6 @@ package org.marketplace.server.service;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.OrderException;
 import org.marketplace.server.common.exceptions.OrderNotFoundException;
-import org.marketplace.server.common.exceptions.UserNotFoundException;
 import org.marketplace.server.model.Order;
 import org.marketplace.server.model.OrderStatus;
 import org.marketplace.server.model.Product;
@@ -26,8 +25,8 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
 
-    public OrderService() {
-        orderRepository = OrderRepository.getInstance();
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     public List<Order> placeOrder(User user) throws OrderException {

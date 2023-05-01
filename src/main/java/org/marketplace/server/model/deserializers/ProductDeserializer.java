@@ -37,7 +37,7 @@ public class ProductDeserializer extends JsonDeserializer<Product> {
         String yearOfProduction = node.get("yearOfProduction").asText();
         boolean isAvailable = node.get("available").asBoolean();
         int sellerId = node.get("seller").get("id").asInt();
-        User seller = findUserByid(sellerId);
+        User seller = findUserById(sellerId);
 
         ProductCondition productCondition =
                 ProductCondition.descriptionValueOf(node.get("productCondition").get("description").asText());
@@ -57,7 +57,7 @@ public class ProductDeserializer extends JsonDeserializer<Product> {
         return null;
     }
 
-    private User findUserByid(int sellerId) {
+    private User findUserById(int sellerId) {
         for (User user : userList) {
             if (user.getId() == sellerId) {
                 return user;

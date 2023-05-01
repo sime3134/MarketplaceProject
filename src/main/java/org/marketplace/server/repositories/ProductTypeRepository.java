@@ -14,23 +14,14 @@ import java.util.List;
 
 public class ProductTypeRepository {
 
-    private static ProductTypeRepository instance;
-
     private final Database database;
 
-    private ProductTypeRepository () {
-        database = Database.getInstance();
-    }
-
-    public static ProductTypeRepository getInstance () {
-        if(instance == null) {
-            instance = new ProductTypeRepository();
-        }
-        return instance;
+    public ProductTypeRepository(Database database) {
+        this.database = database;
     }
 
     public synchronized List<ProductType> getAllProductTypes() {
-        return database.getAllProductTypes();
+        return database.getProductTypeTable();
     }
 
     public synchronized ProductType getProductTypeById(Integer id) {

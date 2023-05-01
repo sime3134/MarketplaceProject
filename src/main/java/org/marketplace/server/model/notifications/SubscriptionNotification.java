@@ -1,5 +1,7 @@
 package org.marketplace.server.model.notifications;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -13,5 +15,11 @@ public class SubscriptionNotification extends Notification {
         super("A product type '" + productTypeName + "', that you have subscribed to have a new product " +
                         "available.",
                 "subscriptionNotification");
+    }
+
+    @JsonCreator
+    public SubscriptionNotification(@JsonProperty("message") String message,
+                                    @JsonProperty("notificationType") String notificationType) {
+        super(message, notificationType);
     }
 }

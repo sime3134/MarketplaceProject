@@ -1,7 +1,5 @@
 package org.marketplace.server.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.http.Context;
 import org.eclipse.jetty.http.HttpStatus;
 import org.marketplace.server.common.exceptions.ExceptionWithStatusCode;
@@ -30,11 +28,11 @@ public class OrderController {
 
     private final FormValidator formValidator;
 
-    public OrderController() {
-        orderService = new OrderService();
-        userService = new UserService();
-        notificationService = NotificationService.getInstance();
-        productService = new ProductService();
+    public OrderController(ServiceHandler serviceHandler) {
+        orderService = serviceHandler.getOrderService();
+        userService = serviceHandler.getUserService();
+        notificationService = serviceHandler.getNotificationService();
+        productService = serviceHandler.getProductService();
         formValidator = new FormValidator();
     }
 
@@ -128,12 +126,14 @@ public class OrderController {
         }
 
 
-        try {
-            productService.toggleProductAvailability(order.getProduct().getId());
-        } catch (ExceptionWithStatusCode e) {
-            System.out.println(e.getMessage());
-            ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
-            return;
+        if(Boolean.TRUE.equals(accepted)) {
+            try {
+                productService.setProductAsSold(order.getProduct().getId());
+            } catch (ExceptionWithStatusCode e) {
+                System.out.println(e.getMessage());
+                ctx.status(e.getStatus()).json(new ErrorResponse(e.getMessage()));
+                return;
+            }
         }
 
         try {

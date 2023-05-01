@@ -1,36 +1,36 @@
 package org.marketplace.server.routing;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.javalin.Javalin;
 import org.marketplace.server.controller.CartController;
 import org.marketplace.server.controller.OrderController;
 import org.marketplace.server.controller.ProductController;
 import org.marketplace.server.controller.UserController;
+import org.marketplace.server.database.Database;
 import org.marketplace.server.model.Role;
+import org.marketplace.server.service.ServiceHandler;
 
 /**
  * Router class which handles REST requests to the API
  */
 
 public class Router {
-    private final String apiPrefix = "/api/v1";
     private final OrderController orderController;
     private final ProductController productController;
     private final UserController userController;
     private final CartController cartController;
 
-    public Router() {
-        orderController = new OrderController();
-        productController = new ProductController();
-        userController = new UserController();
-        cartController = new CartController();
+    public Router(Database database) {
+        ServiceHandler serviceHandler = new ServiceHandler(database);
+        orderController = new OrderController(serviceHandler);
+        productController = new ProductController(serviceHandler);
+        userController = new UserController(serviceHandler);
+        cartController = new CartController(serviceHandler);
     }
 
     public void setupEndpoints(Javalin app) {
         //API endpoints
 
+        String apiPrefix = "/api/v1";
         app.get(apiPrefix + "/product", productController::getFilteredProducts, Role.USER);
 
         app.post(apiPrefix + "/product", productController::addProduct, Role.USER);

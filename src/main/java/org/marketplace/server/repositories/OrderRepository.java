@@ -15,17 +15,9 @@ import java.util.List;
 public class OrderRepository {
 
     private final Database database;
-    private static OrderRepository instance;
 
-    private OrderRepository() {
-        this.database = Database.getInstance();
-    }
-
-    public static OrderRepository getInstance() {
-        if(instance == null) {
-            instance = new OrderRepository();
-        }
-        return instance;
+    public OrderRepository(Database database) {
+        this.database = database;
     }
 
     public List<Order> getAllOrders() {

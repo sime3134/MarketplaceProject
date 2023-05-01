@@ -12,8 +12,8 @@ import org.marketplace.server.common.exceptions.UserAuthenticationException;
  */
 public class UserAuthenticatorService {
     private final UserRepository userRepository;
-    public UserAuthenticatorService() {
-        userRepository = UserRepository.getInstance();
+    public UserAuthenticatorService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User authenticate(String username, String password) throws UserAuthenticationException {

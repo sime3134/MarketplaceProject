@@ -7,12 +7,11 @@ import org.marketplace.server.common.AppConstants;
 import org.marketplace.server.model.*;
 import org.marketplace.server.model.deserializers.OrderDeserializer;
 import org.marketplace.server.model.deserializers.ProductDeserializer;
-import org.marketplace.server.model.notifications.PurchaseNotification;
+import org.marketplace.server.service.NotificationService;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,9 +25,12 @@ public class DatabaseLoader {
     private final ObjectMapper objectMapper;
     private final Database database;
 
-    public DatabaseLoader(ObjectMapper objectMapper, Database database) {
+    private final NotificationService notificationService;
+
+    public DatabaseLoader(ObjectMapper objectMapper, Database database, NotificationService notificationService) {
         this.objectMapper = objectMapper;
         this.database = database;
+        this.notificationService = notificationService;
     }
 
     public void loadFromFile() {
@@ -101,6 +103,8 @@ public class DatabaseLoader {
                 productType9
         ));
 
+        database.getProductTypeTable().forEach(productType -> productType.registerObserver(notificationService));
+
         try {
             database.saveListToFile(AppConstants.PRODUCT_TYPE_TABLE, database.getProductTypeTable());
         } catch (IOException e) {
@@ -168,9 +172,10 @@ public class DatabaseLoader {
         }
 
         List<ProductType> list = objectMapper.readValue(file, new TypeReference<>() {});
-        int maxId =list.stream().mapToInt(ProductType::getId).max().orElse(-1);
+        int maxId = list.stream().mapToInt(ProductType::getId).max().orElse(-1);
         ProductType.updateNextId(maxId);
         database.getProductTypeTable().addAll(list);
+        database.getProductTypeTable().forEach(productType -> productType.registerObserver(notificationService));
     }
 
     private void loadOrderListFromFile(String filename) throws IOException {

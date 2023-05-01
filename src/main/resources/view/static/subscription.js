@@ -32,11 +32,11 @@ const subscription = {
             }else {
                 const data = await response.json();
                 console.error(data.message);
-                showNotification(data.message, NotificationType.Warning);
+                showNotification(data.message, NotificationType.Error);
             }
         }catch(error) {
             console.error(error);
-            showNotification("Something went wrong. Try again later.", NotificationType.Warning);
+            showNotification("Something went wrong. Try again later.", NotificationType.Error);
         }
     },
 
@@ -77,11 +77,11 @@ const subscription = {
                 showNotification("Subscription deleted successfully!", NotificationType.Success);
             }else {
                 const data = await response.json();
-                showNotification(data.message, NotificationType.Warning);
+                showNotification(data.message, NotificationType.Error);
             }
         }catch(error) {
             console.error(error);
-            showNotification("Something went wrong. Try again later.", NotificationType.Warning);
+            showNotification("Something went wrong. Try again later.", NotificationType.Error);
         }
     },
 
@@ -105,7 +105,7 @@ const subscription = {
         if(productTypeElement.value) {
             formData.append('productTypeId', productTypeElement.value);
         }else {
-            showNotification("Please select a product type!", NotificationType.Warning);
+            showNotification("Please select a product type!", NotificationType.Error);
             return false;
         }
 
@@ -119,12 +119,12 @@ const subscription = {
                 return true;
             }else {
                 const data = await response.json();
-                showNotification(data.message, NotificationType.Warning);
+                showNotification(data.message, NotificationType.Error);
                 return false;
             }
         }catch(error) {
             console.error(error);
-            showNotification("Something went wrong. Try again later.", NotificationType.Warning);
+            showNotification("Something went wrong. Try again later.", NotificationType.Error);
             return false;
         }
     }

@@ -72,8 +72,8 @@ public class Product {
         return isAvailable;
     }
 
-    public void toggleAvailability() {
-        isAvailable = !isAvailable;
+    public void setProductAsSold() {
+        isAvailable = false;
     }
 
     @JsonIgnoreProperties({"hashedPassword", "emailAddress", "dateOfBirth", "notifications"})
