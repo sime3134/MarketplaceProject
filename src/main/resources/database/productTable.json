@@ -123,7 +123,7 @@
     "id" : 1
   },
   "id" : 5,
-  "available" : true
+  "available" : false
 }, {
   "productType" : {
     "name" : "Samsung Galaxy S23",
@@ -186,7 +186,7 @@
     "id" : 0
   },
   "id" : 8,
-  "available" : true
+  "available" : false
 }, {
   "productType" : {
     "name" : "Iphone 11 Pro",
@@ -229,4 +229,67 @@
   },
   "id" : 10,
   "available" : false
+}, {
+  "productType" : {
+    "name" : "Macbook Mini",
+    "subscribers" : [ ],
+    "id" : 3
+  },
+  "productPrice" : 1000.0,
+  "color" : "white",
+  "yearOfProduction" : "2020",
+  "productCondition" : {
+    "description" : "Very Good"
+  },
+  "seller" : {
+    "firstName" : "Johan",
+    "lastName" : "Salomonsson",
+    "username" : "johan.salomonsson",
+    "subscriptions" : [ ],
+    "id" : 1
+  },
+  "id" : 11,
+  "available" : true
+}, {
+  "productType" : {
+    "name" : "Macbook Pro",
+    "subscribers" : [ ],
+    "id" : 0
+  },
+  "productPrice" : 10000.0,
+  "color" : "stone",
+  "yearOfProduction" : "1846",
+  "productCondition" : {
+    "description" : "Not Working Properly"
+  },
+  "seller" : {
+    "firstName" : "Johan",
+    "lastName" : "Salomonsson",
+    "username" : "johan.salomonsson",
+    "subscriptions" : [ ],
+    "id" : 1
+  },
+  "id" : 12,
+  "available" : false
+}, {
+  "productType" : {
+    "name" : "Macbook Pro",
+    "subscribers" : [ ],
+    "id" : 0
+  },
+  "productPrice" : 20000.0,
+  "color" : "white",
+  "yearOfProduction" : "2021",
+  "productCondition" : {
+    "description" : "Very Good"
+  },
+  "seller" : {
+    "firstName" : "Johan",
+    "lastName" : "Salomonsson",
+    "username" : "johan.salomonsson",
+    "subscriptions" : [ ],
+    "id" : 1
+  },
+  "id" : 13,
+  "available" : true
 } ]

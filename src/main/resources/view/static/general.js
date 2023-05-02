@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function connectUser() {
-  const ws = new WebSocket('ws://localhost:8080/api/v1/connect');
+  const ws = new WebSocket('ws://' + window.location.host + '/api/v1/connect');
   ws.onmessage = (event) => {
     const messageData = JSON.parse(event.data);
     if(messageData) {

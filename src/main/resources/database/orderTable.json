@@ -2,7 +2,7 @@
   "id" : 0,
   "timestamp" : "2023-05-01T19:14:01.3794153",
   "buyer" : {
-    "subscriptions" : [ ],
+    "subscriptions" : [ 0 ],
     "id" : 0
   },
   "product" : {
@@ -28,7 +28,7 @@
   "id" : 1,
   "timestamp" : "2023-05-01T19:14:01.394776",
   "buyer" : {
-    "subscriptions" : [ ],
+    "subscriptions" : [ 0 ],
     "id" : 0
   },
   "product" : {
@@ -54,7 +54,7 @@
   "id" : 2,
   "timestamp" : "2023-05-01T19:14:01.3967765",
   "buyer" : {
-    "subscriptions" : [ ],
+    "subscriptions" : [ 0 ],
     "id" : 0
   },
   "product" : {
@@ -75,5 +75,161 @@
   },
   "orderStatus" : {
     "status" : "Accepted"
+  }
+}, {
+  "id" : 3,
+  "timestamp" : "2023-05-02T14:07:38.9386323",
+  "buyer" : {
+    "subscriptions" : [ 0 ],
+    "id" : 0
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Samsung Galaxy S23",
+      "subscribers" : [ ],
+      "id" : 8
+    },
+    "productPrice" : 6300.0,
+    "seller" : {
+      "firstName" : "Johan",
+      "lastName" : "Salomonsson",
+      "username" : "johan.salomonsson",
+      "subscriptions" : [ ],
+      "id" : 1
+    },
+    "id" : 5
+  },
+  "orderStatus" : {
+    "status" : "Accepted"
+  }
+}, {
+  "id" : 4,
+  "timestamp" : "2023-05-02T14:13:28.7038998",
+  "buyer" : {
+    "subscriptions" : [ 0 ],
+    "id" : 0
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Macbook Mini",
+      "subscribers" : [ ],
+      "id" : 3
+    },
+    "productPrice" : 1000.0,
+    "seller" : {
+      "firstName" : "Johan",
+      "lastName" : "Salomonsson",
+      "username" : "johan.salomonsson",
+      "subscriptions" : [ ],
+      "id" : 1
+    },
+    "id" : 11
+  },
+  "orderStatus" : {
+    "status" : "Rejected"
+  }
+}, {
+  "id" : 5,
+  "timestamp" : "2023-05-02T14:20:42.6077092",
+  "buyer" : {
+    "subscriptions" : [ 0 ],
+    "id" : 0
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Macbook Pro",
+      "subscribers" : [ 0 ],
+      "id" : 0
+    },
+    "productPrice" : 10000.0,
+    "seller" : {
+      "firstName" : "Johan",
+      "lastName" : "Salomonsson",
+      "username" : "johan.salomonsson",
+      "subscriptions" : [ ],
+      "id" : 1
+    },
+    "id" : 12
+  },
+  "orderStatus" : {
+    "status" : "Accepted"
+  }
+}, {
+  "id" : 6,
+  "timestamp" : "2023-05-02T14:21:36.3828166",
+  "buyer" : {
+    "subscriptions" : [ ],
+    "id" : 1
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Macbook",
+      "subscribers" : [ ],
+      "id" : 2
+    },
+    "productPrice" : 2000.0,
+    "seller" : {
+      "firstName" : "Simon",
+      "lastName" : "Jern",
+      "username" : "simon.jern",
+      "subscriptions" : [ 0 ],
+      "id" : 0
+    },
+    "id" : 8
+  },
+  "orderStatus" : {
+    "status" : "Accepted"
+  }
+}, {
+  "id" : 7,
+  "timestamp" : "2023-05-02T14:22:10.339357",
+  "buyer" : {
+    "subscriptions" : [ ],
+    "id" : 1
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Macbook Pro",
+      "subscribers" : [ 0 ],
+      "id" : 0
+    },
+    "productPrice" : 8900.0,
+    "seller" : {
+      "firstName" : "Danny",
+      "lastName" : "Gazic",
+      "username" : "danny.gazic",
+      "subscriptions" : [ ],
+      "id" : 3
+    },
+    "id" : 0
+  },
+  "orderStatus" : {
+    "status" : "Pending"
+  }
+}, {
+  "id" : 8,
+  "timestamp" : "2023-05-02T14:22:10.3403635",
+  "buyer" : {
+    "subscriptions" : [ ],
+    "id" : 1
+  },
+  "product" : {
+    "productType" : {
+      "name" : "Macbook Pro",
+      "subscribers" : [ 0 ],
+      "id" : 0
+    },
+    "productPrice" : 2500.0,
+    "seller" : {
+      "firstName" : "Erik",
+      "lastName" : "Larsson",
+      "username" : "erik.larsson",
+      "subscriptions" : [ ],
+      "id" : 2
+    },
+    "id" : 1
+  },
+  "orderStatus" : {
+    "status" : "Pending"
   }
 } ]

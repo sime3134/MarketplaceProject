@@ -127,7 +127,6 @@ public class Database {
 
     public void addNotificationToUser(User user, Notification notification) {
         user.addNotification(notification);
-        System.out.println(userTable);
         try {
             saveListToFile(AppConstants.USER_TABLE, userTable);
         } catch (IOException e) {

@@ -25,7 +25,15 @@
   "dateOfBirth" : "2023-05-01",
   "username" : "erik.larsson",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
-  "notifications" : [ ],
+  "notifications" : [ {
+    "type" : "purchaseNotification",
+    "buyerUsername" : "johan.salomonsson",
+    "productName" : "Macbook Pro",
+    "productPrice" : 2500.0,
+    "orderId" : 8,
+    "message" : "You have a new purchase!",
+    "notificationType" : "purchaseNotification"
+  } ],
   "subscriptions" : [ ],
   "id" : 2
 }, {
@@ -35,7 +43,15 @@
   "dateOfBirth" : "2023-05-01",
   "username" : "danny.gazic",
   "hashedPassword" : "$2a$12$gzBmZ4zqQ3VmrK/2Jae5cOOjXJVdpzqr92QEgM4M0PYSJFbTjmE7a",
-  "notifications" : [ ],
+  "notifications" : [ {
+    "type" : "purchaseNotification",
+    "buyerUsername" : "johan.salomonsson",
+    "productName" : "Macbook Pro",
+    "productPrice" : 8900.0,
+    "orderId" : 7,
+    "message" : "You have a new purchase!",
+    "notificationType" : "purchaseNotification"
+  } ],
   "subscriptions" : [ ],
   "id" : 3
 }, {
